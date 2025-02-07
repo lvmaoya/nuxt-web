@@ -6,8 +6,7 @@
       </div>
       <div class="description">
         <p>
-          <!-- {{ props.item.description }} -->
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos fugiat vel nobis minima neque illum, quam commodi ab voluptatibus accusantium, ducimus, similique unde! Eos id doloribus labore pmodi ab voluptatibus accusantium, ducimus, similique unde! Eos id doloribus labore pmodi ab voluptatibus accusantium, ducimus, similique unde! Eos id doloribus labore porro? Nemo, impedit.
+          {{ props.item.description }}
         </p>
       </div>
       <div class="data">
@@ -47,25 +46,21 @@ const handleArticleClick = (id: number) => {
   margin-bottom: 20px;
   display: flex;
   overflow: hidden;
-  min-height: 140px;
+  // min-height: 140px;
   transition: background-color 0.3s;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 0 auto;
 
   .articleContent {
     width: 100%;
     padding: 10px 0px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
 
     .title {
-      font-size: 1.1em;
-      font-weight: 500;
+      // font-size: 1.1em;
+      font-weight: 600;
       // padding: 10px 10px 0px 0;
-      color: #313131;
+      color: #333;
       position: relative;
       border: 1px solid transparent;
       width: fit-content;

@@ -46,19 +46,19 @@ const props = defineProps({
 onMounted(() => {
   if (haveLast() === true && haveNext() === false) {
     paginationRef.value.style.height = "0";
-    paginationRef.value.style.borderBottom = "0px solid #999";
+    paginationRef.value.style.borderBottom = "0px solid #dbdbdb";
   } else {
     paginationRef.value.style.height = "auto";
-    paginationRef.value.style.borderBottom = "1px solid #999";
+    paginationRef.value.style.borderBottom = "1px solid #dbdbdb";
   }
 });
 onUpdated(() => {
   if (haveLast() === true && haveNext() === false) {
     paginationRef.value.style.height = "0";
-    paginationRef.value.style.borderBottom = "0px solid #999";
+    paginationRef.value.style.borderBottom = "0px solid #dbdbdb";
   } else {
     paginationRef.value.style.height = "auto";
-    paginationRef.value.style.borderBottom = "1px solid #999";
+    paginationRef.value.style.borderBottom = "1px solid #dbdbdb";
   }
 });
 const haveLast = (): boolean => {
@@ -77,8 +77,8 @@ const handleCurrentPageChange = (val: number) => {
 <style scoped lang="scss">
 .pagination {
   width: 100%;
-  border-top: 1px solid #999;
-  border-bottom: 1px solid #999;
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
   position: relative;
   z-index: 56;
 

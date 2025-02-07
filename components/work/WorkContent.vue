@@ -1,6 +1,7 @@
 <template>
   <div class="workActicleContent">
     <WorkItem v-for="(item, index) in props.list" :key="item.article_id" :item="item" :index="index"></WorkItem>
+    <CategoryList></CategoryList>
   </div>
 </template>
 
@@ -19,6 +20,5 @@ const props = defineProps({
 <style scoped lang="scss">
 .workActicleContent {
   min-height: 50vh;
-  margin-top: 20vh;
 }
 </style>
