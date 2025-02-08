@@ -97,7 +97,7 @@
         </g>
       </g>
     </svg>
-    <span>暂时木有内容哦...</span>
+    <!-- <span>暂时木有内容哦</span> -->
   </div>
 </template>
 
@@ -110,13 +110,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  // padding-top: 30px;
-  margin-bottom: 200px;
-  margin-top: -59vh;
+  margin: 8vh 0 60vh 0;
 
   span {
-    color: gray;
+    color: #999;
     user-select: none;
+    font-size: 14px;
   }
 }
 </style>
