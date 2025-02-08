@@ -1,7 +1,8 @@
 <template>
   <div class="search" @click.stop>
     <div class="searchInput">
-      <input type="text" placeholder="Search..." ref="searchInput" v-model="searchData" @keyup.enter="handleSearchBtnClick"/>
+      <input type="text" placeholder="Search..." ref="searchInput" v-model="searchData"
+        @keyup.enter="handleSearchBtnClick" @focus="handleFocus" @blur="handleBlur" />
       <button @click="handleSearchBtnClick">
         <span class="iconfont">
           <svg class="icon" aria-hidden="true">
@@ -9,6 +10,9 @@
           </svg>
         </span>
       </button>
+    </div>
+    <div class="conditionContainer" :class="{ 'isfocused': isFocused }">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -22,12 +26,18 @@ const props = defineProps({
 const emit = defineEmits(["searchBtnClick"]);
 
 const searchInput = ref();
-watch(
-  () => props.isSearchInputFocus,
-  () => {
-    searchInput.value.focus();
-  }
-);
+
+// 定义焦点状态的响应式变量
+const isFocused = ref(false);
+// 处理获取焦点事件
+const handleFocus = () => {
+  isFocused.value = true;
+};
+
+// 处理失去焦点事件
+const handleBlur = () => {
+  isFocused.value = false;
+};
 const searchData = ref("");
 const handleSearchBtnClick = () => {
   emit("searchBtnClick", { searchData: searchData.value });
@@ -39,8 +49,7 @@ const handleSearchBtnClick = () => {
   width: 100%;
   max-width: 770px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
+  position: relative;
 
   .searchInput {
     position: relative;
@@ -72,6 +81,28 @@ const handleSearchBtnClick = () => {
       right: 10px;
       border: none;
     }
+  }
+
+  .conditionContainer {
+    width: 100%;
+    // height: 400px;
+    margin-top: 12px;
+    background-color: aliceblue;
+    border-radius: 16px;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(28, 31, 35, .03), 0 16px 48px 8px rgba(28, 31, 35, .08);
+    transition: all .3s;
+    transform: translateY(calc(-12px)) rotateX(20deg);
+    opacity: 0;
+    z-index: -1;
+  }
+
+  .isfocused {
+    transform: translateY(0%) rotateX(0deg);
+    opacity: 1;
+    z-index: 99999;
+
   }
 }
 </style>
