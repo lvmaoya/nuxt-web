@@ -27,7 +27,11 @@ function backTop() {
     } //W3C
     (window as any).onmousewheel = scrollFunc; //IE/Opera/Chrome
 }
-
+onBeforeMount(() => {
+    if (document.body.clientWidth > 480)  {
+        document.querySelector('.goutouBack')?.setAttribute('style', 'display:none');
+    }
+});
 </script>
 
 <style scoped lang="scss">
