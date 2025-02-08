@@ -21,7 +21,7 @@ export default defineNuxtConfig({
         { name: "description", content: "书写记录日常所思所感，技术成长" },
         {
           name: "keywords",
-          content: "个人博客,个人博客搭建,nuxt3,typescript,vue3,nodejs",
+          content: "lvmaoya,lumoyoo,个人博客",
         },
         {
           "http-equiv": "Content-Security-Policy",
@@ -38,7 +38,7 @@ export default defineNuxtConfig({
       script: [
         { src: "/cat/l2dwidget-client.js", async: true },
         { src: "/icon/iconfont.js", async: true },
-        // { src: "/flexible/index.js" },
+        // { src: "/clarity/index.js", async: true  },
       ],
       noscript: [{ children: "Javascript is required" }],
       title: "lvmaoya",
