@@ -31,7 +31,7 @@ categoryList.value = (await getArticleCategoryList({ category: fatherPageCategor
 
 <style scoped lang="scss">
 .container {
-  padding: 20px 8px;
+  padding: 20px 16px;
 
   .title {
     font-size: 14px;
@@ -52,10 +52,12 @@ categoryList.value = (await getArticleCategoryList({ category: fatherPageCategor
       border-radius: 4px;
 
       &:hover {
-        background-color: #999;
+        // background-color: #999;
 
         a {
-          color: white;
+          // color: white;
+          text-decoration: underline;
+          // text-decoration-style: dashed;
         }
       }
     }
