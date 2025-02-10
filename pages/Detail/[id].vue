@@ -4,9 +4,10 @@
       <div class="content">
         <div class="desc">
           <div class="title">{{ articleDetail?.title }}</div>
-          <div class="date">Published on {{ formatDate(articleDetail!.published_time) }}, with {{ pageview > 1 ? pageview
+          <div class="date">Published on {{ formatDate(articleDetail!.published_time) }}, with {{ pageview > 1 ?
+            pageview
             + ' views' : pageview + ' view' }} and {{
-    commentNum > 1 ? commentNum + ' comments' : commentNum + ' comment' }}
+              commentNum > 1 ? commentNum + ' comments' : commentNum + ' comment' }}
           </div>
         </div>
         <article>
@@ -37,6 +38,7 @@
 
 <script setup lang="ts">
 import { ArticleResType } from "~~/composables";
+import { formatDate } from "~~/utils/formatTime";
 const route = useRoute();
 const article_id = Number(route.params.id);
 
@@ -156,7 +158,7 @@ const getCommentNum = (value: number) => {
   .navContent {
     position: relative;
     z-index: 0;
-    max-width: 730px;
+    max-width: 960px;
     margin-right: auto !important;
     margin-left: auto !important;
     text-align: right;
@@ -170,21 +172,23 @@ const getCommentNum = (value: number) => {
       text-align: left;
       background: #fff;
       height: 50vh;
-      padding-left: 5px;
+      padding-left: 24px;
       overflow-y: scroll;
-
+      display: none;
       &>ul {
         position: relative;
-        border-left: 1px solid #ddd;
+        border-left: 1px solid #f1f1f1;
 
         li {
           list-style: none;
-          line-height: 1.6;
+          line-height: 2.2;
 
           a {
             white-space: nowrap;
+          }
 
-            &:hover {
+          &:hover {
+            a {
               color: #eb5055
             }
           }
@@ -195,7 +199,6 @@ const getCommentNum = (value: number) => {
 
           a {
             color: #313131;
-
           }
 
           &::before {
@@ -213,7 +216,8 @@ const getCommentNum = (value: number) => {
 
         .level2 {
           padding-left: 20px;
-          color: #5f5f5f;
+          color: #999;
+          line-height: 1.8;
         }
       }
     }
@@ -222,7 +226,7 @@ const getCommentNum = (value: number) => {
 
   .content {
     margin: 0 auto;
-    max-width: 700px;
+    max-width: 960px;
     color: #313131;
     min-height: 100vh;
 
