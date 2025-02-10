@@ -3,7 +3,7 @@
     <div class="inner">
       <div class="controller">
         <Search @search-btn-click="handleSearchBtnClick">
-          <WorkTagCategory @category-tag-click="categoryTagClick"></WorkTagCategory>
+          <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick"></WorkTagCategory>
         </Search>
       </div>
       <WorkContent v-if="total > 0" :list="(articleList as ArticleListResType)?.list"></WorkContent>
@@ -54,6 +54,14 @@ const categoryTagClick = async (val: number) => {
   });
   articleList.value = articleByCategoryData.data;
   total.value = articleByCategoryData.data.total;
+};
+const dateRangeClick = async (val: any) => {
+  // const articleByDateRangeData = await getArticleByDateRangeData({
+  //   start: val.start,
+  //   end: val.end
+  // });
+  // articleList.value = articleByDateRangeData.data;
+  // total.value = articleByDateRangeData.data.total;
 };
 // 点击搜索按钮
 const userInput = ref<searchConfigType>();
