@@ -18,11 +18,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  isSearchInputFocus: {
-    type: Boolean,
-  },
-});
+
 const emit = defineEmits(["searchBtnClick"]);
 
 const searchInput = ref();
@@ -40,6 +36,7 @@ const handleBlur = () => {
 };
 const searchData = ref("");
 const handleSearchBtnClick = () => {
+  isFocused.value = false;
   emit("searchBtnClick", { searchData: searchData.value });
 };
 </script>

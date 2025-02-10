@@ -1,8 +1,11 @@
 <template>
-  <div class="workActicleItem" @click.stop="handleArticleClick(props.item.article_id)">
+  <a class="workActicleItem" :href="'/detail/' + props.item.article_id">
     <div class="articleContent">
+      <div class="category">
+        {{ item.category_name }}
+      </div>
       <div class="title">
-        {{ props.index + 1 }}. {{ props.item.title }}
+        {{ props.item.title }}
       </div>
       <div class="description">
         <p>
@@ -11,31 +14,34 @@
       </div>
       <div class="data">
         <div class="about">
-          <span>{{ props.item.pageview }} 次阅读</span>
-          <!-- <span>{{ props.item.prefer_num }} 点赞</span> -->
-          <!-- <span class="last">2 评论</span> -->
-        </div>
-        <div class="date">
-          <span>{{ props.item.published_time.replace(/:[^:]*$/, '') }} 发布</span>
+          <span>{{ convertDateToAbbreviatedMonthYear(props.item.published_time) }} • {{ props.item.pageview }}
+            view(s)</span>
         </div>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script setup lang="ts">
 import { type ArticleItemResType } from "~~/composables";
-
 const props = defineProps<{
   item: ArticleItemResType;
   index: number
 }>();
-const router = useRouter();
-const handleArticleClick = (id: number) => {
-  router.push({
-    path: "detail/" + id,
-  });
-};
+
+const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
+  const date = new Date(dateStr);
+  const monthAbbreviations = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
+  const monthAbbreviation = monthAbbreviations[monthIndex];
+  const day = date.getDate();
+  return `${day} ${monthAbbreviation}, ${year}`;
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -50,11 +56,26 @@ const handleArticleClick = (id: number) => {
   transition: background-color 0.3s;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 12px auto;
+
+  &:hover {
+    .title:before {
+      width: 100% !important;
+    }
+  }
 
   .articleContent {
     width: 100%;
     padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .category {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+    }
 
     .title {
       // font-size: 1.1em;
@@ -77,8 +98,8 @@ const handleArticleClick = (id: number) => {
         transition: width 0.3s ease;
       }
 
-      &:hover:before {
-        width: 100%;
+      &::first-letter {
+        text-transform: uppercase;
       }
     }
 
@@ -86,12 +107,11 @@ const handleArticleClick = (id: number) => {
       p {
         font-size: 0.875em;
         font-weight: 400;
-        color: #313131;
+        color: #333;
         overflow: hidden;
         white-space: normal;
         word-break: break-word;
         display: -webkit-box;
-        margin-bottom: 10px;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
       }
@@ -102,7 +122,7 @@ const handleArticleClick = (id: number) => {
       justify-content: space-between;
 
       span {
-        font-size: 0.875em;
+        font-size: 12px;
         color: gray;
       }
 
@@ -110,6 +130,7 @@ const handleArticleClick = (id: number) => {
         span {
           margin-right: 3px;
           color: gray;
+
         }
       }
     }

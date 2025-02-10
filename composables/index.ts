@@ -35,6 +35,7 @@ export interface ArticleItemResType {
   pageview: number;
   prefer_num: number;
   published_time: string;
+  category_name: string;
 }
 export interface ArticleListResType {
   total: number;

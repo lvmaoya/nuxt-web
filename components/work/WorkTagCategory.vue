@@ -1,13 +1,17 @@
 <template>
-
-  <ul class="category">
-    <li>
-      <span>分类</span>
-    </li>
-    <li v-for="item in categoryList" :key="item.category_id" @click.stop="handleCategoryClick(item.category_id)">
-      <a > {{ item.category_name }}  ({{ item.count ?? 0 }})</a>
-    </li>
-  </ul>
+  <div class="container">
+    <div class="title">
+      文章分类
+    </div>
+    <ul class="category">
+      <li @mousedown="handleCategoryClick(-1)">
+        <a>全部</a>
+      </li>
+      <li v-for="item in categoryList" :key="item.category_id" @mousedown.stop="handleCategoryClick(item.category_id)">
+        <a> {{ item.category_name }} ({{ item.count ?? 0 }})</a>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -26,34 +30,42 @@ categoryList.value = (await getArticleCategoryList({ category: fatherPageCategor
 </script>
 
 <style scoped lang="scss">
-.category {
-  border: 1px solid #dbdbdb;
-  padding: 20px 16px;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  width: 240px;
-  height: fit-content;
-  li{
-    list-style-position: inside;
-    width: fit-content;
-    padding: 6px 0;
-    width: 100%;
-    &:first-child {
-      font-size: 16px;
-      margin-bottom: 10px;
-      list-style: none;
-      border-bottom: 1px solid #dbdbdb;
-    }
-  }
-  a {
+.container {
+  padding: 20px 8px;
+
+  .title {
     font-size: 14px;
-    list-style: circle;
-    color: #333;
-    cursor: pointer;
-    text-decoration: underline;
+    color: black;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .category {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    border-radius: 12px;
+    height: fit-content;
+
+    li {
+      padding: 6px 8px;
+      list-style: none;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: #999;
+
+        a {
+          color: white;
+        }
+      }
+    }
+
+    a {
+      font-size: 12px;
+      display: block;
+      color: #333;
+      cursor: pointer;
+    }
   }
 }
 </style>

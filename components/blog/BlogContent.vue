@@ -6,22 +6,23 @@
 -->
 <template>
   <ul>
-    <!-- <BlogItem :blogItem="item"></BlogItem> -->
-    <li @click.stop="handleArticleClick(item.article_id)" v-for="item in props.blogList" :key="item.article_id">
-      <div class="img">
-        <a href="javascript:;"><img :src="item.cover_image" alt="" /></a>
-      </div>
-      <div class="articleDetail">
-        <div class="title">
-          <span class="titleContent">{{ item.title }}</span>
+    <li v-for="item in props.blogList" :key="item.article_id">
+      <a :href="'/detail/' + item.article_id">
+        <div class="img">
+          <img :src="item.cover_image" alt="" />
         </div>
-        <div class="date">
-          <span> {{ item.published_time.replace(/:[^:]*$/, '') }}</span>
+        <div class="articleDetail">
+          <div class="title">
+            <span class="titleContent">{{ item.title }}</span>
+          </div>
+          <div class="date">
+            <span> {{ item.published_time.replace(/:[^:]*$/, '') }}</span>
+          </div>
+          <div class="description">
+            {{ item.description }}
+          </div>
         </div>
-        <div class="description">
-          {{ item.description }}
-        </div>
-      </div>
+      </a>
     </li>
   </ul>
 </template>
@@ -33,12 +34,6 @@ const props = defineProps({
     type: Object,
   },
 });
-const router = useRouter();
-const handleArticleClick = (id: number) => {
-  router.push({
-    path: "detail/" + id,
-  });
-};
 </script>
 
 <style scoped lang="scss">
@@ -52,6 +47,10 @@ ul {
   li {
     width: 100%;
     list-style: none;
+
+    a {
+      display: block;
+    }
 
     .img {
       width: 100%;
@@ -86,6 +85,7 @@ ul {
         color: #4d4d4d;
         border-bottom: 1px solid #ffffff;
         transition: all 0.2s;
+
         &:hover {
           border-bottom: 1px solid #4d4d4d;
         }

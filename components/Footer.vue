@@ -780,7 +780,10 @@ footer {
           display: none !important;
         }
       }
-
+      a:hover {
+        text-decoration: underline;
+        color: #333;
+      }
 
 
       ul {

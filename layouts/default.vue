@@ -17,7 +17,7 @@ import 'animate.css';
 </script>
 
 <style>
-/* #s-loading {
+#s-loading {
   position: absolute;
   left: 0;
   right: 0;
@@ -114,5 +114,5 @@ import 'animate.css';
     height: 1em;
     box-shadow: -3em -5em #b3e5d5, 3em 5em #f7dfac;
   }
-} */
+}
 </style>
