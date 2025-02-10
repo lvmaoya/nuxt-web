@@ -1,9 +1,15 @@
-
 <template>
   <div></div>
 </template>
 
 <script setup>
+
+function backTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // 平滑滚动效果
+  });
+}
 const config = {
   model: {
     jsonPath: "../hijiki/assets/hijiki.model.json", // 加载模型的json路径
@@ -45,6 +51,9 @@ const init = async () => {
   } else {
     canvas.style.display = "none"
   }
+  canvas.style.pointerEvents = 'auto';
+  // 为 canvas 绑定点击事件
+  canvas.addEventListener('click', backTop);
 }
 
 onMounted(async () => {
