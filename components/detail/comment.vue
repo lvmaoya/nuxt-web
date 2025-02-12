@@ -198,7 +198,7 @@ const handleResponseSBClick = (user_id: number, user_name: string) => {
 <style scoped lang="scss">
 .commentCom {
   width: 100%;
-  max-width: 730px;
+  max-width: 960px;
   margin: 0 auto;
   color: #313131;
   margin-bottom: 250px;
