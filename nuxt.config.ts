@@ -38,7 +38,7 @@ export default defineNuxtConfig({
       script: [
         { src: "/cat/l2dwidget-client.js", async: true },
         { src: "/icon/iconfont.js", async: true },
-        // { src: "/clarity/index.js", async: true  },
+        { src: "/clarity/index.js", async: true  },
       ],
       noscript: [{ children: "Javascript is required" }],
       title: "lvmaoya",
@@ -47,4 +47,10 @@ export default defineNuxtConfig({
     keepalive: true,
   },
   plugins: [{ src: "~/plugins/editor.client.js", mode: "client" }],
+  // 解决重复依赖项问题
+  vite: {
+    resolve: {
+      dedupe: ['vue-router']
+    }
+  }
 });
