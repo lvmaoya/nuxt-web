@@ -7,7 +7,8 @@
 import { type ThingType } from "@/composables/index";
 const thingList = ref<Array<ThingType>>();
 const emits = defineEmits(['contentChange'])
-thingList.value = (await getIntersetThingList()).data;
+thingList.value = (await getIntersetThingList()).data.records;
+
 useHead({
   meta: [
     { name: "google-site-verification", content: "rdicKFHUWZtMhhwgAXfrjwCJSXuzRzH6UcmV1gUgj_o" },

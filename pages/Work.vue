@@ -29,7 +29,7 @@ categoryList.value = (await getArticleCategoryList({ category: fatherPageCategor
 
 // 文章列表数据
 let articleList = ref<ArticleListResType>();
-articleList.value = (await getArticleList({ currentPage: currentPage.value, size: size.value })).data;
+articleList.value = (await getWorkArticleList({ currentPage: currentPage.value, size: size.value })).data;
 articleList.value.list = articleList.value.list.map((item) => {
   return {
     ...item,
@@ -43,7 +43,7 @@ const clickCategoryId = ref();
 const categoryTagClick = async (val: number) => {  
   clickCategoryId.value = val;
   if (val == -1) {
-    articleList.value = (await getArticleList({ currentPage: currentPage.value, size: size.value })).data;
+    articleList.value = (await getWorkArticleList({ currentPage: currentPage.value, size: size.value })).data;
     total.value = articleList.value.total;
     return;
   }

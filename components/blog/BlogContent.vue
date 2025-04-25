@@ -9,14 +9,14 @@
     <li v-for="item in props.blogList" :key="item.article_id">
       <a :href="'/detail/' + item.article_id">
         <div class="img">
-          <img :src="item.cover_image" alt="" />
+          <img :src="item.coverImage" alt="" />
         </div>
         <div class="articleDetail">
           <div class="title">
             <span class="titleContent">{{ item.title }}</span>
           </div>
           <div class="date">
-            <span> {{ item.published_time.replace(/:[^:]*$/, '') }}</span>
+            <span> {{ item.publishedTime.replace(/:[^:]*$/, '') }}</span>
           </div>
           <div class="description">
             {{ item.description }}

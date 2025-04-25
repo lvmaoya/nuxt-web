@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import { type ArticleItemResType } from "@/composables/index";
 const recentArticleList = ref<Array<ArticleItemResType>>();
-recentArticleList.value = (await getRecentUpdate()).data.list;
+recentArticleList.value = (await getRecentUpdate()).data.records;
 
 const audio = ref()
 const currentTime = ref(0)

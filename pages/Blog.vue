@@ -20,7 +20,7 @@ let blogList = ref<Array<ArticleItemResType>>([]);
 let currentPage = ref(1);
 let total = ref(0);
 let size = ref(8);
-let blogData = (await getBlogList({ currentPage: currentPage.value, size: size.value })).data;
+let blogData = (await getBlogArticleList({ currentPage: currentPage.value, size: size.value })).data;
 blogList.value = blogData.list;
 total.value = blogData.total;
 
@@ -32,7 +32,7 @@ const handleCurrentPageChange = async (val: number) => {
   }
   switch (doCategory.value) {
     case 1:
-      blogData = (await getBlogList({ currentPage: currentPage.value, size: size.value })).data;
+      blogData = (await getBlogArticleList({ currentPage: currentPage.value, size: size.value })).data;
       blogList.value = blogData.list;
       total.value = blogData.total;
       break;

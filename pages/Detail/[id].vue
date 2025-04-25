@@ -4,7 +4,7 @@
       <div class="content">
         <div class="desc">
           <div class="title">{{ articleDetail?.title }}</div>
-          <div class="date">Published on {{ formatDate(articleDetail!.published_time) }}, with {{ pageview > 1 ?
+          <div class="date">Published on {{ formatDate(articleDetail!.publishedTime) }}, with {{ pageview > 1 ?
             pageview
             + ' views' : pageview + ' view' }} and {{
               commentNum > 1 ? commentNum + ' comments' : commentNum + ' comment' }}
@@ -15,7 +15,7 @@
             <v-md-preview :text="articleDetail?.content" ref="editor"></v-md-preview>
           </ClientOnly>
         </article>
-        <!-- <LazyDetailFooterBar :article_id="article_id"></LazyDetailFooterBar> -->
+        <!-- <LazyDetailFooterBar :articleId="articleId"></LazyDetailFooterBar> -->
       </div>
       <div class="navContent">
         <div class="navigation">
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="comment">
-      <LazyDetailComment :article_id="article_id" @commentNum="getCommentNum"></LazyDetailComment>
+      <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment>
     </div>
     <!-- <ScrollTop></ScrollTop> -->
   </div>
@@ -40,12 +40,17 @@
 import { ArticleResType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
 const route = useRoute();
-const article_id = Number(route.params.id);
-
+const articleId = Number(route.params.id);
+// 请求浏览量和点赞数据
+let preferNum = ref(0);
+let pageview = ref(0);
+let commentNum = ref(0)
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<ArticleResType>();
-const articleDetailRes = await getArticleDetail({ id: article_id });
+const articleDetailRes = await getArticleDetail(articleId);
 articleDetail.value = articleDetailRes.data
+preferNum.value = articleDetailRes.data.preferNum;
+pageview.value = articleDetailRes.data.pageView;
 
 useHead({
   title: articleDetail.value.title,
@@ -96,20 +101,9 @@ const handleAnchorClick = (anchor: any) => {
   }
 }
 
-// 请求浏览量和点赞数据
-let dianZanNum = ref(0);
-let pageview = ref(0);
-let commentNum = ref(0)
-// 获取点赞和评论的数量-----------------------------------------
-const getPreferNum = async () => {
-  const dianZanNumData = await getDianZanNum({ id: article_id });
-  dianZanNum.value = dianZanNumData.data.dianZanNum;
-  pageview.value = dianZanNumData.data.pageview;
-};
-await getPreferNum()
 onMounted(() => {
   const changePV = debounce(async () => {
-    await changePVData({ id: article_id });
+    await changePVData({ id: articleId });
   }, 0);
   // 访问数量控制
   const pvArticle = ref<Array<number>>([]);
@@ -118,15 +112,12 @@ onMounted(() => {
   const changePageView = () => {
     if (pvArticle.value.length === 0) {
       changePV();
-      cookie.setArrCookie("pvArticle", article_id, 1);
-      getPreferNum();
+      cookie.setArrCookie("pvArticle", articleId, 1);
     } else {
-      if (pvArticle.value.includes(article_id)) {
-        return getPreferNum();
+      if (pvArticle.value.includes(articleId)) {
       } else {
         changePV();
-        cookie.setArrCookie("pvArticle", article_id, 1);
-        getPreferNum();
+        cookie.setArrCookie("pvArticle", articleId, 1);
       }
     }
   };

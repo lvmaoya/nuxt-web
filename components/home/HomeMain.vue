@@ -2,9 +2,9 @@
   <div class="homeMain">
     <div class="inner">
       <ul class="content" v-viewport>
-        <li class="homeMainItem" v-for="item in props.thingList" :key="item.article_id" ref="homeMainItemRef">
-          <a :href="'/detail/' + item.article_id">
-            <div class="image" :data-src="item.cover_image">
+        <li class="homeMainItem" v-for="item in props.thingList" :key="item.id" ref="homeMainItemRef">
+          <a :href="'/detail/' + item.id">
+            <div class="image" :data-src="item.coverImage">
             </div>
             <div class="itemTitle">
               <h4>{{ item.title }}</h4>

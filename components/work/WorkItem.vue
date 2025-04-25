@@ -14,7 +14,7 @@
       </div>
       <div class="data">
         <div class="about">
-          <span>{{ convertDateToAbbreviatedMonthYear(props.item.published_time) }} • {{ props.item.pageview }}
+          <span>{{ convertDateToAbbreviatedMonthYear(props.item.publishedTime) }} • {{ props.item.pageview }}
             view(s)</span>
         </div>
       </div>
