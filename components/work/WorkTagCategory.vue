@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { CategoryItemType } from "~~/composables";
+import { type CategoryItemType } from "~~/composables";
 
 const emit = defineEmits(["categoryTagClick", "dateRangeClick"]);
 
@@ -42,7 +42,7 @@ let fatherPageCategory = "tech_article";
 // 文章类别列表
 let categoryList = ref<Array<CategoryItemType>>();
 
-categoryList.value = (await getArticleCategoryList({ category: fatherPageCategory })).data.categoryList;
+categoryList.value = (await getArticleCategoryList(2)).data.records;
 
 const dateRange = ref([
   {

@@ -10,7 +10,7 @@ import { type ArticleItemResType } from "~~/composables";
 
 const props = defineProps({
   list: {
-    required: true,
+    required: false,
     type: Array<ArticleItemResType>,
   },
 });

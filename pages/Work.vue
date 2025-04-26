@@ -6,7 +6,7 @@
           <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick"></WorkTagCategory>
         </Search>
       </div>
-      <WorkContent v-if="total > 0" :list="(articleList as ArticleListResType)?.list"></WorkContent>
+      <WorkContent v-if="total > 0" :list="articleList"></WorkContent>
       <NoData v-else></NoData>
     </div>
     <Pagination :current-page="currentPage" :total="total" :size="size"></Pagination>
@@ -14,37 +14,30 @@
 </template>
 
 <script lang="ts" setup>
-import { ArticleListResType, CategoryItemType, searchConfigType } from "~~/composables";
+import { type ArticleListResType, type CategoryItemType, type searchConfigType } from "~~/composables";
 // 分页
 let currentPage = ref(1);
 let total = ref(0);
 let size = ref(9999);
 
-
-// 页面类别
-let fatherPageCategory = "tech_article";
 // 文章类别列表
-let categoryList = ref<Array<CategoryItemType>>([]);
-categoryList.value = (await getArticleCategoryList({ category: fatherPageCategory })).data.categoryList;
+let categoryList = ref<Array<Object>>([]);
+categoryList.value = (await getArticleCategoryList(2)).data.records;
 
 // 文章列表数据
-let articleList = ref<ArticleListResType>();
-articleList.value = (await getWorkArticleList({ currentPage: currentPage.value, size: size.value })).data;
-articleList.value.list = articleList.value.list.map((item) => {
-  return {
-    ...item,
-    category_name: categoryList.value.find((category) => item.category_id === category.category_id)?.category_name ?? '',
-  };
-});
-total.value = articleList.value.total;
+let articleList = ref<Array<ArticleItemResType>>();
+let res = (await getWorkArticleList({ current: currentPage.value, size: size.value })).data;
+articleList.value = res.records;
+total.value = res.total;
 
 // 点击分类标签
 const clickCategoryId = ref();
 const categoryTagClick = async (val: number) => {  
   clickCategoryId.value = val;
   if (val == -1) {
-    articleList.value = (await getWorkArticleList({ currentPage: currentPage.value, size: size.value })).data;
-    total.value = articleList.value.total;
+    let res = (await getWorkArticleList({ currentPage: currentPage.value, size: size.value })).data;
+    articleList.value = res.records;
+    total.value = res.total;
     return;
   }
   const articleByCategoryData = await getArticleByCategoryData({
@@ -52,7 +45,7 @@ const categoryTagClick = async (val: number) => {
     currentPage: currentPage.value,
     size: size.value,
   });
-  articleList.value = articleByCategoryData.data;
+  articleList.value = articleByCategoryData.data.records;
   total.value = articleByCategoryData.data.total;
 };
 const dateRangeClick = async (val: any) => {
@@ -71,7 +64,7 @@ const handleSearchBtnClick = async (searchData: searchConfigType) => {
   userInput.value = searchData;
 
   const resArticlesData = await searchArticle(searchData);
-  articleList.value = resArticlesData.data;
+  articleList.value = resArticlesData.data.records;
   total.value = resArticlesData.data.total;
 };
 

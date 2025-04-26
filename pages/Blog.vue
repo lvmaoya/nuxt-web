@@ -21,7 +21,8 @@ let currentPage = ref(1);
 let total = ref(0);
 let size = ref(8);
 let blogData = (await getBlogArticleList({ currentPage: currentPage.value, size: size.value })).data;
-blogList.value = blogData.list;
+blogList.value = blogData.records;
+
 total.value = blogData.total;
 
 const handleCurrentPageChange = async (val: number) => {
@@ -33,13 +34,13 @@ const handleCurrentPageChange = async (val: number) => {
   switch (doCategory.value) {
     case 1:
       blogData = (await getBlogArticleList({ currentPage: currentPage.value, size: size.value })).data;
-      blogList.value = blogData.list;
+      blogList.value = blogData.records;
       total.value = blogData.total;
       break;
     case 2:
       (userInput.value as searchConfigType).currentPage = currentPage.value;
       blogData = (await searchBlog(userInput.value as searchConfigType)).data;
-      blogList.value = blogData.list;
+      blogList.value = blogData.records;
       total.value = blogData.total;
       break;
   }
@@ -52,7 +53,7 @@ const handleSearchBtnClick = async (searchData: searchConfigType) => {
   searchData = { ...searchData, currentPage: currentPage.value, size: size.value };
   userInput.value = searchData;
   const resArticlesData = await searchBlog(searchData);
-  blogList.value = resArticlesData.data.list;
+  blogList.value = resArticlesData.data.records;
   total.value = resArticlesData.data.total;
 };
 </script>

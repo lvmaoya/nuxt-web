@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { PinglunItemType } from "~~/composables";
+import {type PinglunItemType } from "~~/composables";
 import { multiavatar } from "~~/public/avatar";
 const props = defineProps({
   article_id: {

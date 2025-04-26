@@ -1,6 +1,4 @@
-// 封装请求
-
-import { _AsyncData } from "nuxt/dist/app/composables/asyncData";
+import baseURL from "./base-config";
 
 // 指定后端返回的基本数据类型
 export interface ResponseConfig<T> {
@@ -8,13 +6,10 @@ export interface ResponseConfig<T> {
   message: string;
   data: T;
 }
-let loadingCount = 0;
 
-import baseURL from "./base-config";
 // import { showLoading, hideLoading } from "~~/loading";
 const fetch = (url: string, options?: any): Promise<any> => {
   const { $router } = useNuxtApp();
-  loadingCount++;
   let reqUrl = "";
   if (/^(ftp|http|https):\/\/[^ "]+$/.test(url)) {
     reqUrl = url;
@@ -32,7 +27,7 @@ const fetch = (url: string, options?: any): Promise<any> => {
       onResponseError({ response }) {},
       ...options,
     })
-      .then(({ data, error }: _AsyncData<any, any>) => {
+      .then(({ data, error }) => {
         if (error.value) {
           reject(error.value);
           return;

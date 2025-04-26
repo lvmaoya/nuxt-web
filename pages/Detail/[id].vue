@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArticleResType } from "~~/composables";
+import { type ArticleResType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
 const route = useRoute();
 const articleId = Number(route.params.id);

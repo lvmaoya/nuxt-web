@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ThingType } from "~~/composables";
+import { type ThingType } from "~~/composables";
 
 const props = defineProps({
   thingList: {

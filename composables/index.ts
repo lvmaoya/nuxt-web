@@ -36,10 +36,11 @@ export interface ArticleItemResType {
 }
 export interface ArticleListResType {
   total: number;
-  list: Array<ArticleItemResType>;
+  records: Array<ArticleItemResType>;
+  current: number;
 }
-export function getWorkArticleList(config: GetArticleListConfig) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list",{ page: 1, size: 5});
+export function getWorkArticleList(data: object) {
+  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list",data);
 }
 
 // // 如果以后随笔文章想要分类功能可以传入参数essay
@@ -151,10 +152,10 @@ export interface CategoryItemType {
   count: number;
 }
 export interface CategoryDataType<T> {
-  categoryList: Array<T>;
+  records: Array<T>;
 }
-export function getArticleCategoryList() {
-  return Http.get<ResponseConfig<CategoryDataType<CategoryItemType>>>("/h5/category/list");
+export function getArticleCategoryList(id: number) {
+  return Http.get<ResponseConfig<CategoryDataType<CategoryItemType>>>("/h5/category/list?fatherCategoryId=" + id,);
 }
 
 export function searchArticle(data: object) {
