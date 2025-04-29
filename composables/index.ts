@@ -5,6 +5,13 @@ interface ResponseConfig<T> {
   message: string;
   data: T;
 }
+interface ResponseListType<T> {
+  total: number;
+  size: number;
+  current: number;
+  pages: number;
+  records: Array<T>;
+}
 // 首页数据
 export interface ThingType {
   id: number;
@@ -13,10 +20,10 @@ export interface ThingType {
   title: string;
 }
 export const getIntersetThingList = () => {
-  return Http.post<ResponseConfig<Array<ThingType>>>("/h5/blog/list",{ page: 1, size: 20});
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list",{ page: 1, size: 20});
 };
 export function getRecentUpdate() {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list",{ page: 1, size: 5});
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list",{ page: 1, size: 5});
 }
 // 技术文章页
 export interface GetArticleListConfig {
@@ -40,7 +47,7 @@ export interface ArticleListResType {
   current: number;
 }
 export function getWorkArticleList(data: object) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list",data);
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list",data);
 }
 
 // // 如果以后随笔文章想要分类功能可以传入参数essay
@@ -64,7 +71,7 @@ export function getWorkArticleList(data: object) {
 
 //随笔
 export function getBlogArticleList(config: GetArticleListConfig) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list",{ page: 1, size: 5});
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list",{ page: 1, size: 5});
 }
 // 用户信息
 export interface userInfoType {
@@ -141,10 +148,10 @@ export function commitComment(data: CommentConfigType) {
   return Http.post<ResponseConfig<object>>("/h5/comment", data);
 }
 export function getRecentArticleList(data: GetArticleListConfig) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list", data);
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list", data);
 }
 export function getHotArticleList(data: GetArticleListConfig) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list", data);
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list", data);
 }
 export interface CategoryItemType {
   category_id: number;
@@ -159,10 +166,10 @@ export function getArticleCategoryList(id: number) {
 }
 
 export function searchArticle(data: object) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list", data);
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list", data);
 }
 export function searchBlog(data: object) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list", data);
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list", data);
 }
 export interface searchConfigType {
   searchData: string;
@@ -170,5 +177,5 @@ export interface searchConfigType {
   size?: number;
 }
 export function getArticleByCategoryData(data: object) {
-  return Http.post<ResponseConfig<ArticleListResType>>("/h5/blog/list", data);
+  return Http.get<ResponseConfig<ResponseListType<ThingType>>>("/h5/blog/list", data);
 }
