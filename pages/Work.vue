@@ -3,7 +3,7 @@
     <div class="inner">
       <div class="controller">
         <Search @search-btn-click="handleSearchBtnClick">
-          <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick"></WorkTagCategory>
+          <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick" :article-list="articleList"></WorkTagCategory>
         </Search>
       </div>
       <WorkContent v-if="total > 0" :list="articleList"></WorkContent>
@@ -19,13 +19,9 @@ let currentPage = ref(1);
 let total = ref(0);
 let size = ref(9999);
 
-// 文章类别列表
-let categoryList = ref<Array<Object>>([]);
-categoryList.value = (await getBlogList(2)).data.records;
-
 // 文章列表数据
 let articleList = ref<Array<BlogType>>();
-let res = (await getBlogList({ current: currentPage.value, size: size.value })).data;
+let res = (await getBlogList({ current: currentPage.value, size: size.value, category: 2 })).data;
 articleList.value = res.records;
 total.value = res.total;
 
@@ -34,7 +30,7 @@ const clickCategoryId = ref();
 const categoryTagClick = async (val: number) => {  
   clickCategoryId.value = val;
   if (val == -1) {
-    let res = (await getBlogList({ currentPage: currentPage.value, size: size.value })).data;
+    let res = (await getBlogList({ currentPage: currentPage.value, size: size.value, category: 2  })).data;
     articleList.value = res.records;
     total.value = res.total;
     return;

@@ -1,7 +1,6 @@
 <template>
   <div class="workActicleContent">
-    <WorkItem v-for="(item, index) in props.list" :key="item.article_id" :item="item" :index="index"></WorkItem>
-    <CategoryList></CategoryList>
+    <WorkItem v-for="(item, index) in props.list" :key="item.id" :item="item" :index="index"></WorkItem>
   </div>
 </template>
 

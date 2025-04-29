@@ -1,8 +1,8 @@
 <template>
-  <a class="workActicleItem" :href="'/detail/' + props.item.article_id">
+  <a class="workActicleItem" :href="'/detail/' + props.item.id">
     <div class="articleContent">
       <div class="category">
-        {{ item.category_name }}
+        {{ item.category?.categoryName }}
       </div>
       <div class="title">
         {{ props.item.title }}
@@ -14,7 +14,7 @@
       </div>
       <div class="data">
         <div class="about">
-          <span>{{ convertDateToAbbreviatedMonthYear(props.item.publishedTime) }} • {{ props.item.pageview }}
+          <span>{{ convertDateToAbbreviatedMonthYear(props.item.publishedTime) }} • {{ props.item.pageView }}
             view(s)</span>
         </div>
       </div>

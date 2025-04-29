@@ -13,6 +13,51 @@ export interface ResponseListType<T> {
   pages: number;
   records: Array<T>;
 }
+
+// 用户信息
+export interface UserInfoType {
+  id: number;
+  name: string | null;
+  nickName: string;
+  email: string;
+  mobile: string;
+  otherContact: string;
+  introduce: string;
+  avatar: string;
+  createdAt: string | null; // 或使用 Date | null
+  updatedAt: string | null; // 或使用 Date | null
+}
+
+export interface CategoryType {
+  id: number;
+  categoryName: string;
+  fatherCategoryId: number;
+  deleted: number;
+  createdTime: string; // 或使用 Date 类型
+  updatedTime: string; // 或使用 Date 类型
+  count?: number;
+}
+export interface BlogType {
+  id: number;
+  title: string;
+  description: string;
+  keywords: string;
+  articleAbstract: string | null;
+  category: CategoryType | null;
+  categoryId: number | null;
+  fatherCategoryId: number | null;
+  coverImage: string;
+  content: string;
+  charCount: number;
+  pageView: number;
+  preferNum: number;
+  status: number;
+  authorId: number;
+  top: number;
+  deleted: number;
+  publishedTime: string; // 或使用 Date 类型
+  updatedTime: string;   // 或使用 Date 类型
+}
 export interface CommentType {
   id: number;
   articleId: number;
@@ -40,51 +85,10 @@ export interface BlogType {
 export const getBlogList = (params?: Object ) => {
   return Http.get<ResponseConfig<ResponseListType<BlogType>>>("/h5/blog/list", params);
 };
+export const getCategoryList = (params?: Object ) => {
+  return Http.get<ResponseConfig<Array<CategoryType>>>("/h5/category/list", params);
+};
 
-
-// 用户信息
-export interface UserInfoType {
-  id: number;
-  name: string | null;
-  nickName: string;
-  email: string;
-  mobile: string;
-  otherContact: string;
-  introduce: string;
-  avatar: string;
-  createdAt: string | null; // 或使用 Date | null
-  updatedAt: string | null; // 或使用 Date | null
-}
-
-export interface CategoryType {
-  id: number;
-  categoryName: string;
-  fatherCategoryId: number;
-  deleted: number;
-  createdTime: string; // 或使用 Date 类型
-  updatedTime: string; // 或使用 Date 类型
-}
-export interface BlogType {
-  id: number;
-  title: string;
-  description: string;
-  keywords: string;
-  articleAbstract: string | null;
-  category: CategoryType | null;
-  categoryId: number | null;
-  fatherCategoryId: number | null;
-  coverImage: string;
-  content: string;
-  charCount: number;
-  pageView: number;
-  preferNum: number;
-  status: number;
-  authorId: number;
-  top: number;
-  deleted: number;
-  publishedTime: string; // 或使用 Date 类型
-  updatedTime: string;   // 或使用 Date 类型
-}
 export function getUserInfo() {
   return Http.get<ResponseConfig<UserInfoType>>("/h5/user");
 }

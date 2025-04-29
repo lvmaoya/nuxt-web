@@ -4,11 +4,12 @@
       文章分类
     </div>
     <ul class="category">
+      {{ categoryList }}
       <li @mousedown="handleCategoryClick(-1)">
         <a>全部</a>
       </li>
-      <li v-for="item in categoryList" :key="item.category_id" @mousedown.stop="handleCategoryClick(item.category_id)">
-        <a> {{ item.category_name }} ({{ item.count ?? 0 }})</a>
+      <li v-for="item in categoryList" :key="item.id" @mousedown.stop="handleCategoryClick(item.id)">
+        <a> {{ item.categoryName }} ({{ item.count ?? 0 }})</a>
       </li>
     </ul>
     <div class="title" style="margin-top: 20px;">
@@ -27,8 +28,11 @@
 
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { type CategoryItemType } from "~~/composables";
-
+import { type BlogType, type CategoryType } from "~~/composables";
+// 定义 props 接收文章列表
+const props = defineProps<{
+  articleList?: Array<BlogType>  // 根据实际文章类型定义
+}>();
 const emit = defineEmits(["categoryTagClick", "dateRangeClick"]);
 
 const handleCategoryClick = (val: number) => {
@@ -37,12 +41,9 @@ const handleCategoryClick = (val: number) => {
 const handleDateRangeClick = (val: any) => {
   emit("dateRangeClick", val);
 };
-// 页面类别
-let fatherPageCategory = "tech_article";
-// 文章类别列表
-let categoryList = ref<Array<CategoryItemType>>();
 
-categoryList.value = (await getBlogList(2)).data.records;
+// 文章类别列表
+let categoryList = ref<Array<CategoryType>>();
 
 const dateRange = ref([
   {
@@ -71,7 +72,21 @@ const dateRange = ref([
     end: dayjs().endOf('year')
   }
 ]);
+// 获取分类列表并计算每个分类的文章数量
+const initCategoryList = async () => {
+  const categories = (await getCategoryList({fatherCategoryId: 2})).data;
+  if (props.articleList && categories && props.articleList) {
+    categories.forEach(category => {
+      category.count = props.articleList?.filter(article => article.categoryId === category.id).length;
+    });
+  }
+  categoryList.value = categories;  
+};
 
+// 监听文章列表变化，重新计算分类数量
+watch(() => props.articleList, () => {  
+  initCategoryList();
+}, { deep: true });
 </script>
 
 <style scoped lang="scss">
