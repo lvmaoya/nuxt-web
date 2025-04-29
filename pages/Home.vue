@@ -1,14 +1,14 @@
 <template>
   <HomeBody></HomeBody>
-  <HomeMain :thingList="(thingList as Array<ThingType>)"></HomeMain>
+  <HomeMain :thingList="(thingList as Array<BlogType>)"></HomeMain>
 </template>
 
 <script lang="ts" setup>
-import { type ThingType } from "@/composables/index";
-const thingList = ref<Array<ThingType>>();
+import { type BlogType } from "@/composables/index";
+const thingList = ref<Array<BlogType>>();
 const emits = defineEmits(['contentChange'])
 
-thingList.value = (await getIntersetThingList()).data.records;
+thingList.value = (await getBlogList()).data.records;
 
 useHead({
   meta: [

@@ -20,6 +20,9 @@ dependencies:
   nuxt:
     specifier: ^3.16.2
     version: 3.17.1(sass@1.87.0)(typescript@5.8.3)(vite@6.3.3)
+  qs:
+    specifier: ^6.14.0
+    version: 6.14.0
   vue:
     specifier: ^3.5.13
     version: 3.5.13(typescript@5.8.3)

@@ -20,11 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import { type ThingType } from "~~/composables";
+import { type BlogType } from "~~/composables";
 
 const props = defineProps({
   thingList: {
-    type: Array<ThingType>,
+    type: Array<BlogType>,
     required: true,
   },
 });

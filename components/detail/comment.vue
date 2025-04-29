@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import {type PinglunItemType } from "~~/composables";
+import {type CommentType } from "~~/composables";
 import { multiavatar } from "~~/public/avatar";
 const props = defineProps({
   article_id: {
@@ -71,10 +71,10 @@ const props = defineProps({
 });
 const emits = defineEmits(['commentNum'])
 // 获取评论的数量和内容
-const commentText = ref<Array<PinglunItemType>>([]);
+const commentText = ref<Array<CommentType>>([]);
 const commentNum = ref(0);
 const getComment = async () => {
-  const pingLunData = await getPingLun({ id: props.article_id });
+  const pingLunData = await getCommentList({ id: props.article_id });
   commentText.value = pingLunData.data.list;
   commentNum.value = pingLunData.data.total || 0;
   emits('commentNum', commentNum.value)

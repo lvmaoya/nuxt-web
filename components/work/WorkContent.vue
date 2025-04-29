@@ -6,12 +6,12 @@
 </template>
 
 <script setup lang="ts">
-import { type ArticleItemResType } from "~~/composables";
+import { type BlogType } from "~~/composables";
 
 const props = defineProps({
   list: {
     required: false,
-    type: Array<ArticleItemResType>,
+    type: Array<BlogType>,
   },
 });
 

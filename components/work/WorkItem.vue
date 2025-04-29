@@ -23,9 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import { type ArticleItemResType } from "~~/composables";
+import { type BlogType } from "~~/composables";
 const props = defineProps<{
-  item: ArticleItemResType;
+  item: BlogType;
   index: number
 }>();
 

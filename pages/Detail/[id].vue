@@ -30,26 +30,24 @@
       </div>
     </div>
     <div class="comment">
-      <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment>
+      <!-- <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment> -->
     </div>
     <!-- <ScrollTop></ScrollTop> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { type ArticleResType } from "~~/composables";
+import { type BlogType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
 const route = useRoute();
 const articleId = Number(route.params.id);
 // 请求浏览量和点赞数据
-let preferNum = ref(0);
 let pageview = ref(0);
 let commentNum = ref(0)
 // 请求详情页数据  文本内容和数据详情
-const articleDetail = ref<ArticleResType>();
+const articleDetail = ref<BlogType>();
 const articleDetailRes = await getArticleDetail(articleId);
 articleDetail.value = articleDetailRes.data
-preferNum.value = articleDetailRes.data.preferNum;
 pageview.value = articleDetailRes.data.pageView;
 
 useHead({
@@ -68,6 +66,9 @@ const editor = ref()
 const preview = ref()
 watch(editor, (newVal, val) => {
   preview.value = document.querySelector('.v-md-editor-preview')
+  if (!preview.value) {
+    return;
+  }
   const anchors = preview.value.querySelectorAll('h1,h2,h3,h4,h5,h6');
   //@ts-ignore
   const titles = Array.from(anchors).filter((title) => !!title.innerText.trim());

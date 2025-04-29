@@ -23,7 +23,7 @@
         <div class="recentPost item">
           <div class="title">RECENT POSTS</div>
           <ul>
-            <li v-for="item in recentArticleList"><a :href="'/detail/' + item.article_id">{{
+            <li v-for="item in recentArticleList"><a :href="'/detail/' + item.id">{{
               item.title
             }}</a></li>
           </ul>
@@ -55,9 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import { type ArticleItemResType } from "@/composables/index";
-const recentArticleList = ref<Array<ArticleItemResType>>();
-recentArticleList.value = (await getRecentUpdate()).data.records;
+import { type BlogType } from "@/composables/index";
+const recentArticleList = ref<Array<BlogType>>();
+recentArticleList.value = (await getBlogList()).data.records;
 
 const audio = ref()
 const currentTime = ref(0)

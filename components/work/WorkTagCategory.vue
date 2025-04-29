@@ -42,7 +42,7 @@ let fatherPageCategory = "tech_article";
 // 文章类别列表
 let categoryList = ref<Array<CategoryItemType>>();
 
-categoryList.value = (await getArticleCategoryList(2)).data.records;
+categoryList.value = (await getBlogList(2)).data.records;
 
 const dateRange = ref([
   {

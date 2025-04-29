@@ -14,7 +14,6 @@
 </template>
 
 <script lang="ts" setup>
-import { type ArticleListResType, type CategoryItemType, type searchConfigType } from "~~/composables";
 // 分页
 let currentPage = ref(1);
 let total = ref(0);
@@ -22,11 +21,11 @@ let size = ref(9999);
 
 // 文章类别列表
 let categoryList = ref<Array<Object>>([]);
-categoryList.value = (await getArticleCategoryList(2)).data.records;
+categoryList.value = (await getBlogList(2)).data.records;
 
 // 文章列表数据
-let articleList = ref<Array<ArticleItemResType>>();
-let res = (await getWorkArticleList({ current: currentPage.value, size: size.value })).data;
+let articleList = ref<Array<BlogType>>();
+let res = (await getBlogList({ current: currentPage.value, size: size.value })).data;
 articleList.value = res.records;
 total.value = res.total;
 
@@ -35,12 +34,12 @@ const clickCategoryId = ref();
 const categoryTagClick = async (val: number) => {  
   clickCategoryId.value = val;
   if (val == -1) {
-    let res = (await getWorkArticleList({ currentPage: currentPage.value, size: size.value })).data;
+    let res = (await getBlogList({ currentPage: currentPage.value, size: size.value })).data;
     articleList.value = res.records;
     total.value = res.total;
     return;
   }
-  const articleByCategoryData = await getArticleByCategoryData({
+  const articleByCategoryData = await getBlogList({
     category_id: clickCategoryId.value,
     currentPage: currentPage.value,
     size: size.value,
@@ -57,13 +56,13 @@ const dateRangeClick = async (val: any) => {
   // total.value = articleByDateRangeData.data.total;
 };
 // 点击搜索按钮
-const userInput = ref<searchConfigType>();
-const handleSearchBtnClick = async (searchData: searchConfigType) => {
+const userInput = ref<Object>();
+const handleSearchBtnClick = async (searchData: Object) => {
   currentPage.value = 1;
   searchData = { ...searchData, currentPage: currentPage.value, size: size.value };
   userInput.value = searchData;
 
-  const resArticlesData = await searchArticle(searchData);
+  const resArticlesData = await getBlogList(searchData);
   articleList.value = resArticlesData.data.records;
   total.value = resArticlesData.data.total;
 };
