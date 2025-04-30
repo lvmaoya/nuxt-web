@@ -6,8 +6,8 @@
 -->
 <template>
   <ul>
-    <li v-for="item in props.blogList" :key="item.article_id">
-      <a :href="'/detail/' + item.article_id">
+    <li v-for="item in props.blogList" :key="item.id">
+      <a :href="'/detail/' + item.id">
         <div class="img">
           <img :src="item.coverImage" alt="" />
         </div>
@@ -31,7 +31,7 @@
 const props = defineProps({
   blogList: {
     required: true,
-    type: Object,
+    type: Array<BlogType>,
   },
 });
 </script>

@@ -1,4 +1,7 @@
-export const formatDate = function (dateString: string) {
+export const formatDate = function (dateString: string | null | undefined) {
+  if (!dateString) {
+    return "";
+  }
   let date = new Date(dateString.replace(/-/g, "/")); //Wed Jan 02 2019 00:00:00 GMT+0800 (China Standard Time)
 
   let chinaDate = date.toDateString(); //"Tue, 01 Jan 2019 16:00:00 GMT"

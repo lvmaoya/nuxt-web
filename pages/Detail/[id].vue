@@ -1,36 +1,23 @@
 <template>
-  <div class="detailArticle" ref="detailArticle">
+  <div class="detailArticle">
     <div class="inner">
       <div class="content">
         <div class="desc">
           <div class="title">{{ articleDetail?.title }}</div>
-          <div class="date">Published on {{ formatDate(articleDetail!.publishedTime) }}, with {{ pageview > 1 ?
-            pageview
-            + ' views' : pageview + ' view' }} and {{
-              commentNum > 1 ? commentNum + ' comments' : commentNum + ' comment' }}
+          <div class="date">Published on {{ formatDate(articleDetail?.publishedTime) }}, with {{ articleDetail?.pageView  + ' view(s)'}} and {{
+              commentNum + ' comment(s)' }}
           </div>
         </div>
         <article>
           <ClientOnly>
-            <v-md-preview :text="articleDetail?.content" ref="editor"></v-md-preview>
+            <div v-html="articleDetail?.content"></div>
           </ClientOnly>
         </article>
         <!-- <LazyDetailFooterBar :articleId="articleId"></LazyDetailFooterBar> -->
       </div>
-      <div class="navContent">
-        <div class="navigation">
-          <ul>
-            <li v-for="anchor in v_titles"
-              :class="{ level1: anchor.indent == 0, level2: anchor.indent == 1, level3: anchor.indent == 2 }"
-              @click="handleAnchorClick(anchor)">
-              <a style="cursor: pointer">{{ anchor.title }}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
     <div class="comment">
-      <!-- <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment> -->
+      <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment>
     </div>
     <!-- <ScrollTop></ScrollTop> -->
   </div>
@@ -42,13 +29,12 @@ import { formatDate } from "~~/utils/formatTime";
 const route = useRoute();
 const articleId = Number(route.params.id);
 // 请求浏览量和点赞数据
-let pageview = ref(0);
 let commentNum = ref(0)
+
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
 const articleDetailRes = await getArticleDetail(articleId);
 articleDetail.value = articleDetailRes.data
-pageview.value = articleDetailRes.data.pageView;
 
 useHead({
   title: articleDetail.value.title,
@@ -60,71 +46,6 @@ useHead({
     },
   ],
 });
-const detailArticle = ref()
-const v_titles = ref()
-const editor = ref()
-const preview = ref()
-watch(editor, (newVal, val) => {
-  preview.value = document.querySelector('.v-md-editor-preview')
-  if (!preview.value) {
-    return;
-  }
-  const anchors = preview.value.querySelectorAll('h1,h2,h3,h4,h5,h6');
-  //@ts-ignore
-  const titles = Array.from(anchors).filter((title) => !!title.innerText.trim());
-
-  if (!titles.length) {
-    v_titles.value = [];
-    return;
-  }
-  //@ts-ignore
-  const hTags = Array.from(new Set(titles.map((title) => title.tagName))).sort();
-
-  v_titles.value = titles.map((el) => ({
-    //@ts-ignore
-    title: el.innerText,
-    //@ts-ignore
-    lineIndex: el.getAttribute('data-v-md-line'),
-    //@ts-ignore
-    indent: hTags.indexOf(el.tagName),
-  }));
-})
-
-const handleAnchorClick = (anchor: any) => {
-  const { lineIndex } = anchor;
-  const heading = preview.value.querySelector(`[data-v-md-line="${lineIndex}"]`);
-  if (heading) {
-    editor.value.scrollToTarget({
-      target: heading,
-      scrollContainer: window,
-      top: 60,
-    });
-  }
-}
-
-onMounted(() => {
-  const changePV = debounce(async () => {
-    await changePVData({ id: articleId });
-  }, 0);
-  // 访问数量控制
-  const pvArticle = ref<Array<number>>([]);
-
-  pvArticle.value = cookie.returnArrCookie("pvArticle") as number[];
-  const changePageView = () => {
-    if (pvArticle.value.length === 0) {
-      changePV();
-      cookie.setArrCookie("pvArticle", articleId, 1);
-    } else {
-      if (pvArticle.value.includes(articleId)) {
-      } else {
-        changePV();
-        cookie.setArrCookie("pvArticle", articleId, 1);
-      }
-    }
-  };
-  // // 正确的做法是需要保证changepageview在前面，getprefernum在后面
-  changePageView();
-})
 const getCommentNum = (value: number) => {
   commentNum.value = value
 }

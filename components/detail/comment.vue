@@ -3,7 +3,7 @@
     <div class="userInput">
       <div class="userInfo">
         <ul>
-          <li><input type="text" placeholder="name" v-model="userName" maxlength="12" ref="userNameRef"></li>
+          <li><input type="text" placeholder="name" v-model="username" maxlength="12" ref="userNameRef"></li>
           <li><input type="text" placeholder="email" v-model="email" ref="emailRef"></li>
           <li><input type="text" placeholder="site" v-model="site"></li>
         </ul>
@@ -12,14 +12,14 @@
         <textarea name="commentContent" v-model="textareaText" ref="textareaRef" id="commentContent"
           placeholder="welcome your comment!" maxlength="1000"></textarea>
         <div class="comment-operate-r">
-          <button class="btnComment" @click="handleCommentClick">submit</button>
+          <button class="btnComment" @click="handleCommentClick">Submit</button>
         </div>
       </div>
     </div>
     <div class="commentContent">
       <div class="commentListBox">
         <ul>
-          <li class="commentLi" v-for="item in commentText" :key="item.commentary_id">
+          <li class="commentLi" v-for="item in commentList" :key="item.id">
             <div class="commentListItem">
               <div class="userImg" v-html="multiavatar(item.avatar)"></div>
               <div class="right-box">
@@ -27,16 +27,16 @@
                   <div class="comment-top">
                     <div class="user-box">
                       <div class="name">
-                        <div class="commentName">{{ item.user_name }}</div>
-                        <div v-if="item.comment_type == 1" class="anwserName">
+                        <div class="commentName">{{ item.username }}</div>
+                        <div v-if="item.type == 1" class="anwserName">
                           <span class="answerText">reply</span>
                           <span class="anwserNameContent">
-                            {{ item.to_name }}
+                            {{ item.toCommentId }}
                           </span>
                         </div>
                       </div>
                       <div class="date">
-                        {{ item.created_time.replace(/:[^:]*$/, '') }}
+                        {{ item.createdTime.replace(/:[^:]*$/, '') }}
                       </div>
                     </div>
 
@@ -46,7 +46,7 @@
                   </div>
                 </div>
               </div>
-              <div class="response-box" @click="handleResponseSBClick(item.commentary_id, item.user_name)">
+              <div class="response-box" @click="handleResponseSBClick(item.id, item.username)">
                 <svg class="icon" aria-hidden="true">
                   <use xlink:href="#icon-xiazai16"></use>
                 </svg>
@@ -64,18 +64,18 @@
 import {type CommentType } from "~~/composables";
 import { multiavatar } from "~~/public/avatar";
 const props = defineProps({
-  article_id: {
+  articleId: {
     required: true,
     type: Number,
   },
 });
 const emits = defineEmits(['commentNum'])
 // 获取评论的数量和内容
-const commentText = ref<Array<CommentType>>([]);
+const commentList = ref<Array<CommentType>>([]);
 const commentNum = ref(0);
 const getComment = async () => {
-  const pingLunData = await getCommentList({ id: props.article_id });
-  commentText.value = pingLunData.data.list;
+  const pingLunData = await getCommentList({ articleId: props.articleId });
+  commentList.value = pingLunData.data.records;
   commentNum.value = pingLunData.data.total || 0;
   emits('commentNum', commentNum.value)
 };
@@ -97,22 +97,22 @@ const makeAvatar = () => {
 // 评论
 let textareaText = ref("");
 let textareaRef = ref()
-const userName = ref()
+const username = ref()
 const userNameRef = ref()
-const to_user_name = ref();
-const to_id = ref();
+const toUsername = ref();
+const toCommentId = ref();
 const email = ref()
 const emailRef = ref()
 const site = ref()
 // 获取用户头像姓名邮箱网址
 if (process.client) {
   makeAvatar()
-  userName.value = cache.getCache("un") || "";
+  username.value = cache.getCache("un") || "";
   email.value = cache.getCache('em') || ""
   site.value = cache.getCache('st') || ""
 }
 onMounted(() => {
-  if (userName.value && email.value) {
+  if (username.value && email.value) {
     userNameRef.value.disabled = true
     emailRef.value.disabled = true
   }
@@ -126,9 +126,7 @@ const handleCommentClick = async () => {
     return;
   }
 
-  console.log(userName.value)
-  console.log(email.value)
-  if (userName.value === "") {
+  if (username.value === "") {
     userNameRef.value.focus()
     return;
   }
@@ -136,35 +134,38 @@ const handleCommentClick = async () => {
     emailRef.value.focus()
     return;
   }
+  
   // 判断是否在回复别人
-  if (textareaText.value.includes(`@` + to_user_name.value + "：")) {
-    textareaText.value = textareaText.value.replace(`@` + to_user_name.value + "：", "");
+  if (textareaText.value.includes(`@` + toUsername.value + "：")) {
+    textareaText.value = textareaText.value.replace(`@` + toUsername.value + "：", "");
     // 回复空判
     if (textareaText.value === "" || textareaText.value.replace(/\s*/g, "") === "") {
-      textareaText.value = `@` + to_user_name.value + "：";
+      textareaText.value = `@` + toUsername.value + "：";
       textareaRef.value.focus();
       return;
     }
   } else {
-    to_id.value = undefined;
-    to_user_name.value = "";
+    toCommentId.value = undefined;
+    toUsername.value = "";
   }
   // 评论人：最长十个字,头像：一串数字，时间，to_id
   let comment = {
-    articleId: props.article_id,
-    to_id: to_id.value || undefined,
-    to_name: to_user_name.value || undefined,
-    userName: userName.value,
+    articleId: props.articleId,
+    type: 1,
     avatar: avatarValue,
     content: textareaText.value,
-    created_time: new Date().toLocaleString(),
-    comment_type: 1,
+    rootCommentId: 0, // 回复的评论id，如果是根评论则为null，如果是子评论则为父评论的id
+    toCommentId: toCommentId.value || undefined,
+
+    username: username.value,
     email: email.value,
     site: site.value
   };
 
-  if (to_id.value === null || to_id.value === undefined) {
-    comment.comment_type = 0;
+  if (!toCommentId.value) {
+    comment.type = 0;
+  }else{
+    commentList.value.find((item) => item.id === toCommentId.value)
   }
   const commentRes = await commitComment(comment);
   if (commentRes.code === 0) {
@@ -172,27 +173,18 @@ const handleCommentClick = async () => {
     getComment();
     textareaText.value = "";
     cache.setCache("avatar", avatarValue);
-    cache.setCache("un", userName.value);
+    cache.setCache("un", username.value);
     cache.setCache("em", email.value);
     cache.setCache("st", site.value);
     userNameRef.value.disabled = true
     emailRef.value.disabled = true
-  } else {
-    // ElNotification({
-    //   message: "评论失败！",
-    //   duration: 2000,
-    //   type: "error",
-    //   showClose: false,
-    // });
   }
-
-
 };
-const handleResponseSBClick = (user_id: number, user_name: string) => {
-  textareaText.value = "@" + user_name + "：";
+const handleResponseSBClick = (id: number, name: string) => {
+  textareaText.value = "@" + name + "：";
   textareaRef.value.focus();
-  to_id.value = user_id;
-  to_user_name.value = user_name;
+  toCommentId.value = id;
+  toUsername.value = name;
 };
 </script>
 <style scoped lang="scss">
@@ -301,37 +293,25 @@ const handleResponseSBClick = (user_id: number, user_name: string) => {
         box-sizing: border-box;
 
         .btnComment {
-          display: block;
+          display: flex;
           width: 60px;
-          height: 24px;
+          height: fit-content;
           background: #6e8efb;
           color: white;
           border-radius: 16px;
           font-size: 14px;
-          text-align: center;
-          line-height: 24px;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
           border: none;
           position: relative;
-
-          &::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: inherit;
-            transition: .5s;
-            opacity: 0;
-            box-shadow: 0 0 6px 10px #6e8efb;
-            left: 0;
-
+          padding: 4px 8px;
+          transition: all 0.2s ease-in-out;
+          &:hover {
+            background: #5a7ceb;
           }
-
-          // &:hover::after {}
-
-          &:active::after {
-            box-shadow: none;
-            opacity: 1;
-            transition: 0s;
+          &:active {
+            transform: scale(0.9);
           }
         }
       }

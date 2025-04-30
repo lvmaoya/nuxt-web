@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type BlogType, type searchConfigType } from "~~/composables";
+import { type BlogType } from "~~/composables";
 
 let blogList = ref<Array<BlogType>>([]);
 // 分页
@@ -38,16 +38,15 @@ const handleCurrentPageChange = async (val: number) => {
       total.value = blogData.total;
       break;
     case 2:
-      (userInput.value as searchConfigType).currentPage = currentPage.value;
-      blogData = (await getBlogList(userInput.value as searchConfigType)).data;
+      blogData = (await getBlogList(userInput.value)).data;
       blogList.value = blogData.records;
       total.value = blogData.total;
       break;
   }
 };
 const doCategory = ref(1);
-const userInput = ref<searchConfigType>();
-const handleSearchBtnClick = async (searchData: searchConfigType) => {
+const userInput = ref<Object>();
+const handleSearchBtnClick = async (searchData: Object) => {
   doCategory.value = 2;
   currentPage.value = 1;
   searchData = { ...searchData, currentPage: currentPage.value, size: size.value };
