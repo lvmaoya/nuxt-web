@@ -98,7 +98,7 @@ export function getArticleDetail(id: number) {
 }
 
 export function changePVData(config: Object) {
-  return Http.post<ResponseConfig<object>>("/h5/changePVData", config);
+  return Http.post<ResponseConfig<any>>("/h5/changePVData", config);
 }
 
 export function getCommentList(data: Object) {
@@ -106,5 +106,5 @@ export function getCommentList(data: Object) {
 }
 
 export function commitComment(data: Object) {
-  return Http.post<ResponseConfig<object>>("/h5/comment", data);
+  return Http.post<ResponseConfig<any>>("/h5/comment", data);
 }

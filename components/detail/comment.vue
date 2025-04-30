@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import {type CommentType } from "~~/composables";
+import { type CommentType } from "~~/composables";
 import { multiavatar } from "~~/public/avatar";
 const props = defineProps({
   articleId: {
@@ -116,7 +116,7 @@ onMounted(() => {
     userNameRef.value.disabled = true
     emailRef.value.disabled = true
   }
-  
+
 })
 const handleCommentClick = async () => {
   // 检测为空不，检测是否有用户名
@@ -134,7 +134,7 @@ const handleCommentClick = async () => {
     emailRef.value.focus()
     return;
   }
-  
+
   // 判断是否在回复别人
   if (textareaText.value.includes(`@` + toUsername.value + "：")) {
     textareaText.value = textareaText.value.replace(`@` + toUsername.value + "：", "");
@@ -164,21 +164,24 @@ const handleCommentClick = async () => {
 
   if (!toCommentId.value) {
     comment.type = 0;
-  }else{
-    commentList.value.find((item) => item.id === toCommentId.value)
+  } else {
+    let item = commentList.value.find((item) => item.id === toCommentId.value)
+    if (item) {
+      comment.rootCommentId = item.rootCommentId || item.id;
+    }
   }
+  console.log(comment);
   const commentRes = await commitComment(comment);
-  if (commentRes.code === 0) {
-    // 重新获取评论
-    getComment();
-    textareaText.value = "";
-    cache.setCache("avatar", avatarValue);
-    cache.setCache("un", username.value);
-    cache.setCache("em", email.value);
-    cache.setCache("st", site.value);
-    userNameRef.value.disabled = true
-    emailRef.value.disabled = true
-  }
+  console.log(commentRes);
+  // 重新获取评论
+  getComment();
+  textareaText.value = "";
+  cache.setCache("avatar", avatarValue);
+  cache.setCache("un", username.value);
+  cache.setCache("em", email.value);
+  cache.setCache("st", site.value);
+  userNameRef.value.disabled = true
+  emailRef.value.disabled = true
 };
 const handleResponseSBClick = (id: number, name: string) => {
   textareaText.value = "@" + name + "：";
@@ -307,9 +310,11 @@ const handleResponseSBClick = (id: number, name: string) => {
           position: relative;
           padding: 4px 8px;
           transition: all 0.2s ease-in-out;
+
           &:hover {
             background: #5a7ceb;
           }
+
           &:active {
             transform: scale(0.9);
           }
