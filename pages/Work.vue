@@ -3,7 +3,8 @@
     <div class="inner">
       <div class="controller">
         <Search @search-btn-click="handleSearchBtnClick">
-          <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick" :article-list="articleList"></WorkTagCategory>
+          <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick"
+            :article-list="articleList"></WorkTagCategory>
         </Search>
       </div>
       <WorkContent v-if="total > 0" :list="articleList"></WorkContent>
@@ -20,43 +21,36 @@ let total = ref(0);
 let size = ref(9999);
 
 // 文章列表数据
-let articleList = ref<Array<BlogType>>();
+let articleList = ref<Array<BlogType>>([]);
+let cacheList = ref<Array<BlogType>>([]);
 let res = (await getBlogList({ current: currentPage.value, size: size.value, category: 2 })).data;
+
 articleList.value = res.records;
+cacheList.value = [...res.records];
 total.value = res.total;
 
 // 点击分类标签
-const clickCategoryId = ref();
-const categoryTagClick = async (val: number) => {  
-  clickCategoryId.value = val;
+const categoryTagClick = async (val: number) => {
   if (val == -1) {
-    let res = (await getBlogList({ currentPage: currentPage.value, size: size.value, category: 2  })).data;
-    articleList.value = res.records;
-    total.value = res.total;
-    return;
+    articleList.value = cacheList.value;
+  } else {
+    articleList.value = cacheList.value?.filter((item: BlogType) => item.categoryId == val);
   }
-  const articleByCategoryData = await getBlogList({
-    category_id: clickCategoryId.value,
-    currentPage: currentPage.value,
-    size: size.value,
-  });
-  articleList.value = articleByCategoryData.data.records;
-  total.value = articleByCategoryData.data.total;
 };
 const dateRangeClick = async (val: any) => {
-  // const articleByDateRangeData = await getArticleByDateRangeData({
-  //   start: val.start,
-  //   end: val.end
-  // });
-  // articleList.value = articleByDateRangeData.data;
-  // total.value = articleByDateRangeData.data.total;
+  if (val == -1) {
+    articleList.value = [...cacheList.value];
+  } else {
+    articleList.value = cacheList.value?.filter((item: BlogType) => {
+      return new Date(item.publishedTime).getTime() >= val.start && new Date(item.publishedTime).getTime() <= val.end;
+    });
+  }
+
 };
 // 点击搜索按钮
-const userInput = ref<Object>();
-const handleSearchBtnClick = async (searchData: Object) => {
+const handleSearchBtnClick = async (searchData: any) => {
   currentPage.value = 1;
-  searchData = { ...searchData, currentPage: currentPage.value, size: size.value };
-  userInput.value = searchData;
+  searchData = { keywords: searchData, currentPage: currentPage.value, size: size.value };
 
   const resArticlesData = await getBlogList(searchData);
   articleList.value = resArticlesData.data.records;

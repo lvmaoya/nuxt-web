@@ -4,7 +4,6 @@
       文章分类
     </div>
     <ul class="category">
-      {{ categoryList }}
       <li @mousedown="handleCategoryClick(-1)">
         <a>全部</a>
       </li>
@@ -13,13 +12,14 @@
       </li>
     </ul>
     <div class="title" style="margin-top: 20px;">
-      更新时间(暂不支持)
+      更新时间
     </div>
     <ul class="category">
-      <li @mousedown="handleCategoryClick(-1)">
+      <li @mousedown="handleDateRangeClick(-1)">
         <a>全部</a>
       </li>
-      <li v-for="item in dateRange" :key="item.label" @mousedown.stop="">
+      <li v-for="item in dateRange" :key="item.label"
+        @mousedown.stop="handleDateRangeClick({ start: item.start, end: item.end })">
         <a> {{ item.label }} </a>
       </li>
     </ul>
@@ -74,19 +74,21 @@ const dateRange = ref([
 ]);
 // 获取分类列表并计算每个分类的文章数量
 const initCategoryList = async () => {
-  const categories = (await getCategoryList({fatherCategoryId: 2})).data;
+  if(categoryList.value) return;
+  const categories = (await getCategoryList({ fatherCategoryId: 2 })).data;
+
   if (props.articleList && categories && props.articleList) {
     categories.forEach(category => {
       category.count = props.articleList?.filter(article => article.categoryId === category.id).length;
     });
   }
-  categoryList.value = categories;  
+  categoryList.value = categories;
 };
 
 // 监听文章列表变化，重新计算分类数量
-watch(() => props.articleList, () => {  
+watch(() => props.articleList, (newVal, oldVal) => {
   initCategoryList();
-}, { deep: true });
+}, { deep: true, immediate: true });
 </script>
 
 <style scoped lang="scss">

@@ -37,7 +37,7 @@ const handleBlur = () => {
 const searchData = ref("");
 const handleSearchBtnClick = () => {
   isFocused.value = false;
-  emit("searchBtnClick", { searchData: searchData.value });
+  emit("searchBtnClick", searchData.value );
 };
 </script>
 
