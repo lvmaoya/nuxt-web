@@ -7,8 +7,7 @@
             :article-list="articleList"></WorkTagCategory>
         </Search>
       </div>
-      <WorkContent v-if="total > 0" :list="articleList"></WorkContent>
-      <NoData v-else></NoData>
+      <WorkContent :list="articleList"></WorkContent>
     </div>
     <Pagination :current-page="currentPage" :total="total" :size="size"></Pagination>
   </div>
@@ -18,43 +17,31 @@
 // 分页
 let currentPage = ref(1);
 let total = ref(0);
-let size = ref(9999);
+let size = ref(20);
 
 // 文章列表数据
 let articleList = ref<Array<BlogType>>([]);
-let cacheList = ref<Array<BlogType>>([]);
-let res = (await getBlogList({ current: currentPage.value, size: size.value, category: 2 })).data;
 
-articleList.value = res.records;
-cacheList.value = [...res.records];
-total.value = res.total;
+const getArticles = async (params: any = {}) => {
+  let res = (await getBlogList({ current: currentPage.value, size: size.value, ...params })).data;
+  articleList.value = res.records;
+  total.value = res.total;
+}
+getArticles();
 
 // 点击分类标签
 const categoryTagClick = async (val: number) => {
-  if (val == -1) {
-    articleList.value = cacheList.value;
-  } else {
-    articleList.value = cacheList.value?.filter((item: BlogType) => item.categoryId == val);
-  }
+  currentPage.value = 1;
+  getArticles({ categoryId: val == -1 ? null : val });
 };
 const dateRangeClick = async (val: any) => {
-  if (val == -1) {
-    articleList.value = [...cacheList.value];
-  } else {
-    articleList.value = cacheList.value?.filter((item: BlogType) => {
-      return new Date(item.publishedTime).getTime() >= val.start && new Date(item.publishedTime).getTime() <= val.end;
-    });
-  }
-
+  currentPage.value = 1;
+  getArticles(val == -1 ? null : val);
 };
 // 点击搜索按钮
-const handleSearchBtnClick = async (searchData: any) => {
+const handleSearchBtnClick = async (searchData: String) => {
   currentPage.value = 1;
-  searchData = { keywords: searchData, currentPage: currentPage.value, size: size.value };
-
-  const resArticlesData = await getBlogList(searchData);
-  articleList.value = resArticlesData.data.records;
-  total.value = resArticlesData.data.total;
+  getArticles(searchData ? { keywords: searchData } : null);
 };
 
 </script>

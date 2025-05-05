@@ -1,6 +1,7 @@
 <template>
-  <div class="workActicleContent">
+  <div class="content">
     <WorkItem v-for="(item, index) in props.list" :key="item.id" :item="item" :index="index"></WorkItem>
+    <NoData v-if="props.list?.length === 0"></NoData>
   </div>
 </template>
 
@@ -17,7 +18,7 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-.workActicleContent {
+.content {
   min-height: 50vh;
 }
 </style>

@@ -19,7 +19,7 @@
         <a>全部</a>
       </li>
       <li v-for="item in dateRange" :key="item.label"
-        @mousedown.stop="handleDateRangeClick({ start: item.start, end: item.end })">
+        @mousedown.stop="handleDateRangeClick({ publishedStart: item.start, publishedEnd: item.end })">
         <a> {{ item.label }} </a>
       </li>
     </ul>
@@ -48,28 +48,28 @@ let categoryList = ref<Array<CategoryType>>();
 const dateRange = ref([
   {
     label: "最近一周",
-    start: dayjs().subtract(7, 'day'),
-    end: dayjs()
+    start: dayjs().subtract(7, 'day').format('YYYY-MM-DD'),
+    end: dayjs().format('YYYY-MM-DD')
   },
   {
     label: "最近一个月",
-    start: dayjs().subtract(1, 'month'),
-    end: dayjs()
+    start: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+    end: dayjs().format('YYYY-MM-DD')
   },
   {
     label: "最近三个月",
-    start: dayjs().subtract(3, 'month'),
-    end: dayjs()
+    start: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
+    end: dayjs().format('YYYY-MM-DD')
   },
   {
     label: "本月",
-    start: dayjs().startOf('month'),
-    end: dayjs().endOf('month')
+    start: dayjs().startOf('month').format('YYYY-MM-DD'),
+    end: dayjs().endOf('month').format('YYYY-MM-DD')
   },
   {
     label: "今年",
-    start: dayjs().startOf('year'),
-    end: dayjs().endOf('year')
+    start: dayjs().startOf('year').format('YYYY-MM-DD'),
+    end: dayjs().endOf('year').format('YYYY-MM-DD')
   }
 ]);
 // 获取分类列表并计算每个分类的文章数量
