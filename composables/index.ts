@@ -71,9 +71,11 @@ export interface CommentType {
   username: string;             // 评论人用户名
   avatar: string;               // 头像（可能是URL或ID）
   email: string;                // 邮箱
-  site: string;                 // 个人网站
+  site: string;                // 个人网站
   createdTime: string;          // 创建时间（ISO格式）
   updatedTime: string;          // 更新时间（ISO格式）
+  children?: CommentType[];     // 子评论
+  toCommentUser?: string;
 }
 export interface BlogType {
   id: number;

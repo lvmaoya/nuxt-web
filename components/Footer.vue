@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import { type BlogType } from "@/composables/index";
 const recentArticleList = ref<Array<BlogType>>();
-recentArticleList.value = (await getBlogList()).data.records;
+recentArticleList.value = (await getBlogList({size: 6})).data.records;
 
 const audio = ref()
 const currentTime = ref(0)

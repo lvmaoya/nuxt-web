@@ -52,6 +52,40 @@
                 </svg>
               </div>
             </div>
+            <div class="reply-comments" v-if="item.children && item.children.length > 0">
+              <div class="commentListItem" v-for="reply in item.children" :key="reply.id">
+                <div class="userImg" v-html="multiavatar(reply.avatar)"></div>
+                <div class="right-box">
+                  <div class="new-info-box">
+                    <div class="comment-top">
+                      <div class="user-box">
+                        <div class="name">
+                          <div class="commentName">{{ reply.username }}</div>
+                          <div v-if="reply.type == 1" class="anwserName">
+                            <span class="answerText">reply</span>
+                            <span class="anwserNameContent">
+                              {{ reply.toCommentUser }}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="date">
+                          {{ reply.createdTime.replace(/:[^:]*$/, '') }}
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="comment-center">
+                      <div class="new-comment">{{ reply.content }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="response-box" @click="handleResponseSBClick(reply.id, reply.username)">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xiazai16"></use>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
         <div class="commentLookMore"></div>
@@ -74,10 +108,40 @@ const emits = defineEmits(['commentNum'])
 const commentList = ref<Array<CommentType>>([]);
 const commentNum = ref(0);
 const getComment = async () => {
-  // const pingLunData = await getCommentList({ articleId: props.articleId });
-  // commentList.value = pingLunData.data.records;
-  // commentNum.value = pingLunData.data.total || 0;
-  // emits('commentNum', commentNum.value)
+  const pingLunData = await getCommentList({ articleId: props.articleId });
+  let records = pingLunData.data.records;
+
+  // 整理评论数据结构
+  const commentMap = new Map();
+  // 先找出所有根评论
+  const rootComments = records.filter(item => item.type === 0);
+
+  // 将根评论放入 Map
+  rootComments.forEach(root => {
+    commentMap.set(root.id, {
+      ...root,
+      children: []
+    });
+  });
+
+  // 处理回复评论
+  const replyComments = records.filter(item => item.type === 1);
+  replyComments.forEach(reply => {
+    // 找到被回复的评论
+    const toComment = records.find(item => item.id === Number(reply.toCommentId));
+    // 添加被回复用户的名称
+    reply.toCommentUser = toComment ? toComment.username : '';
+    
+    const rootComment = commentMap.get(reply.rootCommentId);
+    if (rootComment) {
+      rootComment.children.push(reply);
+    }
+  });
+  // 转换回数组形式
+  commentList.value = Array.from(commentMap.values());
+
+  commentNum.value = pingLunData.data.total || 0;
+  emits('commentNum', commentNum.value)
 };
 getComment()
 // 生成头像
@@ -425,7 +489,7 @@ const handleResponseSBClick = (id: number, name: string) => {
 
         .response-box {
           opacity: 0;
-          transition: opacity 0.5s;
+          transition: opacity 0.2s;
           cursor: pointer;
           margin-top: auto;
           margin-bottom: 16px;
@@ -442,6 +506,9 @@ const handleResponseSBClick = (id: number, name: string) => {
           opacity: 1;
           ;
         }
+      }
+      .reply-comments{
+        padding-left: 20px;
       }
     }
 
