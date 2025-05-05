@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import { type BlogType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
+
 const route = useRoute();
 const articleId = Number(route.params.id);
 // 请求浏览量和点赞数据
@@ -49,6 +50,28 @@ useHead({
 const getCommentNum = (value: number) => {
   commentNum.value = value
 }
+const view = async () => {
+  const viewedArticles = localStorage.getItem('pv') || '{}'
+  
+  const viewedList = JSON.parse(viewedArticles)
+  
+  const currentTime = new Date().getTime()
+  const sixHours = 6 * 60 * 60 * 1000 // 6小时的毫秒数
+ 
+  // 检查是否需要更新浏览量
+  const shouldUpdate = !viewedList[articleId] || 
+    (currentTime - viewedList[articleId]) > sixHours
+  
+  if (shouldUpdate) {
+    // 更新访问时间戳
+    viewedList[articleId] = currentTime
+    localStorage.setItem('pv', JSON.stringify(viewedList))
+    changePVData(articleId)
+  }
+}
+onMounted(() => {
+  view()
+})
 </script>
 
 <style scoped lang="scss">

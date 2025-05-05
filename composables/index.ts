@@ -99,8 +99,8 @@ export function getArticleDetail(id: number) {
   return Http.get<ResponseConfig<BlogType>>(`/h5/blog/${id}`);
 }
 
-export function changePVData(config: Object) {
-  return Http.post<ResponseConfig<any>>("/h5/changePVData", config);
+export function changePVData(id: any) {
+  return Http.get<ResponseConfig<any>>(`/h5/blog/${id}/view`);
 }
 
 export function getCommentList(data: Object) {
