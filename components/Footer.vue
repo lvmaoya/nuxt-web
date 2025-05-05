@@ -783,6 +783,7 @@ footer {
       a:hover {
         text-decoration: underline;
         color: #333;
+        transition: all .2s linear;
       }
 
 

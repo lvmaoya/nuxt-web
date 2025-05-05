@@ -65,7 +65,11 @@ const userInfo = (await getUserInfo()).data;
         font-size: 1.3em;
       }
     }
-
+    a:hover {
+        text-decoration: underline;
+        color: #333;
+        transition: all .2s linear;
+      }
     padding: 0 0.5em 0 0;
   }
 }
