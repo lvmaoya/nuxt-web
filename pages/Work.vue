@@ -14,6 +14,9 @@
 </template>
 
 <script lang="ts" setup>
+useHead({
+  title: "lvmaoya"
+});
 // 分页
 let currentPage = ref(1);
 let total = ref(0);

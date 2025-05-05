@@ -11,6 +11,7 @@ const emits = defineEmits(['contentChange'])
 thingList.value = (await getBlogList()).data.records;
 
 useHead({
+  title: "lvmaoya",
   meta: [
     { name: "google-site-verification", content: "rdicKFHUWZtMhhwgAXfrjwCJSXuzRzH6UcmV1gUgj_o" },
   ],

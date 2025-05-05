@@ -42,7 +42,7 @@ useHead({
     { name: "description", content: articleDetail.value.description },
     {
       name: "keywords",
-      content: articleDetail.value.title,
+      content: articleDetail.value.keywords,
     },
   ],
 });

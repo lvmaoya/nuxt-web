@@ -12,7 +12,10 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup>;
+useHead({
+  title: "lvmaoya"
+});
 import { type BlogType } from "~~/composables";
 
 let blogList = ref<Array<BlogType>>([]);
