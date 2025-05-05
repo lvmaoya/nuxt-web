@@ -82,7 +82,6 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
       border: 1px solid transparent;
       width: fit-content;
       color: black;
-      margin-top: 24px;
       font-weight: 400;
       &:before {
         content: "";

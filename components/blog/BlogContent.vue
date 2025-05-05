@@ -87,7 +87,6 @@ ul {
         border-bottom: 1px solid #ffffff;
         transition: all 0.2s;
         color: black;
-        margin-top: 24px;
         font-weight: 400;
         display: block;
         width: fit-content;
