@@ -3,14 +3,14 @@
     <div class="userInput">
       <div class="userInfo">
         <ul>
-          <li><input type="text" placeholder="name" v-model="username" maxlength="12" ref="userNameRef"></li>
-          <li><input type="text" placeholder="email" v-model="email" ref="emailRef"></li>
-          <li><input type="text" placeholder="site" v-model="site"></li>
+          <li><input type="text" placeholder="Name" v-model="username" maxlength="12" ref="userNameRef"></li>
+          <li><input type="text" placeholder="Email" v-model="email" ref="emailRef"></li>
+          <li><input type="text" placeholder="Site" v-model="site"></li>
         </ul>
       </div>
       <div class="userComment">
         <textarea name="commentContent" v-model="textareaText" ref="textareaRef" id="commentContent"
-          placeholder="welcome your comment!" maxlength="1000"></textarea>
+          placeholder="Welcome your comment!" maxlength="1000"></textarea>
         <div class="comment-operate-r">
           <button class="btnComment" @click="handleCommentClick">Submit</button>
         </div>
