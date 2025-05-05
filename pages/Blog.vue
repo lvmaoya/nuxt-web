@@ -22,8 +22,8 @@ let blogList = ref<Array<BlogType>>([]);
 // 分页
 let currentPage = ref(1);
 let total = ref(0);
-let size = ref(8);
-let blogData = (await getBlogList({ currentPage: currentPage.value, size: size.value })).data;
+let size = ref(999);
+let blogData = (await getBlogList({ currentPage: currentPage.value, size: size.value, fatherCategoryId: 3 })).data;
 blogList.value = blogData.records;
 
 total.value = blogData.total;

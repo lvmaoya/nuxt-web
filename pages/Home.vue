@@ -8,7 +8,7 @@ import { type BlogType } from "@/composables/index";
 const thingList = ref<Array<BlogType>>();
 const emits = defineEmits(['contentChange'])
 
-thingList.value = (await getBlogList()).data.records;
+thingList.value = (await getBlogList({fatherCategoryId: 1, size: 999})).data.records;
 
 useHead({
   title: "lvmaoya",
