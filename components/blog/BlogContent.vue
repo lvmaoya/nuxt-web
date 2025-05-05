@@ -41,7 +41,7 @@ ul {
   width: 100%;
   padding-bottom: 50px;
   display: flex;
-  // justify-content: center;
+  min-height: 50vh;
   flex-wrap: wrap;
 
   li {
