@@ -47,7 +47,11 @@ ul {
   li {
     width: 100%;
     list-style: none;
-
+    &:hover {
+      .title .titleContent {
+        border-bottom: 1px solid #4d4d4d;
+      }
+    }
     a {
       display: block;
     }
@@ -80,15 +84,13 @@ ul {
 
       .titleContent {
         cursor: pointer;
-        font-size: 1.1em;
-        font-weight: 500;
-        color: #4d4d4d;
         border-bottom: 1px solid #ffffff;
         transition: all 0.2s;
-
-        &:hover {
-          border-bottom: 1px solid #4d4d4d;
-        }
+        color: black;
+        margin-top: 24px;
+        font-weight: 400;
+        display: block;
+        width: fit-content;
       }
     }
 

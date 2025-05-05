@@ -77,7 +77,7 @@ header {
             transition: color .2s linear;
 
             &:hover {
-              color: #303030;
+              color: #333;
             }
           }
         }
@@ -90,7 +90,7 @@ header {
   }
 
   .active-nav-link {
-    color: #303030 !important;
+    color: #333 !important;
   }
 }
 

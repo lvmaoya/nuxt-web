@@ -69,10 +69,8 @@ onMounted(() => {
       }
 
       .itemTitle h4 {
-        font-size: 1.1em;
         color: black;
         margin-top: 24px;
-        word-spacing: 2px;
         font-weight: 400;
       }
 
