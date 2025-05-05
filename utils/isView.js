@@ -6,6 +6,7 @@ export function isView(ref) {
     return bound.top <= clientHight + 66;
   };
   const lazyLoad = () => {
+    if (!ref.value) return;
     for (let item of ref.value) {
       if (isInSight(item)) {
         const imgBox = item.querySelector(".image");
