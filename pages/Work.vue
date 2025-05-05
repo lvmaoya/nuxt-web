@@ -26,7 +26,7 @@ let size = ref(20);
 let articleList = ref<Array<BlogType>>([]);
 
 const getArticles = async (params: any = {}) => {
-  let res = (await getBlogList({ current: currentPage.value, size: size.value, ...params })).data;
+  let res = (await getBlogList({ current: currentPage.value, size: size.value, ...params, fatherCategoryId: 2 })).data;
   articleList.value = res.records;
   total.value = res.total;
 }

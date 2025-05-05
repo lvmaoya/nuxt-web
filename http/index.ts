@@ -32,16 +32,7 @@ const fetch = (url: string, options?: any): Promise<any> => {
           reject(error.value);
           return;
         }
-        const value = data.value;
-        const result = value && value.data;
-
-        if (!result || value.code == 1) {
-          // 这里处理错误回调
-          resolve(result);
-          $router.replace("/NotFound");
-        } else {
-          resolve(value);
-        }
+        resolve(data.value);
       })
       .catch((err: any) => {
         reject(err);

@@ -74,10 +74,10 @@ const emits = defineEmits(['commentNum'])
 const commentList = ref<Array<CommentType>>([]);
 const commentNum = ref(0);
 const getComment = async () => {
-  const pingLunData = await getCommentList({ articleId: props.articleId });
-  commentList.value = pingLunData.data.records;
-  commentNum.value = pingLunData.data.total || 0;
-  emits('commentNum', commentNum.value)
+  // const pingLunData = await getCommentList({ articleId: props.articleId });
+  // commentList.value = pingLunData.data.records;
+  // commentNum.value = pingLunData.data.total || 0;
+  // emits('commentNum', commentNum.value)
 };
 getComment()
 // 生成头像
@@ -170,9 +170,7 @@ const handleCommentClick = async () => {
       comment.rootCommentId = item.rootCommentId || item.id;
     }
   }
-  console.log(comment);
-  const commentRes = await commitComment(comment);
-  console.log(commentRes);
+  await commitComment(comment);
   // 重新获取评论
   getComment();
   textareaText.value = "";

@@ -48,41 +48,40 @@ let categoryList = ref<Array<CategoryType>>();
 const dateRange = ref([
   {
     label: "最近一周",
-    start: dayjs().subtract(7, 'day').format('YYYY-MM-DD'),
-    end: dayjs().format('YYYY-MM-DD')
+    start: dayjs().subtract(7, 'day').format('YYYY-MM-DD HH:mm:ss'),
+    end: dayjs().format('YYYY-MM-DD HH:mm:ss')
   },
   {
     label: "最近一个月",
-    start: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
-    end: dayjs().format('YYYY-MM-DD')
+    start: dayjs().subtract(1, 'month').format('YYYY-MM-DD HH:mm:ss'),
+    end: dayjs().format('YYYY-MM-DD HH:mm:ss')
   },
   {
     label: "最近三个月",
-    start: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
-    end: dayjs().format('YYYY-MM-DD')
+    start: dayjs().subtract(3, 'month').format('YYYY-MM-DD HH:mm:ss'),
+    end: dayjs().format('YYYY-MM-DD HH:mm:ss')
   },
   {
     label: "本月",
-    start: dayjs().startOf('month').format('YYYY-MM-DD'),
-    end: dayjs().endOf('month').format('YYYY-MM-DD')
+    start: dayjs().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+    end: dayjs().endOf('month').format('YYYY-MM-DD HH:mm:ss')
   },
   {
     label: "今年",
-    start: dayjs().startOf('year').format('YYYY-MM-DD'),
-    end: dayjs().endOf('year').format('YYYY-MM-DD')
+    start: dayjs().startOf('year').format('YYYY-MM-DD HH:mm:ss'),
+    end: dayjs().endOf('year').format('YYYY-MM-DD HH:mm:ss')
   }
 ]);
 // 获取分类列表并计算每个分类的文章数量
 const initCategoryList = async () => {
-  if(categoryList.value) return;
-  const categories = (await getCategoryList({ fatherCategoryId: 2 })).data;
+  let categories = categoryList.value ?? (await getCategoryList({ fatherCategoryId: 2 })).data;
 
-  if (props.articleList && categories && props.articleList) {
+  if (props.articleList && categories) {
     categories.forEach(category => {
-      category.count = props.articleList?.filter(article => article.categoryId === category.id).length;
+      category.count = props.articleList?.filter(article => article.categoryId == category.id).length;
     });
-  }
-  categoryList.value = categories;
+  }  
+  categoryList.value = categories.filter(item => item.id != item.fatherCategoryId);
 };
 
 // 监听文章列表变化，重新计算分类数量
