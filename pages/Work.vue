@@ -8,7 +8,7 @@
       </div>
       <WorkContent :list="articleList"></WorkContent>
     </div>
-    <Pagination :current-page="currentPage" :total="total" :size="size"></Pagination>
+    <Pagination :current-page="currentPage" :total="total" :size="size" @currentPageChange="handleCurrentPageChange"></Pagination>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ let size = ref(20);
 let articleList = ref<Array<BlogType>>([]);
 
 const getArticles = async (params: any = {}) => {
-  let res = (await getBlogList({ current: currentPage.value, size: size.value, ...params, fatherCategoryId: 2 })).data;
+  let res = (await getBlogList({ page: currentPage.value, size: size.value, ...params, fatherCategoryId: 2 })).data;
   articleList.value = res.records;
   total.value = res.total;
 }
@@ -45,7 +45,14 @@ const handleSearchBtnClick = async (searchData: String) => {
   currentPage.value = 1;
   getArticles(searchData ? { keywords: searchData } : null);
 };
-
+const handleCurrentPageChange = async (val: number) => {
+  if (val === 0 && currentPage.value > 1) {
+    currentPage.value -= 1;
+  } else if (val === 1) {
+    currentPage.value += 1;
+  }
+  getArticles();
+};
 </script>
 
 <style scoped lang="scss">
