@@ -2,11 +2,13 @@
   <div class="detailArticle">
     <div class="inner">
       <div class="content">
-        <div class="desc">
-          <div class="title">{{ articleDetail?.title }}</div>
-          <div class="date">Published on {{ formatDate(articleDetail?.publishedTime) }}, with {{ articleDetail?.pageView  + ' view(s)'}} and {{
-              commentNum + ' comment(s)' }}
-          </div>
+        <div class="title">{{ articleDetail?.title }}</div>
+        <div class="date">Published on {{ formatDate(articleDetail?.publishedTime) }}, with {{ articleDetail?.pageView
+          + ' view(s)' }} and {{
+            commentNum + ' comment(s)' }}
+        </div>
+        <div class="abstract">
+          <span>Ai Abstract：</span>{{ articleDetail?.articleAbstract }}
         </div>
         <article>
           <ClientOnly>
@@ -52,16 +54,16 @@ const getCommentNum = (value: number) => {
 }
 const view = async () => {
   const viewedArticles = localStorage.getItem('pv') || '{}'
-  
+
   const viewedList = JSON.parse(viewedArticles)
-  
+
   const currentTime = new Date().getTime()
   const sixHours = 6 * 60 * 60 * 1000 // 6小时的毫秒数
- 
+
   // 检查是否需要更新浏览量
-  const shouldUpdate = !viewedList[articleId] || 
+  const shouldUpdate = !viewedList[articleId] ||
     (currentTime - viewedList[articleId]) > sixHours
-  
+
   if (shouldUpdate) {
     // 更新访问时间戳
     viewedList[articleId] = currentTime
@@ -91,74 +93,6 @@ onMounted(() => {
     top: 0 !important;
   }
 
-  .navContent {
-    position: relative;
-    z-index: 0;
-    max-width: 960px;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    text-align: right;
-
-    .navigation {
-      position: fixed;
-      display: inline-block;
-      top: 200px;
-      z-index: 0;
-      font-size: 13.5px;
-      text-align: left;
-      background: #fff;
-      height: 50vh;
-      padding-left: 24px;
-      overflow-y: scroll;
-      display: none;
-      &>ul {
-        position: relative;
-        border-left: 1px solid #f1f1f1;
-
-        li {
-          list-style: none;
-          line-height: 2.2;
-
-          a {
-            white-space: nowrap;
-          }
-
-          &:hover {
-            a {
-              color: #eb5055
-            }
-          }
-        }
-
-        .level1 {
-          padding-left: 6px;
-
-          a {
-            color: #313131;
-          }
-
-          &::before {
-            position: relative;
-            top: 0;
-            left: -10px;
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            content: '';
-            border-radius: 50%;
-            background-color: #eb5055;
-          }
-        }
-
-        .level2 {
-          padding-left: 20px;
-          color: #999;
-          line-height: 1.8;
-        }
-      }
-    }
-  }
-
 
   .content {
     margin: 0 auto;
@@ -166,51 +100,24 @@ onMounted(() => {
     color: #313131;
     min-height: 100vh;
 
-    .desc {
-      height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 66px;
-
-      .title {
-        font-size: 21px;
-        font-weight: 500;
-        line-height: 4em;
-      }
-
-      .date {
-        font-size: 14px;
-        // font-style: italic;
-      }
+    .title {
+      font-size: 21px;
+      font-weight: 500;
+      margin-top: 230px;
+      margin-bottom: 40px;
     }
 
-    :deep(.github-markdown-body) {
-      padding: 0;
+    .date {
       font-size: 14px;
-      line-height: 1.8;
-      font-family: 'Josefin Sans', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft Yahei", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+      color: #666;
+      margin-bottom: 40px;
+    }
 
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-weight: 500;
-        position: relative;
-        margin: 20px 0;
 
-        &::before {
-          font-weight: 600;
-          position: absolute;
-          top: 0;
-          left: -15px;
-          content: '#';
-          color: #eb5055;
-        }
-      }
-
+    .abstract {
+      font-size: 14px;
+      margin-bottom: 40px;
+      color: #666;
     }
   }
 }
