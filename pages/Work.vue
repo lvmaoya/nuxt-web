@@ -3,8 +3,7 @@
     <div class="inner">
       <div class="controller">
         <Search @search-btn-click="handleSearchBtnClick">
-          <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick"
-            :article-list="articleList"></WorkTagCategory>
+          <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick"></WorkTagCategory>
         </Search>
       </div>
       <WorkContent :list="articleList"></WorkContent>

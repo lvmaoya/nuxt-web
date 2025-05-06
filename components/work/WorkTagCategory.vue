@@ -29,10 +29,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 import { type BlogType, type CategoryType } from "~~/composables";
-// 定义 props 接收文章列表
-const props = defineProps<{
-  articleList?: Array<BlogType>  // 根据实际文章类型定义
-}>();
 const emit = defineEmits(["categoryTagClick", "dateRangeClick"]);
 
 const handleCategoryClick = (val: number) => {
@@ -75,19 +71,9 @@ const dateRange = ref([
 // 获取分类列表并计算每个分类的文章数量
 const initCategoryList = async () => {
   let categories = categoryList.value ?? (await getCategoryList({ fatherCategoryId: 2 })).data;
-
-  if (props.articleList && categories) {
-    categories.forEach(category => {
-      category.count = props.articleList?.filter(article => article.categoryId == category.id).length;
-    });
-  }  
   categoryList.value = categories.filter(item => item.id != item.fatherCategoryId);
 };
-
-// 监听文章列表变化，重新计算分类数量
-watch(() => props.articleList, (newVal, oldVal) => {
-  initCategoryList();
-}, { deep: true, immediate: true });
+initCategoryList();
 </script>
 
 <style scoped lang="scss">
