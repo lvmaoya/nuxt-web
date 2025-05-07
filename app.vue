@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout>
     <Cat></Cat>
-    <NuxtPage :keepalive="{ include: 'detail' }" ></NuxtPage>
+    <NuxtPage></NuxtPage>
   </NuxtLayout>
 </template>
 <script setup>

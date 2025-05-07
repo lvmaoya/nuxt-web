@@ -25,10 +25,10 @@
 <script setup lang="ts">
 import { type BlogType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
+import LocalCache from "~~/utils/cache";
 
 const route = useRoute();
 const articleId = Number(route.params.id);
-// 请求浏览量和点赞数据
 let commentNum = ref(0)
 
 // 请求详情页数据  文本内容和数据详情
@@ -46,14 +46,13 @@ useHead({
     },
   ],
 });
+
 const getCommentNum = (value: number) => {
   commentNum.value = value
 }
+
 const view = async () => {
-  const viewedArticles = localStorage.getItem('pv') || '{}'
-
-  const viewedList = JSON.parse(viewedArticles)
-
+  const viewedList = LocalCache.getCache('pv') || {}
   const currentTime = new Date().getTime()
   const sixHours = 6 * 60 * 60 * 1000 // 6小时的毫秒数
 
@@ -64,11 +63,14 @@ const view = async () => {
   if (shouldUpdate) {
     // 更新访问时间戳
     viewedList[articleId] = currentTime
-    localStorage.setItem('pv', JSON.stringify(viewedList))
+    LocalCache.setCache('pv', viewedList)
     changePVData(articleId)
   }
 }
-view()
+
+onMounted(() => {
+  view()
+})
 </script>
 
 <style scoped lang="scss">
