@@ -39,9 +39,8 @@ const props = defineProps({
 <style scoped lang="scss">
 ul {
   width: 100%;
-  padding-bottom: 50px;
+  margin-bottom: 50px;
   display: flex;
-  min-height: 50vh;
   flex-wrap: wrap;
 
   li {
