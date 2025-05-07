@@ -39,7 +39,6 @@ const props = defineProps({
 <style scoped lang="scss">
 ul {
   width: 100%;
-  margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
 

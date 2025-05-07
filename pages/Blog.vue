@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="blog-content">
     <div class="inner">
       <div class="searchContent">
         <Search @searchBtnClick="handleSearchBtnClick"></Search>
@@ -61,7 +61,7 @@ const handleSearchBtnClick = async (searchData: Object) => {
 </script>
 
 <style scoped lang="scss">
-.content {
+.blog-content {
   margin-bottom: 258px;
   background-color: #fff;
   position: relative;

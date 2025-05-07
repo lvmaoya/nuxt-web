@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="work-content">
     <div class="inner">
       <div class="controller">
         <Search @search-btn-click="handleSearchBtnClick">
@@ -56,7 +56,7 @@ const handleCurrentPageChange = async (val: number) => {
 </script>
 
 <style scoped lang="scss">
-.content {
+.work-content {
   margin-bottom: 258px;
   background-color: #fff;
   position: relative;

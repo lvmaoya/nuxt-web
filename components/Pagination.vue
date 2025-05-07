@@ -81,7 +81,7 @@ const handleCurrentPageChange = (val: number) => {
   border-bottom: 1px solid #dbdbdb;
   position: relative;
   z-index: 56;
-
+  margin-top: 40px;
   .content {
     margin: 0 auto;
     height: 90px;
