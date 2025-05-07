@@ -11,11 +11,8 @@
           <span>Ai Abstract：</span>{{ articleDetail?.articleAbstract }}
         </div>
         <article>
-          <ClientOnly>
-            <div v-html="articleDetail?.content"></div>
-          </ClientOnly>
+          <div v-html="articleDetail?.content"></div>
         </article>
-        <!-- <LazyDetailFooterBar :articleId="articleId"></LazyDetailFooterBar> -->
       </div>
     </div>
     <div class="comment">
@@ -71,9 +68,7 @@ const view = async () => {
     changePVData(articleId)
   }
 }
-onMounted(() => {
-  view()
-})
+view()
 </script>
 
 <style scoped lang="scss">

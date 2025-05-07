@@ -41,7 +41,6 @@ export default defineNuxtConfig({
        { src: "/icon/iconfont.js", async: true },
        { src: "/clarity/index.js", async: true  },
      ],
-     noscript: [{ children: "Javascript is required" }],
      title: "lvmaoya",
    },
    rootId: "SJX",
