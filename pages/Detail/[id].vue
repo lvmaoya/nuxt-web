@@ -12,7 +12,9 @@
         </div>
         <article>
           <div v-html="articleDetail?.content"></div>
+
         </article>
+        <div v-html="hm"></div>
       </div>
     </div>
     <div class="comment">
@@ -31,11 +33,11 @@ import Prism from 'prismjs'
 const route = useRoute();
 const articleId = Number(route.params.id);
 let commentNum = ref(0)
-
+const hm = `<pre><code class="javascript">console.log('Hello');</code></pre>`
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
-  const articleDetailRes = await getArticleDetail(articleId);
-  articleDetail.value = articleDetailRes.data
+  // const articleDetailRes = await getArticleDetail(articleId);
+  // articleDetail.value = articleDetailRes.data
 // Prism.highlightAll()
 useHead({
   title: articleDetail.value?.title,
@@ -71,15 +73,12 @@ const view = async () => {
 const initArticle = async () => {
   const articleDetailRes = await getArticleDetail(articleId);
   articleDetail.value = articleDetailRes.data
-  // await nextTick()
-
-  // if (process.client) {
-  //   Prism.highlightAll()
-  // }
 }
-// initArticle()
-onMounted(() => {
-
+initArticle()
+onMounted(async () => {
+  await nextTick()
+    //  然后执行高亮即可
+    Prism.highlightAll()
   view()
 })
 </script>
