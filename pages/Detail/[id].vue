@@ -26,6 +26,7 @@
 import { type BlogType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
 import LocalCache from "~~/utils/cache";
+import Prism from 'prismjs'
 
 const route = useRoute();
 const articleId = Number(route.params.id);
@@ -33,16 +34,16 @@ let commentNum = ref(0)
 
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
-const articleDetailRes = await getArticleDetail(articleId);
-articleDetail.value = articleDetailRes.data
-
+  const articleDetailRes = await getArticleDetail(articleId);
+  articleDetail.value = articleDetailRes.data
+// Prism.highlightAll()
 useHead({
-  title: articleDetail.value.title,
+  title: articleDetail.value?.title,
   meta: [
-    { name: "description", content: articleDetail.value.description },
+    { name: "description", content: articleDetail.value?.description },
     {
       name: "keywords",
-      content: articleDetail.value.keywords,
+      content: articleDetail.value?.keywords,
     },
   ],
 });
@@ -67,8 +68,18 @@ const view = async () => {
     changePVData(articleId)
   }
 }
+const initArticle = async () => {
+  const articleDetailRes = await getArticleDetail(articleId);
+  articleDetail.value = articleDetailRes.data
+  // await nextTick()
 
+  // if (process.client) {
+  //   Prism.highlightAll()
+  // }
+}
+// initArticle()
 onMounted(() => {
+
   view()
 })
 </script>
