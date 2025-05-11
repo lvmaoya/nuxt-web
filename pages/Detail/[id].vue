@@ -57,7 +57,6 @@ const processCodeBlocks = async () => {
     if (classValue) {
       const classArr = classValue.split(';')[0].split(':');
       const languageClass = `language-${classArr[1]}`;
-
       // 创建新的 code 元素
       const code = document.createElement('code');
       code.className = languageClass;
@@ -161,6 +160,12 @@ onMounted(async () => {
 :deep(pre) {
   font-size: 12px;
   border-radius: 8px;
+  background-color: #2d2d2d;
+  word-break: break-all;
+  white-space: pre-wrap;
+  margin: 0px !important;
+  padding: 8px 12px;
+  line-height: 1.42857143;
 }
 :deep(pre.language-css) {
   word-break: break-all;
