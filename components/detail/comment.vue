@@ -364,7 +364,7 @@ const handleResponseSBClick = (id: number, name: string) => {
           background: #6e8efb;
           color: white;
           border-radius: 16px;
-          font-size: 14px;
+          font-size: 12px;
           justify-content: center;
           align-items: center;
           cursor: pointer;

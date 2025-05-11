@@ -12,9 +12,7 @@
         </div>
         <article>
           <div v-html="articleDetail?.content"></div>
-
         </article>
-        <div v-html="hm"></div>
       </div>
     </div>
     <div class="comment">
@@ -33,11 +31,10 @@ import Prism from 'prismjs'
 const route = useRoute();
 const articleId = Number(route.params.id);
 let commentNum = ref(0)
-const hm = `<pre><code class="javascript">console.log('Hello');</code></pre>`
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
-  // const articleDetailRes = await getArticleDetail(articleId);
-  // articleDetail.value = articleDetailRes.data
+// const articleDetailRes = await getArticleDetail(articleId);
+// articleDetail.value = articleDetailRes.data
 // Prism.highlightAll()
 useHead({
   title: articleDetail.value?.title,
@@ -53,7 +50,31 @@ useHead({
 const getCommentNum = (value: number) => {
   commentNum.value = value
 }
+const processCodeBlocks = async () => {
+  const preTags = document?.querySelectorAll('pre');
+  preTags?.forEach((pre: HTMLElement) => {
+    const classValue = pre.getAttribute('class');
+    if (classValue) {
+      const classArr = classValue.split(';')[0].split(':');
+      const languageClass = `language-${classArr[1]}`;
 
+      // 创建新的 code 元素
+      const code = document.createElement('code');
+      code.className = languageClass;
+      code.innerHTML = pre.innerHTML;
+
+      // 清空 pre 标签并添加新的 code 元素
+      pre.innerHTML = '';
+      pre.appendChild(code);
+      // 添加行号支持
+      // pre.className = `line-numbers ${languageClass}`;
+    }
+  });
+  // 重新应用 Prism 高亮
+  setTimeout(() => {
+    Prism.highlightAll();
+  }, 200);
+}
 const view = async () => {
   const viewedList = LocalCache.getCache('pv') || {}
   const currentTime = new Date().getTime()
@@ -73,12 +94,12 @@ const view = async () => {
 const initArticle = async () => {
   const articleDetailRes = await getArticleDetail(articleId);
   articleDetail.value = articleDetailRes.data
+  // articleDetail.value.content = `<pre><code class="language-css">p { color: red }</code></pre>`
+  await nextTick()
+  processCodeBlocks()
 }
 initArticle()
 onMounted(async () => {
-  await nextTick()
-    //  然后执行高亮即可
-    Prism.highlightAll()
   view()
 })
 </script>
@@ -136,5 +157,37 @@ onMounted(async () => {
   background-color: #fafafa;
   padding: 30px 12px 0 12px;
 
+}
+:deep(pre) {
+  font-size: 12px;
+  border-radius: 8px;
+}
+:deep(pre.language-css) {
+  word-break: break-all;
+  white-space: pre-wrap;
+  margin: 0px !important;
+  padding: 8px 12px;
+  line-height: 1.42857143;
+  color: #333;
+}
+
+:deep(.toolbar) {
+  right: 12px !important;
+  top: 8px !important;
+  line-height: 13px;
+  user-select: none;
+
+  .toolbar-item {
+    font-size: 12px;
+
+    &:last-child {
+      margin-left: 8px;
+    }
+
+    span,
+    button {
+      border-radius: 4px !important;
+    }
+  }
 }
 </style>
