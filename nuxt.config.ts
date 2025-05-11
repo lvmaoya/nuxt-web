@@ -90,6 +90,8 @@ export default defineNuxtConfig({
       })
     ]
   },
-
+  modules: [
+    'nuxt-lenis'
+  ],
   compatibilityDate: "2025-04-25"
 });

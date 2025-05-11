@@ -16,7 +16,9 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "dayjs": "^1.11.13",
+    "lenis": "^1.3.1",
     "nuxt": "^3.16.2",
+    "nuxt-lenis": "^2.1.2",
     "prismjs": "^1.30.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
