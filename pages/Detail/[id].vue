@@ -27,6 +27,7 @@ import { type BlogType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
 import LocalCache from "~~/utils/cache";
 import Prism from 'prismjs'
+const { $activeMenu, $setActiveMenu } = useNuxtApp()
 
 const route = useRoute();
 const articleId = Number(route.params.id);
@@ -51,6 +52,9 @@ const getCommentNum = (value: number) => {
   commentNum.value = value
 }
 const processCodeBlocks = async () => {
+  if (!document) {
+    return;
+  }
   const preTags = document?.querySelectorAll('pre');
   preTags?.forEach((pre: HTMLElement) => {
     const classValue = pre.getAttribute('class');
@@ -70,9 +74,7 @@ const processCodeBlocks = async () => {
     }
   });
   // 重新应用 Prism 高亮
-  setTimeout(() => {
-    Prism.highlightAll();
-  }, 200);
+  Prism.highlightAll();
 }
 const view = async () => {
   const viewedList = LocalCache.getCache('pv') || {}
@@ -93,13 +95,25 @@ const view = async () => {
 const initArticle = async () => {
   const articleDetailRes = await getArticleDetail(articleId);
   articleDetail.value = articleDetailRes.data
-  // articleDetail.value.content = `<pre><code class="language-css">p { color: red }</code></pre>`
   await nextTick()
+
+  $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0)
+  
   processCodeBlocks()
+
 }
+
 initArticle()
 onMounted(async () => {
   view()
+})
+onBeforeRouteLeave(async () => {
+  $setActiveMenu(0)
+})
+onActivated(async () => {
+  if (articleDetail.value) {
+    $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0)
+  }
 })
 </script>
 
@@ -157,6 +171,7 @@ onMounted(async () => {
   padding: 30px 12px 0 12px;
 
 }
+
 :deep(pre) {
   font-size: 12px;
   border-radius: 8px;
@@ -167,6 +182,7 @@ onMounted(async () => {
   padding: 8px 12px;
   line-height: 1.42857143;
 }
+
 :deep(pre.language-css) {
   word-break: break-all;
   white-space: pre-wrap;

@@ -5,16 +5,17 @@
       <nav class="menu activeMenu">
         <ul>
           <li>
-            <NuxtLink to="/home" active-class="active-nav-link" @click.stop>Home</NuxtLink>
+            <NuxtLink to="/home" active-class="active-nav-link" @click.stop :class="{ 'active-nav-link': $activeMenu == 1 }"
+              >Home</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/work" active-class="active-nav-link" @click.stop>Study</NuxtLink>
+            <NuxtLink to="/work" active-class="active-nav-link" @click.stop :class="{ 'active-nav-link': $activeMenu == 2 }">Study</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/blog" active-class="active-nav-link" @click.stop>Blog</NuxtLink>
+            <NuxtLink to="/blog" active-class="active-nav-link" @click.stop :class="{ 'active-nav-link': $activeMenu == 3 || $activeMenu == 4 }">Blog</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/about" active-class="active-nav-link" @click.stop>About</NuxtLink>
+            <NuxtLink to="/about" active-class="active-nav-link" @click.stop :class="{ 'active-nav-link': $activeMenu == -1 }">About</NuxtLink>
           </li>
         </ul>
       </nav>
@@ -23,10 +24,10 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { throttle } from "@/utils/throttle"
 const isScrolled = ref(false)
-
+const { $activeMenu, $setActiveMenu } = useNuxtApp()
 onMounted(() => {
   window.addEventListener('scroll', throttle(function () {
     let bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
