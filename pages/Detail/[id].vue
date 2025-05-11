@@ -8,7 +8,7 @@
             commentNum + ' comment(s)' }}
         </div>
         <div class="abstract">
-          <span>Ai Abstract：</span>{{ articleDetail?.articleAbstract }}
+          <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
         </div>
         <article>
           <div v-html="articleDetail?.content"></div>
@@ -169,7 +169,7 @@ onActivated(async () => {
   color: #5f5f5f;
   background-color: #fafafa;
   padding: 30px 12px 0 12px;
-
+  margin-top: 40px;
 }
 
 :deep(pre) {
