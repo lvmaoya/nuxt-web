@@ -133,7 +133,7 @@ onMounted(async () => {
   position: relative;
   z-index: 21;
   color: #5f5f5f;
-  background-color: #f7f7f7;
+  background-color: #fafafa;
   padding: 30px 12px 0 12px;
 
 }
