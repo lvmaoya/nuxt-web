@@ -10,7 +10,7 @@
         <div class="abstract">
           <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
         </div>
-        <article>
+        <article class="markdown-body" data-theme="light">
           <div v-html="articleDetail?.content"></div>
         </article>
       </div>
@@ -27,6 +27,8 @@ import { type BlogType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
 import LocalCache from "~~/utils/cache";
 import Prism from 'prismjs'
+import "@/assets/css/md.css";
+
 const { $activeMenu, $setActiveMenu } = useNuxtApp()
 
 const route = useRoute();
@@ -34,19 +36,6 @@ const articleId = Number(route.params.id);
 let commentNum = ref(0)
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
-// const articleDetailRes = await getArticleDetail(articleId);
-// articleDetail.value = articleDetailRes.data
-// Prism.highlightAll()
-useHead({
-  title: articleDetail.value?.title,
-  meta: [
-    { name: "description", content: articleDetail.value?.description },
-    {
-      name: "keywords",
-      content: articleDetail.value?.keywords,
-    },
-  ],
-});
 
 const getCommentNum = (value: number) => {
   commentNum.value = value
@@ -95,10 +84,22 @@ const view = async () => {
 const initArticle = async () => {
   const articleDetailRes = await getArticleDetail(articleId);
   articleDetail.value = articleDetailRes.data
+
+  useHead({
+    title: articleDetail.value?.title,
+    meta: [
+      { name: "description", content: articleDetail.value?.description },
+      {
+        name: "keywords",
+        content: articleDetail.value?.keywords,
+      },
+    ],
+  });
+
   await nextTick()
 
   $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0)
-  
+
   processCodeBlocks()
 
 }
@@ -129,6 +130,7 @@ onActivated(async () => {
   background-color: #fff;
   position: relative;
   z-index: 21;
+  line-height: 2;
 
   :deep(header) {
     top: 0 !important;
