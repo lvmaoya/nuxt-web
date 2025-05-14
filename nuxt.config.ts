@@ -8,8 +8,7 @@
 import prismjs from 'vite-plugin-prismjs'
 
 export default defineNuxtConfig({
-  css: ["~/assets/css/normalize.css", "~/assets/css/reset.css", "~/assets/css/flex.css"],
-
+  css: ["~/assets/css/normalize.css", "~/assets/css/reset.css", "~/assets/css/flex.css"], 
   app: {
     buildAssetsDir: "/hello/",
     head: {
