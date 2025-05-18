@@ -57,7 +57,9 @@ const init = async () => {
 }
 
 onMounted(async () => {
-  L2Dwidget.init(config);
+  if (L2Dwidget) {
+    L2Dwidget.init(config);
+  }
   setTimeout(() => {
     if (document.querySelector("#live2d-widget > canvas")) {
       init()
