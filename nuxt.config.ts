@@ -6,7 +6,8 @@
  */
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import prismjs from 'vite-plugin-prismjs'
-
+const publicDescription = "书写记录日常所思所感，技术成长"
+const publicKeywords = "lvmaoya,lumoyoo,个人博客"
 export default defineNuxtConfig({
   css: ["~/assets/css/normalize.css", "~/assets/css/reset.css", "~/assets/css/flex.css"], 
   app: {
@@ -20,10 +21,10 @@ export default defineNuxtConfig({
         {
           charset: "utf-8",
         },
-        { name: "description", content: "书写记录日常所思所感，技术成长" },
+        { name: "description", content: publicDescription },
         {
           name: "keywords",
-          content: "lvmaoya,lumoyoo,个人博客",
+          content: publicKeywords,
         },
         {
           "http-equiv": "Content-Security-Policy",
@@ -92,5 +93,11 @@ export default defineNuxtConfig({
   modules: [
     'nuxt-lenis'
   ],
+  runtimeConfig: {
+    public: {
+      description: publicDescription,
+      keywords: publicKeywords
+    }
+  },
   compatibilityDate: "2025-04-25"
 });
