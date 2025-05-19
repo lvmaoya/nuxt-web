@@ -5,7 +5,7 @@
         <div class="about item">
           <div class="title">LVMAOYA</div>
           <div class="copyright">
-            <p>©2022
+            <p>©2025
               <i class="heart"></i>lvmaoya .
             </p>
             <slot></slot>
