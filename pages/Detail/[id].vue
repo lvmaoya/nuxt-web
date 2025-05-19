@@ -7,7 +7,7 @@
           + ' view(s)' }} and {{
             commentNum + ' comment(s)' }}
         </div>
-        <div class="abstract">
+        <div class="abstract" v-if="articleDetail?.articleAbstract">
           <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
         </div>
         <article class="markdown-body" data-theme="light">
