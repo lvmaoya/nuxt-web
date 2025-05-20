@@ -99,7 +99,7 @@ export function getArticleDetail(id: number) {
   return Http.get<ResponseConfig<BlogType>>(`/h5/blog/${id}`);
 }
 
-export function changePVData(id: any) {
+export function changePVData(id: any) {  
   return Http.get<ResponseConfig<any>>(`/h5/blog/${id}/view`);
 }
 

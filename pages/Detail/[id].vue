@@ -78,13 +78,15 @@ const view = async () => {
     // 更新访问时间戳
     viewedList[articleId] = currentTime
     LocalCache.setCache('pv', viewedList)
-    changePVData(articleId)
+    if (articleId) {
+      changePVData(articleId)      
+    }
   }
 }
 const initArticle = async () => {
   const articleDetailRes = await getArticleDetail(articleId);
   articleDetail.value = articleDetailRes.data
-
+  view()
   useHead({
     title: articleDetail.value?.title,
     meta: [
@@ -105,9 +107,7 @@ const initArticle = async () => {
 }
 
 initArticle()
-onMounted(async () => {
-  view()
-})
+
 onBeforeRouteLeave(async () => {
   $setActiveMenu(0)
 })
