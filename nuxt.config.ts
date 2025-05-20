@@ -9,7 +9,7 @@ import prismjs from 'vite-plugin-prismjs'
 const publicDescription = "书写记录日常所思所感，技术成长"
 const publicKeywords = "lvmaoya,lumoyoo,个人博客"
 export default defineNuxtConfig({
-  css: ["~/assets/css/normalize.css", "~/assets/css/reset.css", "~/assets/css/flex.css"], 
+  css: ["~/assets/css/normalize.css", "~/assets/css/reset.css", "~/assets/css/flex.css"],
   app: {
     buildAssetsDir: "/hello/",
     head: {
@@ -49,7 +49,7 @@ export default defineNuxtConfig({
     keepalive: true,
   },
 
-  plugins: [{ src: "~/plugins/editor.client.js", mode: "client" }],
+  plugins: [{ src: "~/plugins/heartBeat.client.js", mode: "client" }],
 
   // 解决重复依赖项问题
   vite: {
