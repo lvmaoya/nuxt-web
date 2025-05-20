@@ -110,3 +110,7 @@ export function getCommentList(data: Object) {
 export function commitComment(data: Object) {
   return Http.post<ResponseConfig<any>>("/h5/comment", data);
 }
+
+export function sendHeartBeat(data: Object) {
+  return Http.get<ResponseConfig<any>>("/h5/heart", data);
+}
