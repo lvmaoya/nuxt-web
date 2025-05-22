@@ -90,8 +90,8 @@ const handleCurrentPageChange = (val: number) => {
     justify-content: space-between;
 
     span {
-      color: #313131;
       cursor: pointer;
+      font-size: var(--text-font-size);
       user-select: none;
     }
 

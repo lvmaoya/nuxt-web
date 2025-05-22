@@ -1,5 +1,5 @@
 <template>
-    <div class="NavMiniPage">
+    <div class="nav-mini-page">
         <div class="btn" :class="{ close: close }" @click="close = !close">
             <span></span>
         </div>
@@ -29,7 +29,7 @@ watch(close, (newVal) => {
 </script>
 
 <style lang="scss" scoped>
-.NavMiniPage {
+.nav-mini-page {
     display: flex;
     align-items: center;
     flex: 1;

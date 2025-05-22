@@ -1,5 +1,5 @@
 <template>
-    <div class="goutouBack" @click.stop="backTop"><img src="../assets/img/goutou_yuanliang.svg" alt="">
+    <div class="goutou-back" @click.stop="backTop"><img src="../assets/img/goutou_yuanliang.svg" alt="">
     </div>
 </template>
 
@@ -29,13 +29,13 @@ function backTop() {
 }
 onBeforeMount(() => {
     if (document.body.clientWidth > 480)  {
-        document.querySelector('.goutouBack')?.setAttribute('style', 'display:none');
+        document.querySelector('.goutou-back')?.setAttribute('style', 'display:none');
     }
 });
 </script>
 
 <style scoped lang="scss">
-.goutouBack {
+.goutou-back {
     position: fixed;
     left: 0px;
     bottom: -33px;

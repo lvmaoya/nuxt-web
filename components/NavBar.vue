@@ -2,7 +2,7 @@
   <header :class="{ scrolled: isScrolled }">
     <div class="nav-bar inner">
       <Logo></Logo>
-      <nav class="menu activeMenu">
+      <nav class="menu active-menu">
         <ul>
           <li>
             <NuxtLink to="/home" active-class="active-nav-link" @click.stop :class="{ 'active-nav-link': $activeMenu == 1 }"
@@ -108,7 +108,7 @@ header {
     display: flex;
   }
 
-  header .nav-bar .activeMenu {
+  header .nav-bar .active-menu {
     display: none;
   }
 

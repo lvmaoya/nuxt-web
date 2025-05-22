@@ -628,7 +628,7 @@ footer {
   bottom: 0;
   width: 100%;
   margin: 0 auto;
-  font-size: 13px;
+  font-size: var(--text-small-font-size);
   background-color: #fff;
 
   .content {
@@ -655,7 +655,7 @@ footer {
       }
 
       .title {
-        font-size: 15px;
+        font-size: var(--text-font-size);
         padding: 0;
         text-decoration: none;
       }
@@ -667,13 +667,13 @@ footer {
       justify-content: space-between;
 
       .copyright {
-        color: #999;
+        color: var(--third-text-color);
 
         p {
           padding: 0 0 20px 0;
 
           a {
-            color: #999;
+            color: var(--third-text-color);
           }
 
           &:first-child {
@@ -780,21 +780,21 @@ footer {
       }
       a:hover {
         text-decoration: underline;
-        color: #333;
+        color: var(--primary-text-color);
         transition: all .2s linear;
       }
 
 
       ul {
         li {
-          font-size: 13px;
+          font-size: var(--text-small-font-size);
           line-height: 25px;
           list-style: none;
           display: block;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
-          color: #767676;
+          color: var(--secondary-text-color);
         }
       }
     }
@@ -812,8 +812,8 @@ footer {
 
       .musicContent {
         .musicTitle {
-          font-size: 13px;
-          color: #999;
+          font-size: var(--text-small-font-size);
+          color: var(--third-text-color);
           padding-bottom: 17px;
           overflow: hidden;
           text-overflow: ellipsis;

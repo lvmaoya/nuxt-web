@@ -1,16 +1,16 @@
 <template>
-  <div class="aboutView">
+  <div class="about-content">
     <div class="inner">
-      <div class="introduce">
+      <div class="about-introduce">
         <span v-html="userInfo.introduce"></span>
       </div>
-      <div class="contact">
+      <div class="about-contact">
         <ul>
           <li>
             <a href="https://mail.qq.com/" target="_blank"><span>Email </span></a>
           </li>
           <li class="githubLi">
-            <a href="https://github.com/lvmaoya" target="_blank"><span class="github">Github</span></a>
+            <a href="https://github.com/lvmaoya" target="_blank"><span>Github</span></a>
           </li>
         </ul>
       </div>
@@ -26,7 +26,7 @@ const userInfo = (await getUserInfo()).data;
 </script>
 
 <style scoped lang="scss">
-.aboutView {
+.about-content {
   border-bottom: 1.2px solid rgb(189, 188, 188);
   height: 100vh;
   padding-top: 150px;
@@ -38,17 +38,17 @@ const userInfo = (await getUserInfo()).data;
 
 .inner {
 
-  .introduce {
+  .about-introduce {
     display: flex;
     align-items: center;
     padding-bottom: 5em;
 
     span {
-      font-size: 0.875em;
+      font-size: var(--sub-title-font-size);
     }
   }
 
-  .contact {
+  .about-contact {
     li {
       list-style: none;
     }
@@ -60,19 +60,15 @@ const userInfo = (await getUserInfo()).data;
     a {
       span {
         margin-right: 5px;
-        font-size: 1.5em;
-        color: #666;
+        font-size: 1.2rem;
+        color: var(--secondary-text-color);
       }
 
-      .github {
-        font-size: 1.3em;
+      &:hover {
+        text-decoration: underline;
+        color: var(--secondary-text-color);
+        transition: all .2s linear;
       }
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: #333;
-      transition: all .2s linear;
     }
 
     padding: 0 0.5em 0 0;

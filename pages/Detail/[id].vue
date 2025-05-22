@@ -1,5 +1,5 @@
 <template>
-  <div class="detailArticle">
+  <div class="detail-content">
     <div class="inner">
       <div class="content">
         <div class="title">{{ articleDetail?.title }}</div>
@@ -18,7 +18,6 @@
     <div class="comment">
       <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment>
     </div>
-    <!-- <ScrollTop></ScrollTop> -->
   </div>
 </template>
 
@@ -125,7 +124,7 @@ onActivated(async () => {
   }
 }
 
-.detailArticle {
+.detail-content {
   width: 100%;
   background-color: #fff;
   position: relative;
@@ -140,27 +139,27 @@ onActivated(async () => {
   .content {
     margin: 0 auto;
     max-width: 960px;
-    color: #313131;
+    color: var(--primary-text-color);
     min-height: 100vh;
 
     .title {
-      font-size: 21px;
+      font-size: 1.5rem;
       font-weight: 500;
       margin-top: 230px;
       margin-bottom: 40px;
     }
 
     .date {
-      font-size: 14px;
-      color: #666;
+      font-size: var(--text-font-size);
+      color: var(--secondary-text-color);
       margin-bottom: 40px;
     }
 
 
     .abstract {
-      font-size: 14px;
+      font-size: var(--text-font-size);
       margin-bottom: 40px;
-      color: #666;
+      color: var(--secondary-text-color);
     }
   }
 }
@@ -191,7 +190,7 @@ onActivated(async () => {
   margin: 0px !important;
   padding: 8px 12px;
   line-height: 1.42857143;
-  color: #333;
+  color: var(--secondary-text-color);
 }
 
 :deep(.toolbar) {
