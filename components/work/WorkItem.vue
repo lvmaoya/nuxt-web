@@ -1,6 +1,6 @@
 <template>
-  <a class="workActicleItem" :href="'/detail/' + props.item.id">
-    <div class="articleContent">
+  <a class="work-content-item" :href="'/detail/' + props.item.id">
+    <div class="content">
       <div class="category">
         {{ item.category?.categoryName }}
       </div>
@@ -45,14 +45,13 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
 </script>
 
 <style scoped lang="scss">
-.workActicleItem {
-  border-radius: 10px;
+.work-content-item {
+  border-radius: 12px;
   cursor: pointer;
   background-color: #fff;
   margin-bottom: 20px;
   display: flex;
   overflow: hidden;
-  // min-height: 140px;
   transition: background-color 0.3s;
   width: 100%;
   max-width: 1200px;
@@ -64,16 +63,16 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
     }
   }
 
-  .articleContent {
+  .content {
     width: 100%;
-    padding: 10px 0px;
+    padding: 12px 0px;
     display: flex;
     flex-direction: column;
     gap: 8px;
 
     .category {
-      font-size: 12px;
-      color: #999;
+      font-size: var(--text-small-font-size);
+      color: var(--third-text-color);
       text-transform: uppercase;
     }
 
@@ -81,8 +80,7 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
       position: relative;
       border: 1px solid transparent;
       width: fit-content;
-      color: black;
-      font-weight: 400;
+      color: var(--primary-text-color);
       &:before {
         content: "";
         position: absolute;
@@ -102,9 +100,9 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
 
     .description {
       p {
-        font-size: 0.875em;
+        font-size: var(--sub-title-font-size);
         font-weight: 400;
-        color: #333;
+        color: var(--primary-text-color);
         overflow: hidden;
         white-space: normal;
         word-break: break-word;
@@ -119,15 +117,14 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
       justify-content: space-between;
 
       span {
-        font-size: 12px;
-        color: gray;
+        font-size: var(--text-small-font-size);
+        color: var(--third-text-color);
       }
 
       .about {
         span {
-          margin-right: 3px;
-          color: gray;
-
+          margin-right: 4px;
+          color: var(--third-text-color);
         }
       }
     }

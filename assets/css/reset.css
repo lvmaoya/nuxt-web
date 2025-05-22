@@ -92,6 +92,7 @@ body {
     --title-font-size: 1rem;
     --sub-title-font-size: 0.875rem;
     --text-font-size: 0.875rem;
+    --text-small-font-size: 0.75rem;
 
     --primary-text-color: #333;
     --secondary-text-color: #666;

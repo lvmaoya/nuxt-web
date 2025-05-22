@@ -81,9 +81,8 @@ initCategoryList();
   padding: 20px 16px;
 
   .title {
-    font-size: 14px;
-    color: black;
-    margin-bottom: 6px;
+    font-size: var(--text-font-size);
+    margin-bottom: 4px;
     font-weight: 600;
   }
 
@@ -99,12 +98,8 @@ initCategoryList();
       border-radius: 4px;
 
       &:hover {
-        // background-color: #999;
-
         a {
-          // color: white;
           text-decoration: underline;
-          // text-decoration-style: dashed;
         }
       }
     }
@@ -112,7 +107,7 @@ initCategoryList();
     a {
       font-size: 12px;
       display: block;
-      color: #333;
+      color: var(--primary-text-color);
       cursor: pointer;
     }
   }
