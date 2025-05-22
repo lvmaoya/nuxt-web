@@ -1,7 +1,7 @@
 <template>
   <div class="blog-content">
     <div class="inner">
-      <div class="searchContent">
+      <div class="search-content">
         <Search @searchBtnClick="handleSearchBtnClick"></Search>
       </div>
       <BlogContent :blogList="blogList"></BlogContent>
@@ -68,7 +68,7 @@ const handleSearchBtnClick = async (searchData: Object) => {
   z-index: 21;
 }
 
-.searchContent {
+.search-content {
   padding: 25vh 0 9vh 0;
 }
 </style>

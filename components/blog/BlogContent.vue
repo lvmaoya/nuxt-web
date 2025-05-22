@@ -8,12 +8,12 @@
   <ul>
     <li v-for="item in props.blogList" :key="item.id">
       <a :href="'/detail/' + item.id">
-        <div class="img">
+        <div class="article-image">
           <img :src="item.coverImage" alt="" />
         </div>
-        <div class="articleDetail">
+        <div class="article-content">
           <div class="title">
-            <span class="titleContent">{{ item.title }}</span>
+            <span>{{ item.title }}</span>
           </div>
           <div class="date">
             <span> {{ item.publishedTime.replace(/:[^:]*$/, '') }}</span>
@@ -46,7 +46,7 @@ ul {
     width: 100%;
     list-style: none;
     &:hover {
-      .title .titleContent {
+      .title span {
         border-bottom: 1px solid #4d4d4d;
       }
     }
@@ -54,7 +54,7 @@ ul {
       display: block;
     }
 
-    .img {
+    .article-image {
       width: 100%;
       height: auto;
       overflow: hidden;
@@ -66,9 +66,8 @@ ul {
       }
     }
 
-    .articleDetail {
+    .article-content {
       padding-top: 2em;
-      // padding-right: 15px;
     }
 
     .title {
@@ -77,41 +76,37 @@ ul {
       text-overflow: ellipsis;
       padding-bottom: 0.1em;
       margin: 0 0 1em;
-      // cursor: pointer;
       box-sizing: border-box;
 
-      .titleContent {
+      span {
         cursor: pointer;
         border-bottom: 1px solid #ffffff;
         transition: all 0.2s;
-        color: black;
-        font-weight: 400;
+        color: var(--primary-text-color);
         display: block;
         width: fit-content;
       }
     }
 
     .date {
-      padding: 0 0 1.4em;
+      padding: 0 0 1em;
 
       span {
         display: block;
         font-style: italic;
-        font-size: 0.875em;
-        font-weight: 400;
-        color: #555666;
+        font-size: var(--text-font-size);
+        color: var(--third-text-color);
       }
     }
 
     .description {
-      font-size: 0.875em;
-      line-height: 1.7;
-      font-weight: 400;
-      padding: 0 0 1.4em;
-      color: #555666;
+      font-size: var(--text-font-size);
+      line-height: 1.75;
+      padding: 0 0 2em;
+      color: var(--third-text-color);
       overflow: hidden;
       white-space: normal;
-      letter-spacing: 0.06em;
+      letter-spacing: var(--primary-letter-spacing);
       word-break: break-word;
 
       display: -webkit-box;

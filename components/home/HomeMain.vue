@@ -69,7 +69,7 @@ onMounted(() => {
       }
 
       .item-title {
-        margin-top: 24px;
+        margin-top: 2em;
         font-size: var(--title-font-size);
 
         h4 {
@@ -79,16 +79,16 @@ onMounted(() => {
       }
 
       .item-description {
-        margin-top: 8px;
+        margin-top: 1em;
         font-size: var(--sub-title-font-size);
 
         p {
           margin: 0;
           width: 100%;
           /* 4行 × 1.5em的行高 = 6em */
-          max-height: 9em;
+          max-height: 7em;
           /* 限制最大高度为4行 */
-          line-height: 1.5em;
+          line-height: 1.75em;
           overflow: hidden;
           /* 隐藏超出部分 */
           display: -webkit-box;
