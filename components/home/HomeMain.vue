@@ -1,15 +1,15 @@
 <template>
-  <div class="homeMain">
+  <div class="home-body">
     <div class="inner">
-      <ul class="content" v-viewport>
-        <li class="homeMainItem" v-for="item in props.thingList" :key="item.id" ref="homeMainItemRef">
+      <ul class="content">
+        <li v-for="item in props.thingList" :key="item.id" ref="homeMainItemRef">
           <a :href="'/detail/' + item.id">
             <div class="image" :data-src="item.coverImage">
             </div>
-            <div class="itemTitle">
+            <div class="item-title">
               <h4>{{ item.title }}</h4>
             </div>
-            <div class="description">
+            <div class="item-description">
               <p>{{ item.description }}</p>
             </div>
           </a>
@@ -36,7 +36,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.homeMain {
+.home-body {
   -webkit-box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
@@ -68,35 +68,37 @@ onMounted(() => {
         background-size: cover;
       }
 
-      .itemTitle h4 {
-        color: black;
+      .item-title {
         margin-top: 24px;
-        font-weight: 400;
+        font-size: var(--title-font-size);
+
+        h4 {
+          color: var(--primary-text-color);
+          font-weight: 400;
+        }
       }
 
-      .description {
+      .item-description {
         margin-top: 8px;
+        font-size: var(--sub-title-font-size);
 
         p {
           margin: 0;
           width: 100%;
-          font-size: 0.875em;
-          height: 5em;
+          /* 4行 × 1.5em的行高 = 6em */
+          max-height: 9em;
+          /* 限制最大高度为4行 */
           line-height: 1.5em;
+          overflow: hidden;
+          /* 隐藏超出部分 */
+          display: -webkit-box;
+          /* 兼容性写法 */
+          display: -moz-box;
+          text-overflow: ellipsis;
+          letter-spacing: var(--primary-letter-spacing);
         }
       }
     }
-
-    // &:hover .image>img {
-    //   transform: scale(1.05);
-    //   transition: all 0.6s ease 0s;
-    // }
-
-    // &:hover a {
-    //   transition: all 1s ease 0s;
-    //   box-shadow: 5px 5px 10px #f9f9f9;
-    // }
-
 
     li {
       width: 100%;

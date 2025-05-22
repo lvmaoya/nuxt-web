@@ -1,7 +1,7 @@
 <template>
   <div class="search" @click.stop>
-    <div class="searchInput">
-      <input type="text" placeholder="Search..." ref="searchInput" v-model="searchData"
+    <div class="search-input">
+      <input type="text" placeholder="Search..." v-model="searchData"
         @keyup.enter="handleSearchBtnClick" @focus="handleFocus" @blur="handleBlur" />
       <button @click="handleSearchBtnClick">
         <span class="iconfont">
@@ -11,7 +11,7 @@
         </span>
       </button>
     </div>
-    <div class="conditionContainer" :class="{ 'isfocused': isFocused }">
+    <div class="condition-container" :class="{ 'isfocused': isFocused }">
       <slot></slot>
     </div>
   </div>
@@ -20,8 +20,6 @@
 <script setup lang="ts">
 
 const emit = defineEmits(["searchBtnClick"]);
-
-const searchInput = ref();
 
 // 定义焦点状态的响应式变量
 const isFocused = ref(false);
@@ -48,7 +46,7 @@ const handleSearchBtnClick = () => {
   margin: 0 auto;
   position: relative;
 
-  .searchInput {
+  .search-input {
     position: relative;
     width: 100%;
     height: 45px;
@@ -60,10 +58,9 @@ const handleSearchBtnClick = () => {
       border: 1px solid rgba(184, 197, 214, 0.2);
       background: #fff;
       box-sizing: border-box;
-      padding: 3px 6px 3px 20px;
       box-shadow: 0 1px 4px rgb(0 0 0 / 4%);
-      font-size: 0.875em;
-      padding: 0 40px 0 18px;
+      font-size: var(--text-font-size);
+      padding: 0 45px 0 16px;
       user-select: none;
     }
 
@@ -73,18 +70,20 @@ const handleSearchBtnClick = () => {
 
     button {
       height: 100%;
+      width: 45px;
       position: absolute;
       background: none;
-      right: 10px;
+      aspect-ratio: 1/1;
       border: none;
+      border-radius: 50%;
+      padding: 0;
+      right: 4px;
     }
   }
 
-  .conditionContainer {
+  .condition-container {
     width: 100%;
-    // height: 400px;
     margin-top: 12px;
-    background-color: aliceblue;
     border-radius: 16px;
     position: absolute;
     background-color: #fff;
@@ -99,7 +98,6 @@ const handleSearchBtnClick = () => {
     transform: translateY(0%) rotateX(0deg);
     opacity: 1;
     z-index: 99999;
-
   }
 }
 </style>

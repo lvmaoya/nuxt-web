@@ -1,7 +1,7 @@
 <template>
   <div class="work-content">
     <div class="inner">
-      <div class="controller">
+      <div class="work-controller">
         <Search @search-btn-click="handleSearchBtnClick">
           <WorkTagCategory @category-tag-click="categoryTagClick" @date-range-click="dateRangeClick"></WorkTagCategory>
         </Search>
@@ -63,14 +63,8 @@ const handleCurrentPageChange = async (val: number) => {
   z-index: 21;
 }
 
-.controller {
+.work-controller {
   padding: 25vh 0 9vh 0;
   position: relative;
-}
-
-.categoryViewWorkContent {
-  position: absolute;
-  transition: opacity 0.5s;
-  width: 100%;
 }
 </style>

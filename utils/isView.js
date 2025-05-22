@@ -3,7 +3,7 @@ export function isView(ref) {
   const isInSight = (item) => {
     const bound = item.getBoundingClientRect();
     const clientHight = window.innerHeight;
-    return bound.top <= clientHight + 66;
+    return bound.top <= clientHight + 100;
   };
   const lazyLoad = () => {
     if (!ref.value) return;
@@ -16,5 +16,5 @@ export function isView(ref) {
   };
   window.onscroll = debounce(() => {
     lazyLoad();
-  }, 100);
+  }, 66);
 }

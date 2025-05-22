@@ -3,10 +3,6 @@ ul {
     margin: 0;
 }
 
-/* ul>li {
-    list-style: none;
-} */
-
 h1,
 h2,
 h3,
@@ -35,18 +31,11 @@ a {
     background-color: #fff !important
 }
 
-
-
-/* @font-face {
-    font-family: 'Josefin Sans';
-    src: url('../font/JosefinSans-Regular.ttf');
-} */
-
 body {
-    /* font-family: 'Josefin Sans', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft Yahei", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif; */
     font-family: sans-serif;
     letter-spacing: 0.05em;
     font-size: 16px;
+    color: var(--primary-text-color);
 }
 
 /* 移动端滑动卡顿 */
@@ -98,4 +87,15 @@ body {
     opacity: 0 !important;
     -ms-transform: translateY(50px) !important;
     transform: translateY(50px) !important;
+}
+:root{
+    --title-font-size: 1rem;
+    --sub-title-font-size: 0.875rem;
+    --text-font-size: 0.875rem;
+
+    --primary-text-color: #333;
+    --secondary-text-color: #666;
+    --third-text-color: #999;
+
+    --primary-letter-spacing: 0.05em;
 }
