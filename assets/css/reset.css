@@ -14,7 +14,7 @@ p {
 }
 
 a {
-    color: #999;
+    color: var(--third-text-color);
     text-decoration: none;
 }
 

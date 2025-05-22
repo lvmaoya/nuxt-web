@@ -94,7 +94,7 @@ ul {
       span {
         display: block;
         font-style: italic;
-        font-size: var(--text-font-size);
+        font-size: var(--text-small-font-size);
         color: var(--third-text-color);
       }
     }
@@ -103,7 +103,7 @@ ul {
       font-size: var(--text-font-size);
       line-height: 1.75;
       padding: 0 0 2em;
-      color: var(--third-text-color);
+      color: var(--secondary-text-color);
       overflow: hidden;
       white-space: normal;
       letter-spacing: var(--primary-letter-spacing);
