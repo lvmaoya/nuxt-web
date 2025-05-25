@@ -212,4 +212,16 @@ onActivated(async () => {
     }
   }
 }
+:deep(.markdown-body p){
+  column-count: 3;
+  font-size: 0;
+  column-gap: 8px;
+}
+:deep(.markdown-body p img){
+  display: inline-block;
+  break-inside: avoid;
+  margin-bottom: 8px;
+  width: 100% !important;
+  height: auto!important;
+}
 </style>
