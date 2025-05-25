@@ -89,10 +89,10 @@ const initArticle = async () => {
   useHead({
     title: articleDetail.value?.title,
     meta: [
-      { name: "description", content: articleDetail.value?.description ?? useRuntimeConfig().public.title },
+      { name: "description", content: articleDetail.value?.description ?? useRuntimeConfig().public.description },
       {
         name: "keywords",
-        content: articleDetail.value?.keywords?.length ?? useRuntimeConfig().public.keywords,
+        content: articleDetail.value?.keywords ?? useRuntimeConfig().public.keywords,
       },
     ],
   });
