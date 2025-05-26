@@ -212,16 +212,25 @@ onActivated(async () => {
     }
   }
 }
-:deep(.picture-container p){
+:deep(.picture-container p) {
   column-count: 3;
   font-size: 0;
   column-gap: 4px;
+  
+  @media screen and (max-width: 768px) {
+    column-count: 2;
+  }
+  
+  @media screen and (max-width: 480px) {
+    column-count: 1;
+  }
 }
-:deep(.picture-container p img){
+
+:deep(.picture-container p img) {
   display: inline-block;
   break-inside: avoid;
   margin-bottom: 4px;
   width: 100% !important;
-  height: auto!important;
+  height: auto !important;
 }
 </style>
