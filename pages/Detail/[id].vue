@@ -10,7 +10,7 @@
         <div class="abstract" v-if="articleDetail?.articleAbstract">
           <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
         </div>
-        <article class="markdown-body" data-theme="light">
+        <article class="markdown-body" data-theme="light" :class="{'picture-container' : articleDetail?.category?.id == 4}">
           <div v-html="articleDetail?.content"></div>
         </article>
       </div>
@@ -212,15 +212,15 @@ onActivated(async () => {
     }
   }
 }
-:deep(.markdown-body p){
+:deep(.picture-container p){
   column-count: 3;
   font-size: 0;
-  column-gap: 8px;
+  column-gap: 4px;
 }
-:deep(.markdown-body p img){
+:deep(.picture-container p img){
   display: inline-block;
   break-inside: avoid;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   width: 100% !important;
   height: auto!important;
 }
