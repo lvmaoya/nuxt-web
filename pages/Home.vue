@@ -13,8 +13,7 @@ thingList.value = (await getBlogList({fatherCategoryId: 1, size: 999})).data.rec
 useHead({
   title: "lvmaoya",
   meta: [
-    { name: "google-site-verification", content: "rdicKFHUWZtMhhwgAXfrjwCJSXuzRzH6UcmV1gUgj_o" },
-    { name: "baidu-site-verification", content: "codeva-2ufzzLZnPK" },
+    { name: "google-site-verification", content: "rdicKFHUWZtMhhwgAXfrjwCJSXuzRzH6UcmV1gUgj_o" }
   ],
 });
 onBeforeMount(() => {
