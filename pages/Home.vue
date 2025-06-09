@@ -14,6 +14,7 @@ useHead({
   title: "lvmaoya",
   meta: [
     { name: "google-site-verification", content: "rdicKFHUWZtMhhwgAXfrjwCJSXuzRzH6UcmV1gUgj_o" },
+    { name: "baidu-site-verification", content: "codeva-2ufzzLZnPK" },
   ],
 });
 onBeforeMount(() => {
