@@ -1,6 +1,6 @@
 <template>
   <div class="detail-content">
-    <div class="inner">
+    <div class="inner detail-inner">
       <div class="content">
         <div class="title">{{ articleDetail?.title }}</div>
         <div class="date">Published on {{ formatDate(articleDetail?.publishedTime) }}, with {{ articleDetail?.pageView
@@ -13,6 +13,15 @@
         <article class="markdown-body" data-theme="light">
           <div v-html="articleDetail?.content"></div>
         </article>
+      </div>
+      <div class="navigation">
+        <ul>
+          <li v-for="anchor in v_titles" :key="anchor.id"
+            :class="{ level1: anchor.indent == 0, level2: anchor.indent == 1, level3: anchor.indent == 2 }"
+            @click="handleAnchorClick(anchor)">
+            <a style="cursor: pointer">{{ anchor.title }}</a>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="comment">
@@ -33,6 +42,7 @@ const { $activeMenu, $setActiveMenu } = useNuxtApp()
 const route = useRoute();
 const articleId = Number(route.params.id);
 let commentNum = ref(0)
+const v_titles = ref()
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
 
@@ -78,7 +88,7 @@ const view = async () => {
     viewedList[articleId] = currentTime
     LocalCache.setCache('pv', viewedList)
     if (articleId) {
-      changePVData(articleId)      
+      changePVData(articleId)
     }
   }
 }
@@ -103,6 +113,8 @@ const initArticle = async () => {
 
   processCodeBlocks()
 
+  buildAnchorTitles()
+
 }
 
 initArticle()
@@ -115,6 +127,37 @@ onActivated(async () => {
     $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0)
   }
 })
+const buildAnchorTitles = () => {
+  const preview = document.querySelector('.markdown-body')
+  const anchors = preview?.querySelectorAll('h1,h2,h3,h4,h5,h6')
+  if (!anchors) return
+
+  const titles = Array.from(anchors).filter(el => !!el.textContent?.trim())
+  const hTags = Array.from(new Set(titles.map(el => el.tagName))).sort()
+
+  v_titles.value = titles.map(el => ({
+    title: el.textContent,
+    id: el.id || el.textContent?.replace(/\s+/g, '-').toLowerCase(),
+    indent: hTags.indexOf(el.tagName),
+  }))
+
+  // 自动添加 ID 供跳转用
+  titles.forEach(el => {
+    if (!el.id) {
+      el.id = el.textContent?.replace(/\s+/g, '-').toLowerCase() || ''
+    }
+  })
+}
+const handleAnchorClick = (anchor: any) => {
+  const target = document.getElementById(anchor.id)
+  if (target) {
+    const offsetTop = target.getBoundingClientRect().top + window.scrollY
+    window.scrollTo({
+      top: offsetTop - 75, // 假设 header 高度为 60px
+      behavior: 'smooth',
+    })
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -135,31 +178,34 @@ onActivated(async () => {
     top: 0 !important;
   }
 
+  .detail-inner {
+    display: flex;
+    gap: 32px;
+    .content {
+      margin: 0 auto;
+      max-width: 960px;
+      color: var(--primary-text-color);
+      min-height: 100vh;
 
-  .content {
-    margin: 0 auto;
-    max-width: 960px;
-    color: var(--primary-text-color);
-    min-height: 100vh;
+      .title {
+        font-size: 2rem;
+        font-weight: 500;
+        margin-top: 230px;
+        margin-bottom: 40px;
+      }
 
-    .title {
-      font-size: 1.5rem;
-      font-weight: 500;
-      margin-top: 230px;
-      margin-bottom: 40px;
-    }
-
-    .date {
-      font-size: var(--text-font-size);
-      color: var(--secondary-text-color);
-      margin-bottom: 40px;
-    }
+      .date {
+        font-size: var(--text-font-size);
+        color: var(--secondary-text-color);
+        margin-bottom: 40px;
+      }
 
 
-    .abstract {
-      font-size: var(--text-font-size);
-      margin-bottom: 40px;
-      color: var(--secondary-text-color);
+      .abstract {
+        font-size: var(--text-font-size);
+        margin-bottom: 40px;
+        color: var(--secondary-text-color);
+      }
     }
   }
 }
@@ -209,6 +255,63 @@ onActivated(async () => {
     span,
     button {
       border-radius: 4px !important;
+    }
+  }
+}
+
+.navigation {
+  max-width: 240px;
+  margin-top: 330px;
+  font-size: 14px;
+  max-height: calc(100vh - 660px);
+  ul {
+    padding-right: 24px;
+    list-style: none;
+
+    li {
+      cursor: pointer;
+
+      &.level1 {
+        padding-left: 4px;
+        margin-top: 16px;
+
+        a {
+          color: #333;
+        }
+      }
+
+      &.level2 {
+        padding-left: 16px;
+        margin-top: 8px;
+
+        a {
+          color: #666;
+        }
+      }
+
+      &.level3 {
+        padding-left: 28px;
+
+        a {
+          color: #999;
+        }
+      }
+
+      a {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &:hover {
+          color: #000 !important;
+        }
+      }
+
+      &:first-child {
+        margin-top: 8px;
+      }
     }
   }
 }
