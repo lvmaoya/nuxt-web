@@ -9,7 +9,7 @@
       </div>
       <div class="description">
         <p>
-          {{ props.item.description }}
+          {{ props.item.description.length? props.item.description : props.item.articleAbstract }} 
         </p>
       </div>
       <div class="data">
