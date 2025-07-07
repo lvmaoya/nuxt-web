@@ -161,8 +161,8 @@ const handleAnchorClick = (anchor: any) => {
 </script>
 
 <style scoped lang="scss">
-@media (max-width: 1096px) {
-  .navContent {
+@media (max-width: 1330px) {
+  .navigation {
     display: none !important;
   }
 }
@@ -181,6 +181,7 @@ const handleAnchorClick = (anchor: any) => {
   .detail-inner {
     display: flex;
     gap: 32px;
+
     .content {
       margin: 0 auto;
       max-width: 960px;
@@ -260,13 +261,15 @@ const handleAnchorClick = (anchor: any) => {
 }
 
 .navigation {
-  max-width: 240px;
   margin-top: 330px;
-  font-size: 14px;
-  max-height: calc(100vh - 660px);
+
   ul {
-    padding-right: 24px;
     list-style: none;
+    max-width: 240px;
+    font-size: 14px;
+    max-height: calc(100vh - 660px);
+    position: sticky;
+    top: 220px;
 
     li {
       cursor: pointer;
