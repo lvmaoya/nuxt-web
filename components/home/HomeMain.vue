@@ -75,7 +75,7 @@ onMounted(() => {
         font-size: var(--title-font-size);
 
         h4 {
-          color: var(--primary-text-color);
+          color: var(--primary-title-color);
           font-weight: 400;
         }
       }

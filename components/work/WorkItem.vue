@@ -55,7 +55,7 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
   transition: background-color 0.3s;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 12px auto;
+  margin: 0 auto 32px auto;
 
   &:hover {
     .title:before {
@@ -68,7 +68,7 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
     padding: 12px 0px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 14px;
 
     .category {
       font-size: var(--text-small-font-size);
@@ -80,7 +80,7 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
       position: relative;
       border: 1px solid transparent;
       width: fit-content;
-      color: var(--primary-text-color);
+      color: var(--primary-title-color);
       &:before {
         content: "";
         position: absolute;
@@ -102,7 +102,7 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
       p {
         font-size: var(--sub-title-font-size);
         font-weight: 400;
-        color: var(--primary-text-color);
+        color: var(--primary-title-color);
         overflow: hidden;
         white-space: normal;
         word-break: break-word;

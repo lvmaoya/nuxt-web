@@ -82,7 +82,7 @@ ul {
         cursor: pointer;
         border-bottom: 1px solid #ffffff;
         transition: all 0.2s;
-        color: var(--primary-text-color);
+        color: var(--primary-title-color);
         display: block;
         width: fit-content;
       }
@@ -103,7 +103,7 @@ ul {
       font-size: var(--text-font-size);
       line-height: 1.75;
       padding: 0 0 2em;
-      color: var(--secondary-text-color);
+      color: var(--third-text-color);
       overflow: hidden;
       white-space: normal;
       letter-spacing: var(--primary-letter-spacing);
