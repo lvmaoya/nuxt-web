@@ -49,6 +49,7 @@ onMounted(() => {
   ul {
     width: 100%;
     display: grid;
+    padding-bottom: 60px;
     column-gap: 30px;
     row-gap: 60px;
     grid-template-columns: repeat(3, 1fr);

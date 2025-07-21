@@ -3,9 +3,10 @@
     <div class="inner detail-inner">
       <div class="content">
         <div class="title">{{ articleDetail?.title }}</div>
-        <div class="date">Published on {{ formatDate(articleDetail?.publishedTime) }}, with {{ articleDetail?.pageView
-          + ' view(s)' }} and {{
-            commentNum + ' comment(s)' }}
+        <div class="date">
+          Published on {{ formatDate(articleDetail?.publishedTime) }}, with
+          {{ articleDetail?.pageView + " view(s)" }} and
+          {{ commentNum + " comment(s)" }}
         </div>
         <div class="abstract" v-if="articleDetail?.articleAbstract">
           <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
@@ -16,16 +17,26 @@
       </div>
       <div class="navigation">
         <ul>
-          <li v-for="anchor in v_titles" :key="anchor.id"
-            :class="{ level1: anchor.indent == 0, level2: anchor.indent == 1, level3: anchor.indent == 2 }"
-            @click="handleAnchorClick(anchor)">
+          <li
+            v-for="anchor in v_titles"
+            :key="anchor.id"
+            :class="{
+              level1: anchor.indent == 0,
+              level2: anchor.indent == 1,
+              level3: anchor.indent == 2,
+            }"
+            @click="handleAnchorClick(anchor)"
+          >
             <a style="cursor: pointer">{{ anchor.title }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="comment">
-      <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment>
+      <LazyDetailComment
+        :articleId="articleId"
+        @commentNum="getCommentNum"
+      ></LazyDetailComment>
     </div>
   </div>
 </template>
@@ -34,38 +45,38 @@
 import { type BlogType } from "~~/composables";
 import { formatDate } from "~~/utils/formatTime";
 import LocalCache from "~~/utils/cache";
-import Prism from 'prismjs'
+import Prism from "prismjs";
 import "@/assets/css/md.css";
 
-const { $activeMenu, $setActiveMenu } = useNuxtApp()
+const { $activeMenu, $setActiveMenu } = useNuxtApp();
 
 const route = useRoute();
 const articleId = Number(route.params.id);
-let commentNum = ref(0)
-const v_titles = ref()
+let commentNum = ref(0);
+const v_titles = ref();
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
 
 const getCommentNum = (value: number) => {
-  commentNum.value = value
-}
+  commentNum.value = value;
+};
 const processCodeBlocks = async () => {
   if (!document) {
     return;
   }
-  const preTags = document?.querySelectorAll('pre');
+  const preTags = document?.querySelectorAll("pre");
   preTags?.forEach((pre: HTMLElement) => {
-    const classValue = pre.getAttribute('class');
+    const classValue = pre.getAttribute("class");
     if (classValue) {
-      const classArr = classValue.split(';')[0].split(':');
+      const classArr = classValue.split(";")[0].split(":");
       const languageClass = `language-${classArr[1]}`;
       // 创建新的 code 元素
-      const code = document.createElement('code');
+      const code = document.createElement("code");
       code.className = languageClass;
       code.innerHTML = pre.innerHTML;
 
       // 清空 pre 标签并添加新的 code 元素
-      pre.innerHTML = '';
+      pre.innerHTML = "";
       pre.appendChild(code);
       // 添加行号支持
       // pre.className = `line-numbers ${languageClass}`;
@@ -73,91 +84,96 @@ const processCodeBlocks = async () => {
   });
   // 重新应用 Prism 高亮
   Prism.highlightAll();
-}
+};
 const view = async () => {
-  const viewedList = LocalCache.getCache('pv') || {}
-  const currentTime = new Date().getTime()
-  const sixHours = 6 * 60 * 60 * 1000 // 6小时的毫秒数
+  const viewedList = LocalCache.getCache("pv") || {};
+  const currentTime = new Date().getTime();
+  const sixHours = 6 * 60 * 60 * 1000; // 6小时的毫秒数
 
   // 检查是否需要更新浏览量
-  const shouldUpdate = !viewedList[articleId] ||
-    (currentTime - viewedList[articleId]) > sixHours
+  const shouldUpdate =
+    !viewedList[articleId] || currentTime - viewedList[articleId] > sixHours;
 
   if (shouldUpdate) {
     // 更新访问时间戳
-    viewedList[articleId] = currentTime
-    LocalCache.setCache('pv', viewedList)
+    viewedList[articleId] = currentTime;
+    LocalCache.setCache("pv", viewedList);
     if (articleId) {
-      changePVData(articleId)
+      changePVData(articleId);
     }
   }
-}
+};
 const initArticle = async () => {
   const articleDetailRes = await getArticleDetail(articleId);
-  articleDetail.value = articleDetailRes.data
-  view()
+  articleDetail.value = articleDetailRes.data;
+  view();
   useHead({
     title: articleDetail.value?.title,
     meta: [
-      { name: "description", content: articleDetail.value?.description ?? useRuntimeConfig().public.description },
+      {
+        name: "description",
+        content:
+          articleDetail.value?.description ??
+          useRuntimeConfig().public.description,
+      },
       {
         name: "keywords",
-        content: articleDetail.value?.keywords ?? useRuntimeConfig().public.keywords,
+        content:
+          articleDetail.value?.keywords ?? useRuntimeConfig().public.keywords,
       },
     ],
   });
 
-  await nextTick()
+  await nextTick();
 
-  $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0)
+  $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0);
 
-  processCodeBlocks()
+  processCodeBlocks();
 
-  buildAnchorTitles()
+  buildAnchorTitles();
+};
 
-}
-
-initArticle()
+initArticle();
 
 onBeforeRouteLeave(async () => {
-  $setActiveMenu(0)
-})
+  $setActiveMenu(0);
+});
 onActivated(async () => {
   if (articleDetail.value) {
-    $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0)
+    $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0);
   }
-})
+});
 const buildAnchorTitles = () => {
-  const preview = document.querySelector('.markdown-body')
-  const anchors = preview?.querySelectorAll('h1,h2,h3,h4,h5,h6')
-  if (!anchors) return
+  const preview = document.querySelector(".markdown-body");
+  const anchors = preview?.querySelectorAll("h1,h2,h3,h4,h5,h6");
+  if (!anchors) return;
 
-  const titles = Array.from(anchors).filter(el => !!el.textContent?.trim())
-  const hTags = Array.from(new Set(titles.map(el => el.tagName))).sort()
+  const titles = Array.from(anchors).filter((el) => !!el.textContent?.trim());
+  const hTags = Array.from(new Set(titles.map((el) => el.tagName))).sort();
 
-  v_titles.value = titles.map(el => ({
+  v_titles.value = titles.map((el) => ({
     title: el.textContent,
-    id: el.id || el.textContent?.replace(/\s+/g, '-').toLowerCase(),
+    id: el.id || el.textContent?.replace(/\s+/g, "-").toLowerCase(),
     indent: hTags.indexOf(el.tagName),
-  }))
+  }));
 
   // 自动添加 ID 供跳转用
-  titles.forEach(el => {
+  titles.forEach((el) => {
     if (!el.id) {
-      el.id = el.textContent?.replace(/\s+/g, '-').toLowerCase() || ''
+      el.id = el.textContent?.replace(/\s+/g, "-").toLowerCase() || "";
     }
-  })
-}
+  });
+};
 const handleAnchorClick = (anchor: any) => {
-  const target = document.getElementById(anchor.id)
+  const target = document.getElementById(anchor.id);
   if (target) {
-    const offsetTop = target.getBoundingClientRect().top + window.scrollY
+    const offsetTop = target.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({
       top: offsetTop - 75, // 假设 header 高度为 60px
-      behavior: 'smooth',
-    })
+      behavior: "smooth",
+    });
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -180,14 +196,23 @@ const handleAnchorClick = (anchor: any) => {
 
   .detail-inner {
     display: flex;
-    gap: 32px;
-
+    gap: 96px;
+    justify-content: center;
     .content {
-      margin: 0 auto;
       max-width: 960px;
+      margin-left: 96px;
       color: var(--primary-text-color);
       min-height: 100vh;
-
+      @media (max-width: 1330px) {
+        & {
+          margin-left: 0;
+        }
+      }
+      @media (max-width: 960px) {
+        & {
+          max-width: 100%;
+        }
+      }
       .title {
         font-size: 2rem;
         font-weight: 500;
@@ -200,7 +225,6 @@ const handleAnchorClick = (anchor: any) => {
         color: var(--secondary-text-color);
         margin-bottom: 40px;
       }
-
 
       .abstract {
         font-size: var(--text-font-size);
@@ -221,14 +245,14 @@ const handleAnchorClick = (anchor: any) => {
 }
 
 :deep(pre) {
-  font-size: 12px;
-  border-radius: 8px;
+  font-size: 14px;
+  border-radius: 16px;
   background-color: #2d2d2d;
   word-break: break-all;
   white-space: pre-wrap;
   margin: 0px !important;
-  padding: 8px 12px;
   line-height: 1.42857143;
+  padding: 1rem !important;
 }
 
 :deep(pre.language-css) {
@@ -242,13 +266,11 @@ const handleAnchorClick = (anchor: any) => {
 
 :deep(.toolbar) {
   right: 12px !important;
-  top: 8px !important;
+  top: 9.144px !important;
   line-height: 13px;
   user-select: none;
 
   .toolbar-item {
-    font-size: 12px;
-
     &:last-child {
       margin-left: 8px;
     }
@@ -256,6 +278,24 @@ const handleAnchorClick = (anchor: any) => {
     span,
     button {
       border-radius: 4px !important;
+      font-size: 12px !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+      &:focus {
+        color: white !important;
+      }
+    }
+    span {
+      display: block;
+      padding: 0 8px !important;
+      height: 20px;
+      &:hover {
+        color: white !important;
+        cursor: pointer;
+      }
+      &:focus {
+        color: white !important;
+      }
     }
   }
 }
@@ -270,7 +310,17 @@ const handleAnchorClick = (anchor: any) => {
     max-height: calc(100vh - 660px);
     position: sticky;
     top: 220px;
-
+    overflow-y: auto;
+    padding-right: 20px;
+    overscroll-behavior: contain;
+    -ms-scroll-chaining: contain;
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(207, 207, 207, 0.3);
+    }
     li {
       cursor: pointer;
 
