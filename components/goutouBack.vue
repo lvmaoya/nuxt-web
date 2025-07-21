@@ -27,11 +27,6 @@ function backTop() {
     } //W3C
     (window as any).onmousewheel = scrollFunc; //IE/Opera/Chrome
 }
-onBeforeMount(() => {
-    if (document.body.clientWidth > 480)  {
-        document.querySelector('.goutou-back')?.setAttribute('style', 'display:none');
-    }
-});
 </script>
 
 <style scoped lang="scss">
@@ -40,6 +35,12 @@ onBeforeMount(() => {
     left: 0px;
     bottom: -33px;
     z-index: 333;
+
+    @media (min-width: 480px) {
+        & {
+          display: none;
+        }
+    }
 
     img {
         position: relative;
