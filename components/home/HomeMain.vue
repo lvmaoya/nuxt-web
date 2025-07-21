@@ -48,8 +48,10 @@ onMounted(() => {
 
   ul {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    column-gap: 30px;
+    row-gap: 60px;
+    grid-template-columns: repeat(3, 1fr);
     cursor: pointer;
 
     a {
@@ -103,47 +105,24 @@ onMounted(() => {
     li {
       width: 100%;
       list-style: none;
-      margin: 0 0 40px;
     }
 
     @media (min-width: 480px) {
-      li {
-        width: calc(50% - 10px);
-        list-style: none;
-        margin: 0 20px 40px 0;
-
-        &:nth-child(2n) {
-          margin-right: 0;
-        }
+      & {
+        grid-template-columns: repeat(1, 1fr);
       }
     }
 
     @media (min-width: 768px) {
-      li {
-        width: calc(50% - 15px);
-        margin: 0 30px 80px 0;
-        list-style: none;
-
-        &:nth-child(2n) {
-          margin-right: 0;
-        }
+       & {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
 
     @media (min-width: 1024px) {
-      li {
-        width: calc(33.33% - 20px);
-        margin: 0 30px 80px 0;
-        list-style: none;
-
-        &:nth-child(2n) {
-          margin-right: 30px;
-        }
-
-        &:nth-child(3n) {
-          margin-right: 0;
-        }
+       & {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
   }

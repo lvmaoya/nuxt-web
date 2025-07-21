@@ -9,18 +9,16 @@
     <li v-for="item in props.blogList" :key="item.id">
       <a :href="'/detail/' + item.id">
         <div class="article-image">
-          <img :src="item.coverImage" alt="" />
+          <img :src="item.coverImage" alt />
         </div>
         <div class="article-content">
           <div class="title">
             <span>{{ item.title }}</span>
           </div>
           <div class="date">
-            <span> {{ item.publishedTime.replace(/:[^:]*$/, '') }}</span>
+            <span>{{ item.publishedTime.replace(/:[^:]*$/, '') }}</span>
           </div>
-          <div class="description">
-            {{ item.description }}
-          </div>
+          <div class="description">{{ item.description }}</div>
         </div>
       </a>
     </li>
@@ -39,8 +37,10 @@ const props = defineProps({
 <style scoped lang="scss">
 ul {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
 
   li {
     width: 100%;
@@ -117,50 +117,20 @@ ul {
 }
 
 @media (min-width: 768px) {
-  ul li {
-    width: calc(50% - 15px);
-    margin: 0 30px 20px 0;
-    list-style: none;
-
-    &:nth-child(2n) {
-      margin-right: 0;
-    }
+  ul {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  ul li {
-    width: calc(33.33333% - 15px);
-    margin: 0 20px 20px 0;
-    padding: 0;
-    list-style: none;
-
-    &:nth-child(2n) {
-      margin-right: 20px;
-    }
-
-    &:nth-child(3n) {
-      margin-right: 0;
-    }
+  ul {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (min-width: 1400px) {
-  ul li {
-    width: calc(25% - 15px);
-    list-style: none;
-
-    &:nth-child(2n) {
-      margin-right: 20px;
-    }
-
-    &:nth-child(3n) {
-      margin-right: 20px;
-    }
-
-    &:nth-child(4n) {
-      margin-right: 0;
-    }
+  ul {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>

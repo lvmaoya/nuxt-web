@@ -1,31 +1,29 @@
 #container .inner {
-    border-left-width: 20px;
-    border-right-width: 20px;
-    border-color: transparent;
-    border-style: solid;
-    margin: 0 auto;
-    max-width: 2000px;
-    box-sizing: border-box;
-
+  max-width: 2000px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box; /* 确保padding包含在总宽度内 */
 }
 
 @media (min-width: 768px) {
-    #container .inner {
-        border-left-width: 50px;
-        border-right-width: 50px;
-    }
+  #container .inner {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 }
 
 @media (min-width: 1024px) {
-    #container .inner {
-        border-left-width: 70px;
-        border-right-width: 70px;
-    }
+  #container .inner {
+    padding-left: 70px;
+    padding-right: 70px;
+  }
 }
 
 @media (min-width: 1400px) {
-    #container .inner {
-        border-left-width: 100px;
-        border-right-width: 100px;
-    }
+  #container .inner {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
 }
