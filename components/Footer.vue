@@ -3,48 +3,64 @@
     <footer>
       <div class="inner content">
         <div class="about item">
-          <div class="title">LVMAOYA</div>
-          <div class="copyright">
-            <p>©2025
-              <i class="heart"></i>lvmaoya .
-            </p>
-            <slot></slot>
+          <div class="item-content">
+            <div class="title">LVMAOYA</div>
+            <div class="copyright">
+              <p>©2025 <i class="heart"></i>lvmaoya .</p>
+              <slot></slot>
+            </div>
+            <ul class="contact">
+              <li><a href="https://github.com/lvmaoya" target="_blank"></a></li>
+              <li><a href="https://mail.qq.com/" target="_blank"></a></li>
+              <li><a href=""></a></li>
+              <li><a href=""></a></li>
+              <li><a href=""></a></li>
+            </ul>
           </div>
-          <ul class="contact">
-            <li><a href="https://github.com/lvmaoya" target="_blank"></a></li>
-            <li><a href="https://mail.qq.com/" target="_blank"></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-          </ul>
         </div>
         <div class="recentPost item">
-          <div class="title">RECENT POSTS</div>
-          <ul>
-            <li v-for="item in recentArticleList"><a :href="'/detail/' + item.id">{{
-              item.title
-            }}</a></li>
-          </ul>
+          <div class="item-content">
+            <div class="title">RECENT POSTS</div>
+            <ul>
+              <li v-for="item in recentArticleList">
+                <a :href="'/detail/' + item.id">{{ item.title }}</a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="musicBox item">
-          <div class="title">READING WITH MISIC</div>
-          <div class="musicContent">
-            <div class="musicTitle">{{ currentMusic.title }}</div>
-            <ul class="control">
-              <li @click="handlelastClick"><a href="javascript:;"></a></li>
-              <li @click="handlePauseClick" :class="{ stop: isStoped }"><a href="javascript:;"></a></li>
-              <li @click="handleNextClick"> <a href=" javascript:;"></a></li>
-            </ul>
+          <div class="item-content">
+            <div class="title">READING WITH MISIC</div>
+            <div class="musicContent">
+              <div class="musicTitle">{{ currentMusic.title }}</div>
+              <ul class="control">
+                <li @click="handlelastClick"><a href="javascript:;"></a></li>
+                <li @click="handlePauseClick" :class="{ stop: isStoped }">
+                  <a href="javascript:;"></a>
+                </li>
+                <li @click="handleNextClick"><a href=" javascript:;"></a></li>
+              </ul>
 
-            <audio :src="currentMusic.url" ref="audio" @timeupdate="audioTimeUpdate" @pause="musicPause"
-              @ended="musicEnded" @canplay="canplay" @playing="musicPlaying" @error="musicErr"></audio>
-          </div>
-          <div class="progress">
-            <span class="line">
-              <i class="currentTime"></i>
-            </span>
-            <span class="time">{{ formatSeconds(currentTime) }} / {{ convertSecondsToMmSs(totalTime)
-            }}</span>
+              <audio
+                :src="currentMusic.url"
+                ref="audio"
+                @timeupdate="audioTimeUpdate"
+                @pause="musicPause"
+                @ended="musicEnded"
+                @canplay="canplay"
+                @playing="musicPlaying"
+                @error="musicErr"
+              ></audio>
+            </div>
+            <div class="progress">
+              <span class="line">
+                <i class="currentTime"></i>
+              </span>
+              <span class="time"
+                >{{ formatSeconds(currentTime) }} /
+                {{ convertSecondsToMmSs(totalTime) }}</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -55,11 +71,11 @@
 <script setup lang="ts">
 import { type BlogType } from "@/composables/index";
 const recentArticleList = ref<Array<BlogType>>();
-recentArticleList.value = (await getBlogList({size: 5})).data.records;
+recentArticleList.value = (await getBlogList({ size: 5 })).data.records;
 
-const audio = ref()
-const currentTime = ref(0)
-const totalTime = ref(0)
+const audio = ref();
+const currentTime = ref(0);
+const totalTime = ref(0);
 const musicList = [
   {
     title: "刘夏夏夏夏 - 装下银河的包裹",
@@ -524,20 +540,20 @@ const musicList = [
   },
 ];
 
-const currentIndex = ref(Math.floor(Math.random() * 51))
-const currentMusic = ref<{ duration: number, url: string, title: string }>({
+const currentIndex = ref(Math.floor(Math.random() * 51));
+const currentMusic = ref<{ duration: number; url: string; title: string }>({
   duration: 0,
-  url: '',
-  title: ''
-})
+  url: "",
+  title: "",
+});
 watch(currentIndex, () => {
-  initMusic()
-})
+  initMusic();
+});
 const initMusic = () => {
-  currentMusic.value = musicList[currentIndex.value]
-  totalTime.value = currentMusic.value.duration
-}
-initMusic()
+  currentMusic.value = musicList[currentIndex.value];
+  totalTime.value = currentMusic.value.duration;
+};
+initMusic();
 // const hotMenuRes = await getHotMenu()
 // if (hotMenuRes.code == 200) {
 //   musicMenu.value = hotMenuRes.data
@@ -545,61 +561,67 @@ initMusic()
 //   totalTime.value = currentMusic.value.duration
 // }
 
-const isStoped = ref(true)
+const isStoped = ref(true);
 const handlePauseClick = () => {
-  isStoped.value = !isStoped.value
+  isStoped.value = !isStoped.value;
   if (isStoped.value) {
-    audio.value.pause()
+    audio.value.pause();
   } else {
-    audio.value.play()
+    audio.value.play();
   }
-}
+};
 const handleNextClick = async () => {
-  isStoped.value = false
-  currentIndex.value == (musicList.length - 1) ? (currentIndex.value = 0) : (currentIndex.value += 1)
-  initMusic()
-  await audio.value.load()
-  audio.value.play()
-}
+  isStoped.value = false;
+  currentIndex.value == musicList.length - 1
+    ? (currentIndex.value = 0)
+    : (currentIndex.value += 1);
+  initMusic();
+  await audio.value.load();
+  audio.value.play();
+};
 const handlelastClick = async () => {
-  isStoped.value = false
-  currentIndex.value == 0 ? currentIndex.value = (musicList.length - 1) : (currentIndex.value -= 1)
-  initMusic()
-  await audio.value.load()
-  audio.value.play()
-}
+  isStoped.value = false;
+  currentIndex.value == 0
+    ? (currentIndex.value = musicList.length - 1)
+    : (currentIndex.value -= 1);
+  initMusic();
+  await audio.value.load();
+  audio.value.play();
+};
 
 watch([currentTime, totalTime], (newVal, val) => {
-  let progress = (newVal[0] * 100) / totalTime.value
+  let progress = (newVal[0] * 100) / totalTime.value;
   //@ts-ignore
-  document.querySelector(".currentTime").style.transform = `translateX(${progress}%)`
-})
-const isPlaying = ref()
+  document.querySelector(
+    ".currentTime"
+  ).style.transform = `translateX(${progress}%)`;
+});
+const isPlaying = ref();
 // const isLoaded = ref(false)
 const audioTimeUpdate = () => {
   if (audio.value != null) {
     currentTime.value = audio.value.currentTime;
   }
-}
+};
 const musicPause = () => {
   isPlaying.value = false;
-}
+};
 const musicEnded = () => {
-  handleNextClick()
-}
+  handleNextClick();
+};
 const canplay = (val: any) => {
   // console.log(val)
   // isLoaded.value = true
-}
+};
 const musicErr = () => {
   // console.log("musicErr")
-}
+};
 const musicPlaying = () => {
   // console.log("musicplaying")
-}
+};
 const convertSecondsToMmSs = (seconds: any) => {
   let minutes;
-  // 如果秒数大于 60，将其转换为分钟和秒  
+  // 如果秒数大于 60，将其转换为分钟和秒
   if (seconds > 60) {
     minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
@@ -607,18 +629,18 @@ const convertSecondsToMmSs = (seconds: any) => {
     minutes = 0;
   }
 
-  // 将分钟和秒格式化为两位数  
+  // 将分钟和秒格式化为两位数
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
 
-  // 返回格式化的字符串  
+  // 返回格式化的字符串
   return minutes + ":" + seconds;
-}
+};
 const formatSeconds = (seconds: number) => {
   let minutes = Math.floor(seconds / 60);
   let remainingSeconds = Math.floor(seconds % 60);
   return minutes + ":" + (remainingSeconds < 10 ? "0" : "") + remainingSeconds;
-}  
+};
 </script>
 
 <style lang="scss" scoped>
@@ -630,42 +652,43 @@ footer {
   margin: 0 auto;
   font-size: var(--text-small-font-size);
   background-color: #fff;
-
+  box-sizing: border-box;
   .content {
-    display: flex;
-    padding: 49px 0;
-    height: 150px;
-    box-sizing: content-box !important;
-    max-width: 1800px !important;
-    .item {
-      width: 33.3333%;
-
-      @media (max-width: 1024px) {
-        & {
-          width: 50%;
-          padding: 0 30px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        & {
-          width: 100%;
-          padding: 0 30px;
-        }
-      }
-
-      .title {
-        font-size: var(--text-font-size);
-        padding: 0;
-        text-decoration: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 50px 0;
+    height: 250px;
+    gap: 30px;
+    @media (max-width: 1024px) {
+      & {
+        grid-template-columns: repeat(2, 1fr);
+        padding-left: 30px;
+        padding-right: 30px;
       }
     }
 
-    .about {
+    @media (max-width: 768px) {
+      & {
+        grid-template-columns: repeat(1, 1fr);
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+    .item-content {
+      height: 100%;
+      width: fit-content;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
 
+    .title {
+      font-size: var(--text-font-size);
+      padding: 0;
+      text-decoration: none;
+    }
+
+    .about {
       .copyright {
         color: var(--third-text-color);
 
@@ -734,9 +757,9 @@ footer {
             background-repeat: no-repeat;
             background-size: cover;
             display: block;
-            opacity: .8;
+            opacity: 0.8;
             text-indent: -9999px;
-            transition: opacity .2s linear;
+            transition: opacity 0.2s linear;
             width: 25px;
             height: 25px;
 
@@ -770,9 +793,7 @@ footer {
 
     .recentPost {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
+      justify-content: center;
       @media (max-width: 1024px) {
         & {
           display: none !important;
@@ -781,9 +802,8 @@ footer {
       a:hover {
         text-decoration: underline;
         color: var(--primary-text-color);
-        transition: all .2s linear;
+        transition: all 0.2s linear;
       }
-
 
       ul {
         li {
@@ -801,9 +821,7 @@ footer {
 
     .musicBox {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
+      justify-content: flex-end;
       @media (max-width: 768px) {
         & {
           display: none;
@@ -832,9 +850,9 @@ footer {
               background-repeat: no-repeat;
               background-size: cover;
               display: block;
-              opacity: .8;
+              opacity: 0.8;
               text-indent: -9999px;
-              transition: opacity .2s linear, transform 0.2s, background, 0.2s;
+              transition: opacity 0.2s linear, transform 0.2s, background, 0.2s;
               width: 18px;
               height: 18px;
 
@@ -858,14 +876,12 @@ footer {
             &:nth-child(3) a {
               background-image: url(../assets/img/next.svg);
             }
-
           }
 
           .stop a {
             background-image: url(../assets/img/stop.svg) !important;
           }
         }
-
       }
 
       .progress {
@@ -874,10 +890,15 @@ footer {
         height: 25px;
 
         .line {
-          width: 50%;
+          width: 300px;
           height: 2px;
           display: block;
           background: #808080;
+          @media (max-width: 2024px) {
+            & {
+              width: 240px;
+            }
+          }
 
           i {
             display: block;
@@ -894,11 +915,11 @@ footer {
 
         .time {
           padding-left: 20px;
+          display: block;
+          white-space: nowrap;
         }
-
       }
     }
   }
-
 }
 </style>
