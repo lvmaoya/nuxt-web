@@ -1,8 +1,8 @@
 <template>
   <div class="search" @click.stop>
     <div class="search-input">
-      <input type="text" placeholder="Search..." v-model="searchData"
-        @keyup.enter="handleSearchBtnClick" @focus="handleFocus" @blur="handleBlur" />
+      <input type="text" placeholder="search..." v-model="searchData"
+        @keyup.enter="handleSearchBtnClick" @focus="handleFocus" @blur="handleBlur"/>
       <button @click="handleSearchBtnClick">
         <span class="iconfont">
           <svg class="icon" aria-hidden="true">
@@ -59,11 +59,13 @@ const handleSearchBtnClick = () => {
       background: #fff;
       box-sizing: border-box;
       box-shadow: 0 1px 4px rgb(0 0 0 / 4%);
-      font-size: var(--text-font-size);
+      font-size: 18.5px;
       padding: 0 45px 0 16px;
       user-select: none;
+      &::placeholder{
+        font-size: 16px;
+      }
     }
-
     input:focus {
       outline: none;
     }
