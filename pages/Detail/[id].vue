@@ -245,9 +245,9 @@ const handleAnchorClick = (anchor: any) => {
 }
 
 :deep(pre) {
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 16px;
-  background-color: #2d2d2d;
+  // background-color: #f9f9f9;
   word-break: break-all;
   white-space: pre-wrap;
   margin: 0px !important;
