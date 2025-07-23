@@ -52,7 +52,7 @@ onMounted(() => {
     padding-bottom: 60px;
     column-gap: 30px;
     row-gap: 60px;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     cursor: pointer;
 
     a {
