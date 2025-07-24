@@ -23,7 +23,7 @@ let blogList = ref<Array<BlogType>>([]);
 let currentPage = ref(1);
 let total = ref(0);
 let size = ref(999);
-let blogData = (await getBlogList({ page: currentPage.value, size: size.value, fatherCategoryId: 3 })).data;
+let blogData = (await getBlogList({ page: currentPage.value, size: size.value, fatherCategoryIds: [3, 4] })).data;
 blogList.value = blogData.records;
 
 total.value = blogData.total;
