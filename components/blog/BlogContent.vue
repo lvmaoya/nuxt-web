@@ -18,7 +18,7 @@
           <div class="date">
             <span>{{ item.publishedTime.replace(/:[^:]*$/, '') }}</span>
           </div>
-          <div class="description">{{ item.categoryId === 3 ? item.description : '图集' }}</div>
+          <div class="description">{{ item.fatherCategoryId == 4 ? '图集' : item.description }}</div>
         </div>
       </a>
     </li>
@@ -45,11 +45,13 @@ ul {
   li {
     width: 100%;
     list-style: none;
+
     &:hover {
       .title span {
         border-bottom: 1px solid #4d4d4d;
       }
     }
+
     a {
       display: block;
     }
