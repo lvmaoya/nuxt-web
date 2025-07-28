@@ -9,7 +9,7 @@
     <li v-for="item in props.blogList" :key="item.id">
       <a :href="'/detail/' + item.id">
         <div class="article-image">
-          <img :src="item.coverImage" alt />
+          <img :src="item.coverImage" alt="文章图片" />
         </div>
         <div class="article-content">
           <div class="title">
@@ -18,7 +18,7 @@
           <div class="date">
             <span>{{ item.publishedTime.replace(/:[^:]*$/, '') }}</span>
           </div>
-          <div class="description">{{ item.description }}</div>
+          <div class="description">{{ item.categoryId === 3 ? item.description : '图集' }}</div>
         </div>
       </a>
     </li>

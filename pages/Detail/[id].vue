@@ -8,10 +8,10 @@
           {{ articleDetail?.pageView + " view(s)" }} and
           {{ commentNum + " comment(s)" }}
         </div>
-        <div class="abstract" v-if="articleDetail?.articleAbstract">
+        <div class="abstract" v-if="articleDetail?.articleAbstract && articleDetail?.fatherCategoryId != 4">
           <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
         </div>
-        <article class="markdown-body" data-theme="light">
+        <article class="markdown-body" data-theme="light" :class="{'img-article': articleDetail?.fatherCategoryId == 4}">
           <div v-html="articleDetail?.content"></div>
         </article>
       </div>
@@ -367,5 +367,19 @@ const handleAnchorClick = (anchor: any) => {
       }
     }
   }
+}
+:deep(.img-article img){
+  border-radius: 4px;
+  width: 100% !important;
+  height: auto !important;
+}
+:deep(.img-article p){
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+  row-gap: 32px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 </style>
