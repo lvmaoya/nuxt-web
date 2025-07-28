@@ -6,11 +6,21 @@
 -->
 <template>
   <div class="empty">
-    <span>暂时木有内容哦</span>
+    <span v-if="props.loading">加载中...</span>
+    <span v-else>暂时木有内容哦</span>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+const props = defineProps({
+  loading: {
+    required: false,
+    type: Boolean,
+  }
+});
+</script>
 
 <style scoped lang="scss">
 .empty {
