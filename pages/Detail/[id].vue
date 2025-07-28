@@ -11,32 +11,25 @@
         <div class="abstract" v-if="articleDetail?.articleAbstract && articleDetail?.fatherCategoryId != 4">
           <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
         </div>
-        <article class="markdown-body" data-theme="light" :class="{'img-article': articleDetail?.fatherCategoryId == 4}">
+        <article class="markdown-body" data-theme="light"
+          :class="{ 'img-article': articleDetail?.fatherCategoryId == 4 }">
           <div v-html="articleDetail?.content"></div>
         </article>
       </div>
       <div class="navigation">
         <ul>
-          <li
-            v-for="anchor in v_titles"
-            :key="anchor.id"
-            :class="{
-              level1: anchor.indent == 0,
-              level2: anchor.indent == 1,
-              level3: anchor.indent == 2,
-            }"
-            @click="handleAnchorClick(anchor)"
-          >
+          <li v-for="anchor in v_titles" :key="anchor.id" :class="{
+            level1: anchor.indent == 0,
+            level2: anchor.indent == 1,
+            level3: anchor.indent == 2,
+          }" @click="handleAnchorClick(anchor)">
             <a style="cursor: pointer">{{ anchor.title }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="comment">
-      <LazyDetailComment
-        :articleId="articleId"
-        @commentNum="getCommentNum"
-      ></LazyDetailComment>
+      <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment>
     </div>
   </div>
 </template>
@@ -106,7 +99,9 @@ const view = async () => {
 const initArticle = async () => {
   const articleDetailRes = await getArticleDetail(articleId);
   articleDetail.value = articleDetailRes.data;
-  view();
+  if(process.env.NODE_ENV === "production"){
+    view();
+  }
   useHead({
     title: articleDetail.value?.title,
     meta: [
@@ -198,21 +193,25 @@ const handleAnchorClick = (anchor: any) => {
     display: flex;
     gap: 96px;
     justify-content: center;
+
     .content {
       max-width: 960px;
       margin-left: 96px;
       color: var(--primary-text-color);
       min-height: 100vh;
+
       @media (max-width: 1330px) {
         & {
           margin-left: 0;
         }
       }
+
       @media (max-width: 960px) {
         & {
           max-width: 100%;
         }
       }
+
       .title {
         font-size: 2rem;
         font-weight: 500;
@@ -281,18 +280,22 @@ const handleAnchorClick = (anchor: any) => {
       font-size: 12px !important;
       background-color: transparent !important;
       box-shadow: none !important;
+
       &:focus {
         color: white !important;
       }
     }
+
     span {
       display: block;
       padding: 0 8px !important;
       height: 20px;
+
       &:hover {
         color: white !important;
         cursor: pointer;
       }
+
       &:focus {
         color: white !important;
       }
@@ -314,13 +317,16 @@ const handleAnchorClick = (anchor: any) => {
     padding-right: 20px;
     overscroll-behavior: contain;
     -ms-scroll-chaining: contain;
+
     &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
+      width: 4px;
+      height: 4px;
     }
+
     &::-webkit-scrollbar-thumb {
-        background: rgba(207, 207, 207, 0.3);
+      background: rgba(207, 207, 207, 0.3);
     }
+
     li {
       cursor: pointer;
 
@@ -368,12 +374,18 @@ const handleAnchorClick = (anchor: any) => {
     }
   }
 }
-:deep(.img-article img){
+</style>
+<style>
+.img-article{
+  margin-top: 180px;
+}
+.img-article img {
   border-radius: 4px;
   width: 100% !important;
   height: auto !important;
 }
-:deep(.img-article p){
+
+.img-article p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 16px;
@@ -381,5 +393,10 @@ const handleAnchorClick = (anchor: any) => {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+@media (max-width: 768px) {
+  .img-article p  {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
