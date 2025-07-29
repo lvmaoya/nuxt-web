@@ -2,19 +2,27 @@
   <div class="detail-content">
     <div class="inner detail-inner">
       <div class="content">
-        <div class="title">{{ articleDetail?.title }}</div>
-        <div class="date">
-          Published on {{ formatDate(articleDetail?.publishedTime) }}, with
-          {{ articleDetail?.pageView + " view(s)" }} and
-          {{ commentNum + " comment(s)" }}
-        </div>
-        <div class="abstract" v-if="articleDetail?.articleAbstract && articleDetail?.fatherCategoryId != 4">
-          <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
-        </div>
-        <article class="markdown-body" data-theme="light"
-          :class="{ 'img-article': articleDetail?.fatherCategoryId == 4 }">
-          <div v-html="articleDetail?.content"></div>
-        </article>
+        <template v-if="articleDetail?.id">
+          <div class="title">{{ articleDetail?.title }}</div>
+          <div class="date">
+            Published on {{ formatDate(articleDetail?.publishedTime) }}, with
+            {{ articleDetail?.pageView + " view(s)" }} and
+            {{ commentNum + " comment(s)" }}
+          </div>
+          <div class="abstract" v-if="articleDetail?.articleAbstract && articleDetail?.fatherCategoryId != 4">
+            <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
+          </div>
+          <article class="markdown-body" data-theme="light"
+            :class="{ 'img-article': articleDetail?.fatherCategoryId == 4 }">
+            <div v-html="articleDetail?.content"></div>
+          </article>
+        </template>
+        <template v-else>
+          <div class="empty">
+            <div class="loading" v-if="loading">Loading...</div>
+            <div v-else>Nothing shared</div>
+          </div>
+        </template>
       </div>
       <div class="navigation">
         <ul>
@@ -96,8 +104,11 @@ const view = async () => {
     }
   }
 };
+const loading = ref(false);
 const initArticle = async () => {
+  loading.value = true;
   const articleDetailRes = await getArticleDetail(articleId);
+  loading.value = false;
   articleDetail.value = articleDetailRes.data;
   if(process.env.NODE_ENV === "production"){
     view();
@@ -172,6 +183,10 @@ const handleAnchorClick = (anchor: any) => {
 </script>
 
 <style scoped lang="scss">
+.empty {
+  padding-top: 45vh;
+  color: #999;
+}
 @media (max-width: 1330px) {
   .navigation {
     display: none !important;

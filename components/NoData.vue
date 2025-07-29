@@ -6,8 +6,8 @@
 -->
 <template>
   <div class="empty">
-    <span v-if="props.loading">加载中...</span>
-    <span v-else>暂时木有内容哦</span>
+    <span v-if="loading">Loading...</span>
+    <span v-else>Nothing shared</span>
   </div>
 </template>
 
