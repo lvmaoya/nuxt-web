@@ -376,6 +376,9 @@ const handleAnchorClick = (anchor: any) => {
 }
 </style>
 <style>
+.code-toolbar{
+  margin: 8px 0;
+}
 .img-article{
   margin-top: 180px;
 }
