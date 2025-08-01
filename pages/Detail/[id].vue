@@ -319,7 +319,7 @@ const handleAnchorClick = (anchor: any) => {
       height: 20px;
 
       &:hover {
-        color: white !important;
+        color: #333 !important;
         cursor: pointer;
       }
 

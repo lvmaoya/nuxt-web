@@ -85,7 +85,7 @@ export default defineNuxtConfig({
         // copy-to-clipboard: 添加复制代码功能。
         plugins: ['toolbar', 'show-language', 'copy-to-clipboard'],
         // 主题名称,支持的主题可以在 node_moduels中安装此库的目录下寻找。
-        theme: "tomorrow",
+        theme: "one-light",
         css: true
       })
     ]
