@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-content">
+  <div class="detail-content" :class="{loading: loading}">
     <div class="inner detail-inner">
       <div class="content">
         <template v-if="articleDetail?.id">
@@ -9,11 +9,20 @@
             {{ articleDetail?.pageView + " view(s)" }} and
             {{ commentNum + " comment(s)" }}
           </div>
-          <div class="abstract" v-if="articleDetail?.articleAbstract && articleDetail?.fatherCategoryId != 4">
+          <div
+            class="abstract"
+            v-if="
+              articleDetail?.articleAbstract &&
+              articleDetail?.fatherCategoryId != 4
+            "
+          >
             <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
           </div>
-          <article class="markdown-body" data-theme="light"
-            :class="{ 'img-article': articleDetail?.fatherCategoryId == 4 }">
+          <article
+            class="markdown-body ck-content"
+            data-theme="light"
+            :class="{ 'img-article': articleDetail?.fatherCategoryId == 4 }"
+          >
             <div v-html="articleDetail?.content"></div>
           </article>
         </template>
@@ -24,20 +33,34 @@
           </div>
         </template>
       </div>
-      <div class="navigation">
+      <div
+        class="navigation"
+        v-if="
+          articleDetail?.fatherCategoryId != 4 &&
+          articleDetail?.fatherCategoryId != 3
+        "
+      >
         <ul>
-          <li v-for="anchor in v_titles" :key="anchor.id" :class="{
-            level1: anchor.indent == 0,
-            level2: anchor.indent == 1,
-            level3: anchor.indent == 2,
-          }" @click="handleAnchorClick(anchor)">
+          <li
+            v-for="anchor in v_titles"
+            :key="anchor.id"
+            :class="{
+              level1: anchor.indent == 0,
+              level2: anchor.indent == 1,
+              level3: anchor.indent == 2,
+            }"
+            @click="handleAnchorClick(anchor)"
+          >
             <a style="cursor: pointer">{{ anchor.title }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="comment">
-      <LazyDetailComment :articleId="articleId" @commentNum="getCommentNum"></LazyDetailComment>
+      <LazyDetailComment
+        :articleId="articleId"
+        @commentNum="getCommentNum"
+      ></LazyDetailComment>
     </div>
   </div>
 </template>
@@ -61,31 +84,6 @@ const articleDetail = ref<BlogType>();
 const getCommentNum = (value: number) => {
   commentNum.value = value;
 };
-const processCodeBlocks = async () => {
-  if (!document) {
-    return;
-  }
-  const preTags = document?.querySelectorAll("pre");
-  preTags?.forEach((pre: HTMLElement) => {
-    const classValue = pre.getAttribute("class");
-    if (classValue) {
-      const classArr = classValue.split(";")[0].split(":");
-      const languageClass = `language-${classArr[1]}`;
-      // 创建新的 code 元素
-      const code = document.createElement("code");
-      code.className = languageClass;
-      code.innerHTML = pre.innerHTML;
-
-      // 清空 pre 标签并添加新的 code 元素
-      pre.innerHTML = "";
-      pre.appendChild(code);
-      // 添加行号支持
-      // pre.className = `line-numbers ${languageClass}`;
-    }
-  });
-  // 重新应用 Prism 高亮
-  Prism.highlightAll();
-};
 const view = async () => {
   const viewedList = LocalCache.getCache("pv") || {};
   const currentTime = new Date().getTime();
@@ -104,13 +102,13 @@ const view = async () => {
     }
   }
 };
-const loading = ref(false);
+const loading = ref(true);
 const initArticle = async () => {
   loading.value = true;
   const articleDetailRes = await getArticleDetail(articleId);
-  loading.value = false;
   articleDetail.value = articleDetailRes.data;
-  if(process.env.NODE_ENV === "production"){
+
+  if (process.env.NODE_ENV === "production") {
     view();
   }
   useHead({
@@ -134,9 +132,16 @@ const initArticle = async () => {
 
   $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0);
 
-  processCodeBlocks();
+  Prism.highlightAll();
 
-  buildAnchorTitles();
+  if (
+    articleDetail.value?.fatherCategoryId != 4 &&
+    articleDetail.value?.fatherCategoryId != 3
+  ) {
+    buildAnchorTitles();
+  }
+
+  loading.value = false;
 };
 
 initArticle();
@@ -183,6 +188,13 @@ const handleAnchorClick = (anchor: any) => {
 </script>
 
 <style scoped lang="scss">
+.detail-content{
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+.detail-content.loading {
+  opacity: 0;
+}
 .empty {
   padding-top: 45vh;
   color: #999;
@@ -391,10 +403,10 @@ const handleAnchorClick = (anchor: any) => {
 }
 </style>
 <style>
-.code-toolbar{
+.code-toolbar {
   margin: 8px 0;
 }
-.img-article{
+.img-article {
   margin-top: 180px;
 }
 .img-article img {
@@ -413,7 +425,7 @@ const handleAnchorClick = (anchor: any) => {
   text-align: center;
 }
 @media (max-width: 768px) {
-  .img-article p  {
+  .img-article p {
     grid-template-columns: 1fr;
   }
 }
