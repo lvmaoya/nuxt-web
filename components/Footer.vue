@@ -78,7 +78,7 @@ const currentTime = ref(0);
 const totalTime = ref(0);
 const musicList = [
   {
-    title: "刘夏夏夏夏 - 装下银河的包裹",
+    title: "刘夏夏夏夏夏 - 装下银河的包裹",
     url: "https://qn.lvmaoya.cn/music/%E5%88%98%E5%A4%8F%E5%A4%8F%E5%A4%8F%E5%A4%8F%20-%20%E8%A3%85%E4%B8%8B%E9%93%B6%E6%B2%B3%E7%9A%84%E5%8C%85%E8%A3%B9.ogg",
     id: 0,
     duration: 170,
@@ -653,6 +653,10 @@ footer {
   font-size: var(--text-small-font-size);
   background-color: #fff;
   box-sizing: border-box;
+  
+  // 添加淡入动画
+  animation: fadeIn 0.5s ease-in-out;
+  
   .content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -920,6 +924,16 @@ footer {
         }
       }
     }
+  }
+}
+
+// 定义淡入动画
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>
