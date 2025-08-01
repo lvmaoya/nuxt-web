@@ -410,7 +410,7 @@ const handleAnchorClick = (anchor: any) => {
   margin-top: 180px;
 }
 .img-article img {
-  border-radius: 4px;
+  border-radius: 6px;
   width: 100% !important;
   height: auto !important;
 }
