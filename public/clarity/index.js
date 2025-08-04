@@ -1,4 +1,5 @@
-if (process.env.NODE_ENV === "production") {
+  // 检查是否为生产环境（非 localhost 和非开发域名）
+if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.includes('dev')) {
   (function (c, l, a, r, i, t, y) {
     c[a] =
       c[a] ||
