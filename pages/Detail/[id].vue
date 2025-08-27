@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-content" :class="{loading: loading}">
+  <div class="detail-content" :class="{ loading: loading }">
     <div class="inner detail-inner">
       <div class="content">
         <template v-if="articleDetail?.id">
@@ -71,6 +71,7 @@ import { formatDate } from "~~/utils/formatTime";
 import LocalCache from "~~/utils/cache";
 import Prism from "prismjs";
 import "@/assets/css/md.css";
+import baseURL from "~/http/base-config";
 
 const { $activeMenu, $setActiveMenu } = useNuxtApp();
 
@@ -78,12 +79,15 @@ const route = useRoute();
 const articleId = Number(route.params.id);
 let commentNum = ref(0);
 const v_titles = ref();
+const loading = ref(true);
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
 
+// 获取评论数量
 const getCommentNum = (value: number) => {
   commentNum.value = value;
 };
+// 浏览量
 const view = async () => {
   const viewedList = LocalCache.getCache("pv") || {};
   const currentTime = new Date().getTime();
@@ -102,49 +106,51 @@ const view = async () => {
     }
   }
 };
-const loading = ref(true);
-const initArticle = async () => {
-  loading.value = true;
-  const articleDetailRes = await getArticleDetail(articleId);
-  articleDetail.value = articleDetailRes.data;
 
-  if (process.env.NODE_ENV === "production") {
-    view();
+// 使用 useAsyncData 在服务端获取数据
+const { data: articleDetailRes } = await useAsyncData(
+  `detail-${articleId}`,
+  () =>
+    $fetch<ResponseConfig<BlogType>>(baseURL + `/h5/blog/${articleId}`, {
+      method: "GET",
+    })
+);
+
+// 设置文章详情数据
+articleDetail.value = articleDetailRes.value?.data;
+
+// 使用 useSeoMeta 在服务端设置 meta 标签
+useSeoMeta({
+  title: articleDetail.value?.title || "lvmaoya",
+  description:
+    articleDetail.value?.description || useRuntimeConfig().public.description,
+  keywords: articleDetail.value?.keywords || useRuntimeConfig().public.keywords,
+});
+
+// 客户端 DOM 操作
+onMounted(async () => {
+  if (articleDetail.value) {
+    if (process.env.NODE_ENV === "production") {
+      view();
+    }
+    await nextTick();
+
+    $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0);
+
+    // Prism 代码高亮需要在客户端执行
+    if (process.client) {
+      Prism.highlightAll();
+    }
+
+    if (
+      articleDetail.value?.fatherCategoryId != 4 &&
+      articleDetail.value?.fatherCategoryId != 3
+    ) {
+      buildAnchorTitles();
+    }
+    loading.value = false;
   }
-  useHead({
-    title: articleDetail.value?.title,
-    meta: [
-      {
-        name: "description",
-        content:
-          articleDetail.value?.description ??
-          useRuntimeConfig().public.description,
-      },
-      {
-        name: "keywords",
-        content:
-          articleDetail.value?.keywords ?? useRuntimeConfig().public.keywords,
-      },
-    ],
-  });
-
-  await nextTick();
-
-  $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0);
-
-  Prism.highlightAll();
-
-  if (
-    articleDetail.value?.fatherCategoryId != 4 &&
-    articleDetail.value?.fatherCategoryId != 3
-  ) {
-    buildAnchorTitles();
-  }
-
-  loading.value = false;
-};
-
-initArticle();
+});
 
 onBeforeRouteLeave(async () => {
   $setActiveMenu(0);
@@ -188,17 +194,20 @@ const handleAnchorClick = (anchor: any) => {
 </script>
 
 <style scoped lang="scss">
-.detail-content{
+.detail-content {
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
 }
+
 .detail-content.loading {
   opacity: 0;
 }
+
 .empty {
   padding-top: 45vh;
   color: #999;
 }
+
 @media (max-width: 1330px) {
   .navigation {
     display: none !important;
@@ -406,9 +415,11 @@ const handleAnchorClick = (anchor: any) => {
 .code-toolbar {
   margin: 8px 0;
 }
+
 .img-article {
   margin-top: 180px;
 }
+
 .img-article img {
   border-radius: 6px;
   width: 100% !important;
@@ -424,6 +435,7 @@ const handleAnchorClick = (anchor: any) => {
   justify-content: center;
   text-align: center;
 }
+
 @media (max-width: 768px) {
   .img-article p {
     grid-template-columns: 1fr;
