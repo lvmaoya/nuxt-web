@@ -317,9 +317,9 @@ const handleAnchorClick = (anchor: any) => {
       background-color: transparent !important;
       box-shadow: none !important;
 
-      &:focus {
-        color: white !important;
-      }
+      // &:focus {
+      //   color: white !important;
+      // }
     }
 
     span {
@@ -332,9 +332,9 @@ const handleAnchorClick = (anchor: any) => {
         cursor: pointer;
       }
 
-      &:focus {
-        color: white !important;
-      }
+      // &:focus {
+      //   color: white !important;
+      // }
     }
   }
 }
