@@ -77,6 +77,7 @@ const { $activeMenu, $setActiveMenu } = useNuxtApp();
 
 const route = useRoute();
 const articleId = Number(route.params.id);
+
 let commentNum = ref(0);
 const v_titles = ref();
 const loading = ref(true);
@@ -106,6 +107,9 @@ const view = async () => {
     }
   }
 };
+if (process.env.NODE_ENV === "production") {
+  view();
+}
 
 // 使用 useAsyncData 在服务端获取数据
 const { data: articleDetailRes } = await useAsyncData(
@@ -130,9 +134,6 @@ useSeoMeta({
 // 客户端 DOM 操作
 onMounted(async () => {
   if (articleDetail.value) {
-    if (process.env.NODE_ENV === "production") {
-      view();
-    }
     await nextTick();
 
     $setActiveMenu(articleDetail.value.fatherCategoryId ?? 0);
