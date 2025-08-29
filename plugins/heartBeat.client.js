@@ -2,8 +2,6 @@ export default defineNuxtPlugin(() => {
   // 启动心跳
   let heartbeatTimer = null
   const startHeartbeat = () => {
-    console.log(23456);
-
     stopHeartbeat()
     // 立即发送一次
     sendHeartBeat()
