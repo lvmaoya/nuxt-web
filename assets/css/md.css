@@ -6,7 +6,7 @@
   --base-size-40: 2.5rem;
   --base-text-weight-normal: 400;
   --base-text-weight-medium: 500;
-  --base-text-weight-semibold: 600;
+  --base-text-weight-semibold: 500;
   --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
     Liberation Mono, monospace;
   --fgColor-accent: Highlight;
@@ -130,9 +130,12 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   margin: 0;
-  color: var(--fgColor-default);
-  background-color: var(--bgColor-default);
+  color: var(--primary-text-color);
+  /* background-color: var(--bgColor-default); */
   font-size: 14px;
+  /* letter-spacing: 0.02em; */
+  letter-spacing: -0.01em;
+  word-spacing: .2em;
   line-height: 2;
   word-wrap: break-word;
 }
@@ -152,7 +155,7 @@
 
 .markdown-body a {
   background-color: transparent;
-  color: var(--fgColor-accent);
+  color: var(--primary-text-color);
   text-decoration: none;
 }
 
@@ -181,7 +184,7 @@
 
 .markdown-body mark {
   background-color: var(--bgColor-attention-muted);
-  color: var(--fgColor-default);
+  color: var(--primary-text-color);
 }
 
 .markdown-body small {
@@ -218,7 +221,8 @@
 }
 
 .markdown-body figure {
-  margin: 1em var(--base-size-40);
+  /* margin: 1em var(--base-size-40); */
+  margin: 1em 0;
 }
 
 .markdown-body hr {
@@ -364,7 +368,7 @@
       monospace
     );
   line-height: 10px;
-  color: var(--fgColor-default);
+  color: var(--primary-text-color);
   vertical-align: middle;
   background-color: var(--bgColor-muted);
   border: solid 1px var(--borderColor-neutral-muted);
@@ -387,9 +391,9 @@
 
 .markdown-body h2 {
   font-weight: var(--base-text-weight-semibold, 600);
-  padding-bottom: 0.3em;
+  /* padding-bottom: 0.3em; */
   font-size: 1.5em;
-  border-bottom: 1px solid var(--borderColor-muted);
+  /* border-bottom: 1px solid var(--borderColor-muted); */
 }
 
 .markdown-body h3 {
