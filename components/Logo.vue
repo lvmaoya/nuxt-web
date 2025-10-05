@@ -1,5 +1,5 @@
 <template>
-  <div class="logo" @click.stop="handleLogoClick">lvmaoya</div>
+  <div class="logo" @click.stop="handleLogoClick">LVMAOYA</div>
 </template>
 
 <script setup>
@@ -14,7 +14,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .logo {
-  font-size: 20px;
   cursor: pointer;
   color: #303030;
   user-select: none;
