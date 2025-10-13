@@ -1,7 +1,6 @@
 <template>
   <!-- <lenis> -->
     <NuxtLayout>
-      <Cat></Cat>
       <NuxtPage></NuxtPage>
     </NuxtLayout>
   <!-- </lenis> -->

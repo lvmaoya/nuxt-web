@@ -39,7 +39,6 @@ export default defineNuxtConfig({
       ],
       style: [],
       script: [
-        { src: "/cat/l2dwidget-client.js", async: false },
         { src: "/icon/iconfont.js", async: true },
         { src: "/clarity/index.js", async: true },
       ],
