@@ -86,6 +86,8 @@ const handleSearchBtnClick = () => {
       box-shadow: 0 1px 4px rgb(0 0 0 / 4%);
       padding: 0 45px 0 16px;
       user-select: none;
+      font-size: 14px;
+      color: #333;
     }
     input:focus {
       outline: none;

@@ -12,9 +12,6 @@
             <ul class="contact">
               <li><a href="https://github.com/lvmaoya" target="_blank"></a></li>
               <li><a href="https://mail.qq.com/" target="_blank"></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
             </ul>
           </div>
         </div>
