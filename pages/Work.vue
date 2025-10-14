@@ -8,7 +8,8 @@
       </div>
       <WorkContent :list="articleList" :loading="loading"></WorkContent>
     </div>
-    <Pagination :current-page="currentPage" :total="total" :size="size" @currentPageChange="handleCurrentPageChange"></Pagination>
+    <Pagination :current-page="currentPage" :total="total" :size="size" @currentPageChange="handleCurrentPageChange">
+    </Pagination>
   </div>
 </template>
 
@@ -19,7 +20,7 @@ useHead({
 // 分页
 let currentPage = ref(1);
 let total = ref(0);
-let size = ref(20);
+let size = ref(100);
 let loading = ref(false);
 // 文章列表数据
 let articleList = ref<Array<BlogType>>([]);

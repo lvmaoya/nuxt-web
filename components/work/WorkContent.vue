@@ -1,28 +1,12 @@
 <template>
-  <div class="content">
-    <a v-for="(item, index) in props.list" :key="item.id" class="work-content-item" :href="'/detail/' + item.id">
-      <div class="item-content">
-        <div class="category">
-          {{ item.category?.categoryName }}
-        </div>
-        <div class="title">
-          {{ item.title }}
-        </div>
-        <div class="description">
-          <p>
-            {{ item.description.length ? item.description : item.articleAbstract }}
-          </p>
-        </div>
-        <div class="data">
-          <div class="about">
-            <span>{{ convertDateToAbbreviatedMonthYear(item.publishedTime) }} • {{ item.pageView }}
-              view(s)</span>
-          </div>
-        </div>
-      </div>
-    </a>
+  <ul class="content">
+    <li v-for="(item, index) in props.list" :key="item.id">
+      <a class="title" :href="'/detail/' + item.id">
+        {{ item.title }}
+      </a>
+    </li>
     <NoData v-if="props.list?.length === 0" :loading="props.loading"></NoData>
-  </div>
+  </ul>
 </template>
 
 <script setup lang="ts">
@@ -57,92 +41,28 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
 <style scoped lang="scss">
 .content {
   min-height: 50vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 40px;
 }
 
-.work-content-item {
-  border-radius: 12px;
+li {
+  padding: 8px 0;
   cursor: pointer;
-  background-color: #fff;
-  margin-bottom: 20px;
-  display: flex;
+
+  &:hover .title {
+    border-bottom: 1px solid var(--primary-title-color);
+  }
+}
+
+.title {
+  color: var(--primary-title-color);
+  max-lines: 1;
   overflow: hidden;
-  transition: background-color 0.3s;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto 32px auto;
-
-  &:hover {
-    .title:before {
-      width: 100% !important;
-    }
-  }
-
-  .item-content {
-    width: 100%;
-    padding: 12px 0px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-
-    .category {
-      font-size: var(--text-small-font-size);
-      color: var(--third-text-color);
-      text-transform: uppercase;
-    }
-
-    .title {
-      position: relative;
-      border: 1px solid transparent;
-      width: fit-content;
-      color: var(--primary-title-color);
-
-      &:before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 0px;
-        height: 1px;
-        background: #4d4d4d;
-        transform: translateX(-50%);
-        transition: width 0.3s ease;
-      }
-
-      &::first-letter {
-        text-transform: uppercase;
-      }
-    }
-
-    .description {
-      p {
-        font-size: var(--sub-title-font-size);
-        font-weight: 400;
-        color: var(--primary-title-color);
-        overflow: hidden;
-        white-space: normal;
-        word-break: break-word;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-      }
-    }
-
-    .data {
-      display: flex;
-      justify-content: space-between;
-
-      span {
-        font-size: var(--text-small-font-size);
-        color: var(--third-text-color);
-      }
-
-      .about {
-        span {
-          margin-right: 4px;
-          color: var(--third-text-color);
-        }
-      }
-    }
-  }
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid #fff;
+  transition: all 0.2s;
+  width: fit-content;
 }
 </style>
