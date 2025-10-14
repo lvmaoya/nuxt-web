@@ -6,10 +6,7 @@
 const handleLogoClick = async () => {
   await navigateTo("/home");
 };
-onMounted(() => {
- 
-
-})
+onMounted(() => {})
 </script>
 
 <style lang="scss" scoped>

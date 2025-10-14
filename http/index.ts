@@ -19,10 +19,8 @@ const fetch = (url: string, options?: any): Promise<any> => {
   return new Promise((resolve, reject) => {
     useFetch(reqUrl, {
       onRequest({ options }) {
-        // showLoading();
       },
       onResponse({ response }) {
-        // hideLoading();
       },
       onResponseError({ response }) {},
       ...options,
