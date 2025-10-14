@@ -10,7 +10,7 @@
         </div>
         <div class="description">
           <p>
-            {{ item.description.length? item.description : item.articleAbstract }} 
+            {{ item.description.length ? item.description : item.articleAbstract }}
           </p>
         </div>
         <div class="data">
@@ -95,6 +95,7 @@ const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
       border: 1px solid transparent;
       width: fit-content;
       color: var(--primary-title-color);
+
       &:before {
         content: "";
         position: absolute;

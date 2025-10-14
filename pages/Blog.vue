@@ -25,8 +25,9 @@ let total = ref(0);
 let size = ref(999);
 let blogData = (await getBlogList({ page: currentPage.value, size: size.value, fatherCategoryIds: [3, 4] })).data;
 blogList.value = blogData.records;
-
 total.value = blogData.total;
+
+const keywords = ref('');
 
 const handleCurrentPageChange = async (val: number) => {
   if (val === 0) {
@@ -34,30 +35,18 @@ const handleCurrentPageChange = async (val: number) => {
   } else if (val === 1) {
     currentPage.value += 1;
   }
-  switch (doCategory.value) {
-    case 1:
-      blogData = (await getBlogList({ page: currentPage.value, size: size.value })).data;
-      blogList.value = blogData.records;
-      total.value = blogData.total;
-      break;
-    case 2:
-      blogData = (await getBlogList(userInput.value)).data;
-      blogList.value = blogData.records;
-      total.value = blogData.total;
-      break;
-  }
+  getData();
 };
-const doCategory = ref(1);
-const userInput = ref<Object>();
-const handleSearchBtnClick = async (searchData: Object) => {
-  doCategory.value = 2;
+const handleSearchBtnClick = async (searchData: string) => {
+  keywords.value = searchData;
   currentPage.value = 1;
-  searchData = { ...searchData, currentPage: currentPage.value, size: size.value };
-  userInput.value = searchData;
-  const resArticlesData = await getBlogList(searchData);
-  blogList.value = resArticlesData.data.records;
-  total.value = resArticlesData.data.total;
+  getData();
 };
+const getData = async () => {
+  blogData = (await getBlogList({ page: currentPage.value, size: size.value, keywords: keywords.value, fatherCategoryIds: [3, 4] })).data;
+  blogList.value = blogData.records;
+  total.value = blogData.total;
+}
 </script>
 
 <style scoped lang="scss">
