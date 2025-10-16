@@ -3,8 +3,8 @@
     <footer>
       <div class="inner content">
         <div class="about">
-          <div class="title">LVMAOYA</div>
-          <div class="copyright">©2025 <i class="heart"></i> lvmaoya</div>
+          <div class="title">Lvmaoya</div>
+          <div class="copyright">©2025 <i class="heart"></i> Lvmaoya</div>
           <div class="copyright">
             <a href="https://beian.miit.gov.cn/" target="_blank"
               >豫ICP备2024068051号-1</a
@@ -44,6 +44,9 @@ footer {
         grid-template-columns: repeat(1, 1fr);
         padding-left: 30px;
         padding-right: 30px;
+        .contact {
+          justify-content: flex-start !important;
+        }
       }
     }
     .about {
@@ -59,11 +62,12 @@ footer {
       font-size: 16px;
       padding: 0;
       text-decoration: none;
+      color: var(--secondary-text-color);
     }
     .copyright {
       display: flex;
       align-items: center;
-
+      font-size: 14px;
       .heart {
         width: 8px;
         height: 8px;
