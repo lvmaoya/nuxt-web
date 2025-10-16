@@ -52,7 +52,7 @@ footer {
       display: flex;
       justify-content: center;
       flex-direction: column;
-      gap: 28px;
+      gap: 32px;
     }
 
     .title {
@@ -106,14 +106,15 @@ footer {
     .contact {
       display: flex;
       align-items: center;
+      justify-content: center;
       div {
-        margin: 0 20px 0 0;
+        margin: 0 28px 0 0;
 
         a {
           background-repeat: no-repeat;
           background-size: cover;
           display: block;
-          opacity: 1;
+          opacity: 0.8;
           text-indent: -9999px;
           width: 28px;
           height: 28px;
