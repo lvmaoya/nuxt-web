@@ -67,7 +67,7 @@ const handleCurrentPageChange = async (val: number) => {
 }
 
 .work-controller {
-  padding: 25vh 0 9vh 0;
+  padding: 25vh 0 20vh 0;
   position: relative;
 }
 </style>
