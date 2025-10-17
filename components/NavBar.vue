@@ -5,7 +5,7 @@
       <nav class="menu active-menu">
         <ul>
           <li>
-            <NuxtLink to="/home" active-class="active-nav-link" @click.stop :class="{ 'active-nav-link': $activeMenu == 1 }"
+            <NuxtLink to="/" active-class="active-nav-link" @click.stop :class="{ 'active-nav-link': $activeMenu == 1 }"
               >Home</NuxtLink>
           </li>
           <li>
