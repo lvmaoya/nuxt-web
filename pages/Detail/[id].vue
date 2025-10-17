@@ -274,10 +274,10 @@ const handleAnchorClick = (anchor: any) => {
 .comment {
   position: relative;
   z-index: 21;
-  color: #5f5f5f;
   background-color: #fafafa;
-  padding: 30px 12px 0 12px;
+  padding: 40px 12px 40px 12px;
   margin-top: 40px;
+  margin-bottom: 250px;
 }
 
 :deep(pre) {
