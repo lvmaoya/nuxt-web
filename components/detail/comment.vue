@@ -37,7 +37,7 @@
         </button>
       </div>
     </div>
-    <div class="comment-content">
+    <div class="comment-content" v-if="commentList.length > 0">
       <ul>
         <li v-for="item in commentList" :key="item.id">
           <CommentItem :item="item" @responseSBClick="responseSBClick" />
@@ -231,17 +231,19 @@ const responseSBClick = (id: number, name: string) => {
 .comment-container {
   width: 100%;
   max-width: 1260px;
-  margin: 0 auto;
   color: var(--primary-text-color);
   font-size: var(--text-font-size);
+  position: relative;
+  z-index: 21;
+  margin: 0 auto;
+  margin-bottom: 80px;
   li {
     list-style: none;
   }
 
   .user-input {
     width: 100%;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--primary-border-color);
     box-sizing: border-box;
     overflow: hidden;
     background: #fff;
@@ -254,7 +256,7 @@ const responseSBClick = (id: number, name: string) => {
       ul {
         width: 100%;
         display: flex;
-        border-bottom: 1px dashed #dbdbdb;
+        border-bottom: 1px dashed var(--primary-border-color);
         flex-wrap: wrap;
 
         li {
@@ -346,8 +348,7 @@ const responseSBClick = (id: number, name: string) => {
     background-color: #fff;
     padding: 4px 12px;
     border-radius: 8px;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--primary-border-color);
     margin-top: 20px;
     ul > li {
       list-style: none;

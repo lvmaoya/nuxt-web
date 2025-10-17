@@ -48,7 +48,7 @@ ul {
 
     &:hover {
       .title span {
-        border-bottom: 1px solid #4d4d4d;
+        border-bottom: 1px solid  var(--primary-title-color);
       }
     }
 

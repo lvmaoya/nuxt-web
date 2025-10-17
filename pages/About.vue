@@ -27,7 +27,7 @@ const userInfo = (await getUserInfo()).data;
 
 <style scoped lang="scss">
 .about-content {
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid var(--primary-border-color);
   height: 100vh;
   padding-top: 150px;
   margin-bottom: 258px;

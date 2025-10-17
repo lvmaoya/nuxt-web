@@ -56,7 +56,7 @@
         </ul>
       </div>
     </div>
-    <div class="comment">
+    <div class="inner comment-inner">
       <LazyDetailComment
         :articleId="articleId"
         @commentNum="getCommentNum"
@@ -195,11 +195,6 @@ const handleAnchorClick = (anchor: any) => {
 </script>
 
 <style scoped lang="scss">
-.detail-content {
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out;
-}
-
 .detail-content.loading {
   opacity: 0;
 }
@@ -208,7 +203,6 @@ const handleAnchorClick = (anchor: any) => {
   padding-top: 45vh;
   color: #999;
 }
-
 @media (max-width: 1330px) {
   .navigation {
     display: none !important;
@@ -221,6 +215,10 @@ const handleAnchorClick = (anchor: any) => {
   position: relative;
   z-index: 21;
   line-height: 2;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  border-bottom: 1px solid var(--primary-border-color);
+  margin-bottom: 258px;
 
   :deep(header) {
     top: 0 !important;
@@ -230,7 +228,7 @@ const handleAnchorClick = (anchor: any) => {
     display: flex;
     gap: 96px;
     justify-content: center;
-
+    margin-bottom: 100px !important;
     .content {
       max-width: 960px;
       margin-left: 96px;
@@ -271,15 +269,6 @@ const handleAnchorClick = (anchor: any) => {
   }
 }
 
-.comment {
-  position: relative;
-  z-index: 21;
-  background-color: #fafafa;
-  padding: 40px 12px 40px 12px;
-  margin-top: 40px;
-  margin-bottom: 250px;
-}
-
 :deep(pre) {
   font-size: 12px;
   border-radius: 16px;
@@ -317,10 +306,6 @@ const handleAnchorClick = (anchor: any) => {
       font-size: 12px !important;
       background-color: transparent !important;
       box-shadow: none !important;
-
-      // &:focus {
-      //   color: white !important;
-      // }
     }
 
     span {
@@ -332,10 +317,6 @@ const handleAnchorClick = (anchor: any) => {
         color: #333 !important;
         cursor: pointer;
       }
-
-      // &:focus {
-      //   color: white !important;
-      // }
     }
   }
 }

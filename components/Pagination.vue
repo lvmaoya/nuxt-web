@@ -77,8 +77,8 @@ const handleCurrentPageChange = (val: number) => {
 <style scoped lang="scss">
 .pagination {
   width: 100%;
-  border-top: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
+  border-top: 1px solid var(--primary-border-color);
+  border-bottom: 1px solid var(--primary-border-color);
   position: relative;
   z-index: 56;
   margin-top: 40px;
