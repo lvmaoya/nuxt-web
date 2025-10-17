@@ -42,7 +42,7 @@ export default defineNuxtConfig({
         { src: "/icon/iconfont.js", async: true },
         { src: "/clarity/index.js", async: true },
       ],
-      title: "lvmaoya",
+      title: "Lvmaoya",
     },
     rootId: "SJX",
     keepalive: true,

@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 useHead({
-  title: "Work - lvmaoya"
+  title: "Work - Lvmaoya"
 });
 // 分页
 let currentPage = ref(1);

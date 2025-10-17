@@ -122,10 +122,12 @@ const { data: articleDetailRes } = await useAsyncData(
 
 // 设置文章详情数据
 articleDetail.value = articleDetailRes.value?.data;
-
+if (!articleDetail.value) {
+  navigateTo("/not-found");
+}
 // 使用 useSeoMeta 在服务端设置 meta 标签
 useSeoMeta({
-  title: articleDetail.value?.title || "lvmaoya",
+  title: articleDetail.value?.title || "Lvmaoya",
   description:
     articleDetail.value?.description || useRuntimeConfig().public.description,
   keywords: articleDetail.value?.keywords || useRuntimeConfig().public.keywords,
