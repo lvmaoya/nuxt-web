@@ -59,7 +59,7 @@ footer {
     }
 
     .title {
-      font-size: 16px;
+      font-size: var(--title-font-size);
       padding: 0;
       text-decoration: none;
       color: var(--secondary-text-color);
@@ -67,7 +67,6 @@ footer {
     .copyright {
       display: flex;
       align-items: center;
-      font-size: 14px;
       .heart {
         width: 8px;
         height: 8px;

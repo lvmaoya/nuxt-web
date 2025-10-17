@@ -20,49 +20,41 @@ const props = defineProps({
   loading: {
     required: false,
     type: Boolean,
-  }
+  },
 });
-
-const convertDateToAbbreviatedMonthYear = (dateStr: string) => {
-  const date = new Date(dateStr);
-  const monthAbbreviations = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-  ];
-  const monthIndex = date.getMonth();
-  const year = date.getFullYear();
-  const monthAbbreviation = monthAbbreviations[monthIndex];
-  const day = date.getDate();
-  return `${day} ${monthAbbreviation}, ${year}`;
-}
-
 </script>
 
 <style scoped lang="scss">
-.content {
+ul.content {
   min-height: 50vh;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-column-gap: 40px;
-}
+  list-style-position: inside;
 
-li {
-  padding: 8px 0;
-  cursor: pointer;
-
-  &:hover .title {
-    border-bottom: 1px solid var(--primary-title-color);
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
-
-.title {
-  color: var(--primary-title-color);
-  max-lines: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  border-bottom: 1px solid #fff;
-  transition: all 0.2s;
-  width: fit-content;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  li {
+    padding: 8px 0;
+    cursor: pointer;
+    max-lines: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    .title {
+      color: var(--primary-title-color);
+      font-size: var(--text-font-size);
+      border-bottom: 1px solid #fff;
+      transition: all 0.2s;
+    }
+    &:hover .title {
+      border-bottom: 1px solid var(--primary-title-color);
+    }
+  }
 }
 </style>
