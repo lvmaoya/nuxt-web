@@ -18,6 +18,12 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://lvmaoya.cn/about</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 <url>
     <loc>https://lvmaoya.cn/detail/71</loc>
     <lastmod>2025-05-20</lastmod>
