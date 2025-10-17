@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>;
 useHead({
-  title: "lvmaoya"
+  title: "Blog - lvmaoya"
 });
 import { type BlogType } from "~~/composables";
 

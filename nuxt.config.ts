@@ -6,8 +6,8 @@
  */
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import prismjs from 'vite-plugin-prismjs'
-const publicDescription = "这里是一个全栈开发者的混合日志：既有React/Vue/Node.js等技术实战笔记，也有读书观影的生活感悟；既记录编程问题的解决方案，也书写数字游民的生活观察。用代码构建世界，用文字安放思考。"
-const publicKeywords = "技术博客,前端开发,编程笔记,生活随笔,个人成长,读书分享,学习记录,Web技术,JavaScript,创意写作"
+const publicDescription = "这里是一个全栈开发者 lvmaoya 的混合日志：既有React/Vue/Node.js等技术实战笔记，也有读书观影的生活感悟；既记录编程问题的解决方案，也书写数字游民的生活观察。用代码构建世界，用文字安放思考。"
+const publicKeywords = "lvmaoya,技术博客,前端开发,编程笔记,生活随笔,个人成长,读书分享,学习记录,Web技术,JavaScript,创意写作"
 export default defineNuxtConfig({
   css: ["~/assets/css/normalize.css", "~/assets/css/reset.css", "~/assets/css/flex.css"],
   app: {

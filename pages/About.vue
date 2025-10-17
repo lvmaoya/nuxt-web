@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 useHead({
-  title: "lvmaoya"
+  title: "About - lvmaoya"
 });
 const userInfo = (await getUserInfo()).data;
 </script>
