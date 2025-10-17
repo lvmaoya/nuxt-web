@@ -4,7 +4,7 @@
 
 <script setup>
 const handleLogoClick = async () => {
-  await navigateTo("/home");
+  await navigateTo("/");
 };
 onMounted(() => {})
 </script>

@@ -6,7 +6,7 @@
 
 <style lang="scss" scoped>
   div {
-    border-bottom: 1.2px solid rgb(189, 188, 188);
+  border-bottom: 1px solid #dbdbdb;
     height: 100vh;
     padding-top: 150px;
     margin-bottom: 258px;

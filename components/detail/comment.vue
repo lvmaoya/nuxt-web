@@ -257,7 +257,7 @@ const handleResponseSBClick = (id: number, name: string) => {
   width: 100%;
   max-width: 1260px;
   margin: 0 auto;
-  color: #313131;
+  color: var(--primary-text-color);
   margin-bottom: 250px;
 
   li {
@@ -280,7 +280,7 @@ const handleResponseSBClick = (id: number, name: string) => {
       ul {
         width: 100%;
         display: flex;
-        border-bottom: 1px dashed #ddd;
+        border-bottom: 1px dashed #dbdbdb;
         flex-wrap: wrap;
 
         li {
