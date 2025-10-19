@@ -1,12 +1,12 @@
 <template>
-  <ul class="content">
+  <ul class="content" v-if="props.list?.length > 0">
     <li v-for="(item, index) in props.list" :key="item.id">
       <a class="title" :href="'/detail/' + item.id">
         {{ item.title }}
       </a>
     </li>
-    <NoData v-if="props.list?.length === 0" :loading="props.loading"></NoData>
   </ul>
+  <NoData v-else :loading="props.loading"></NoData>
 </template>
 
 <script setup lang="ts">
@@ -14,7 +14,7 @@ import { type BlogType } from "~~/composables";
 
 const props = defineProps({
   list: {
-    required: false,
+    required: true,
     type: Array<BlogType>,
   },
   loading: {
@@ -35,10 +35,11 @@ ul.content {
   @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
-  
+
   li {
     padding: 8px 0;
     cursor: pointer;
@@ -46,12 +47,14 @@ ul.content {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
     .title {
       color: var(--primary-title-color);
       font-size: var(--text-font-size);
       border-bottom: 1px solid #fff;
       transition: all 0.2s;
     }
+
     &:hover .title {
       border-bottom: 1px solid var(--primary-title-color);
     }
