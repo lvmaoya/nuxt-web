@@ -41,6 +41,7 @@ export default defineNuxtConfig({
       script: [
         { src: "/icon/iconfont.js", async: true },
         { src: "/clarity/index.js", async: true },
+        { src: "/gtm/start.js", async: true },
       ],
       title: "Lvmaoya",
     },
