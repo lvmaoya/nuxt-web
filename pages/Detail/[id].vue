@@ -19,7 +19,7 @@
             <span>Ai 摘要：</span>{{ articleDetail?.articleAbstract }}
           </div>
           <article
-            class="markdown-body"
+            class="markdown-body ck-content"
             data-theme="light"
             :class="{ 'img-article': articleDetail?.fatherCategoryId == 4 }"
           >

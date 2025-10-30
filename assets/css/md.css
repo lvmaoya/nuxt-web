@@ -735,3 +735,110 @@
 .markdown-body ::-webkit-calendar-picker-indicator {
   filter: invert(50%);
 }
+.ck-content{
+  letter-spacing: normal;
+}
+.ck-content .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 0.9em auto;
+    min-width: 50px;
+}
+.ck-content .image img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  min-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.ck-content {
+  --ck-content-image-style-spacing: 1.5em;
+}
+
+.ck-content .image.image-style-block-align-left,
+.ck-content .image.image-style-block-align-right {
+  max-width: calc(100% - var(--ck-content-image-style-spacing));
+}
+
+.ck-content .image.image-style-align-left,
+.ck-content .image.image-style-align-right {
+  clear: none;
+}
+
+.ck-content .image.image-style-side {
+  float: right;
+  margin-left: var(--ck-content-image-style-spacing);
+  max-width: 50%;
+}
+
+.ck-content .image.image-style-align-left {
+  float: left;
+  margin-right: var(--ck-content-image-style-spacing);
+}
+
+.ck-content .image.image-style-align-right {
+  float: right;
+  margin-left: var(--ck-content-image-style-spacing);
+}
+
+.ck-content .image.image-style-block-align-right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.ck-content .image.image-style-block-align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.ck-content .image-style-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ck-content .image-style-align-left {
+  float: left;
+  margin-right: var(--ck-content-image-style-spacing);
+}
+
+.ck-content .image-style-align-right {
+  float: right;
+  margin-left: var(--ck-content-image-style-spacing);
+}
+
+.ck-content p + .image.image-style-align-left,
+.ck-content p + .image.image-style-align-right,
+.ck-content p + .image.image-style-side {
+  margin-top: 0;
+}
+
+.ck-content .image-inline.image-style-align-left,
+.ck-content .image-inline.image-style-align-right {
+  margin-top: var(--ck-content-inline-image-style-spacing);
+  margin-bottom: var(--ck-content-inline-image-style-spacing);
+}
+
+.ck-content .image-inline.image-style-align-left {
+  margin-right: var(--ck-content-inline-image-style-spacing);
+}
+
+.ck-content .image-inline.image-style-align-right {
+  margin-left: var(--ck-content-inline-image-style-spacing);
+}
+
+.ck-content .image > figcaption {
+  display: table-caption;
+  caption-side: bottom;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  color: var(--ck-content-color-image-caption-text);
+  background-color: var(--ck-content-color-image-caption-background);
+  padding: 0.6em;
+  font-size: 0.75em;
+  outline-offset: -1px;
+}
+.ck-content .image.image_resized > figcaption {
+  display: block;
+}
