@@ -190,6 +190,9 @@
 .markdown-body small {
   font-size: 90%;
 }
+.markdown-body iframe {
+  width: 100%;
+}
 
 .markdown-body sub,
 .markdown-body sup {
