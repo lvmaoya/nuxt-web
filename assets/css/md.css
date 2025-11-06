@@ -303,10 +303,10 @@
 .markdown-body table {
   border-spacing: 0;
   border-collapse: collapse;
-  display: block;
-  width: max-content;
+  display: table;
+  width: 100%;
   max-width: 100%;
-  overflow: auto;
+  table-layout: fixed;
   font-variant: tabular-nums;
 }
 
@@ -606,10 +606,22 @@
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
+/* 表头 th 左对齐 */
+.markdown-body table thead th {
+  text-align: left;
+  border-top: none;
+  border-bottom-color: #00000026;
+}
+.markdown-body table thead tr {
+  border-top: none;
+}
 .markdown-body table th,
 .markdown-body table td {
-  padding: 6px 13px;
-  border: 1px solid var(--borderColor-default);
+  padding: 8px 13px;
+  border-top: 1px solid #0d0d0d0d;
+  border-bottom: 1px solid #0d0d0d0d;
+  border-left: none;
+  border-right: none;
 }
 
 .markdown-body table td > :last-child {
@@ -621,9 +633,9 @@
   border-top: 1px solid var(--borderColor-muted);
 }
 
-.markdown-body table tr:nth-child(2n) {
+/* .markdown-body table tr:nth-child(2n) {
   background-color: var(--bgColor-muted);
-}
+} */
 
 .markdown-body table img {
   background-color: transparent;

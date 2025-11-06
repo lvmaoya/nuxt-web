@@ -76,7 +76,8 @@ export default defineNuxtConfig({
           'yaml',
           'xml',
           'shell',
-          'ts'
+          'ts',
+          'python'
         ],
         // 配置prism插件 toolbar是后面两个插件依赖的插件.
         // show-language: 显示语言名。
