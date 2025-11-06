@@ -4,7 +4,7 @@
     <slot></slot>
     <Footer></Footer>
     <ClientOnly>
-        <ChatWidget botName="Lvmaoya" endpointUrl="https://api.lvmaoya.com:8080/h5/chat/rag/stream" :greetings="['您好，请问有什么可以帮到您？']" :questions="[]" placeholder="请输入您的问题" />
+        <ChatWidget botName="Lvmaoya" endpointUrl="https://api.lvmaoya.cn/h5/chat/rag/stream" :greetings="['您好，请问有什么可以帮到您？']" :questions="[]" placeholder="请输入您的问题" />
     </ClientOnly>
   </div>
 </template>
