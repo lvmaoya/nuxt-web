@@ -31,7 +31,7 @@ ul.content {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-column-gap: 40px;
   list-style-position: inside;
-
+  grid-auto-rows: min-content; /* 根据内容最小高度 */
   @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
