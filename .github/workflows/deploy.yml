@@ -69,6 +69,6 @@ jobs:
             cd /www/wwwroot/personal_web/docker-deploy/projects
 
             # 强制重新加载挂载的 .output
-            docker compose restart blog-nuxt
+            docker compose restart nuxt
 
             echo "Nuxt container restarted successfully"
