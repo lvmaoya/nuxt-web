@@ -1,0 +1,74 @@
+name: Deploy Nuxt3
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Nuxt3 project
+        run: npm run build
+
+      # ⭐ 1. 备份服务器上的 .output
+      - name: Backup .output if exists
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            set -e
+
+            PROJECT_DIR="/www/wwwroot/personal_web/docker-deploy/projects/blog-nuxt"
+            BACKUP_DIR="$PROJECT_DIR/backups"
+
+            mkdir -p "$BACKUP_DIR"
+
+            if [ -d "$PROJECT_DIR/.output" ]; then
+              TS=$(date +%Y%m%d%H%M%S)
+              tar -czf "$BACKUP_DIR/output-$TS.tar.gz" -C "$PROJECT_DIR" .output
+            fi
+
+      # ⭐ 2. 上传 Nuxt .output
+      - name: Upload .output to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          source: ".output/*"
+          target: "/www/wwwroot/personal_web/docker-deploy/projects/blog-nuxt"
+
+      # ⭐ 3. 重启 blog-nuxt 容器
+      - name: Restart Nuxt container
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            set -e
+
+            cd /www/wwwroot/personal_web/docker-deploy
+
+            # 强制重新加载挂载的 .output
+            docker compose restart blog-nuxt
+
+            echo "Nuxt container restarted successfully"
