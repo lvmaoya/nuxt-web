@@ -47,12 +47,15 @@ export default defineNuxtConfig({
     keepalive: true,
   },
 
-  plugins: [{ src: "~/plugins/heartBeat.client.js", mode: "client" }],
+  // plugins: [{ src: "~/plugins/heartBeat.client.js", mode: "client" }],
 
   // 解决重复依赖项问题
   vite: {
     resolve: {
-      dedupe: ['vue-router']
+      dedupe: ['vue-router'],
+      alias: {
+        'prismjs/themes/prism-one-light.css': 'prism-themes/themes/prism-one-light.css'
+      }
     },
     plugins: [
       prismjs({
