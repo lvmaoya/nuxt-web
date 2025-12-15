@@ -41,6 +41,10 @@ export default defineNuxtConfig({
       style: [],
       script: [
         // { src: "/gtm/start.js", async: true, },
+        {
+          src: 'https://www.clarity.ms/tag/q6dj88l2cy',
+          defer: true
+        }
       ],
       title: "Lvmaoya",
     },
