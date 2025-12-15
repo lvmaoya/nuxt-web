@@ -40,7 +40,7 @@ export default defineNuxtConfig({
       ],
       style: [],
       script: [
-        { src: "/gtm/start.js", async: true, },
+        // { src: "/gtm/start.js", async: true, },
       ],
       title: "Lvmaoya",
     },
