@@ -93,7 +93,7 @@ export default defineNuxtConfig({
       })
     ]
   },
-  modules: ['nuxt-lenis', 'nuxt-clarity-analytics'],
+  modules: ['nuxt-lenis'],
   runtimeConfig: {
     public: {
       description: publicDescription,
