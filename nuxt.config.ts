@@ -41,10 +41,11 @@ export default defineNuxtConfig({
       style: [],
       script: [
         // { src: "/gtm/start.js", async: true, },
+        process.env.NODE_ENV === 'production' ?
         {
-          src: 'https://www.clarity.ms/tag/q6dj88l2cy',
+          src: `https://www.clarity.ms/tag/${process.env.NUXT_CLARITY_ID}`,
           defer: true
-        }
+        } : {}
       ],
       title: "Lvmaoya",
     },
