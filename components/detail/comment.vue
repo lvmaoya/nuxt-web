@@ -230,7 +230,7 @@ const responseSBClick = (id: number, name: string) => {
 <style scoped lang="scss">
 .comment-container {
   width: 100%;
-  max-width: 1260px;
+  max-width: 960px;
   color: var(--primary-text-color);
   font-size: var(--text-font-size);
   position: relative;
