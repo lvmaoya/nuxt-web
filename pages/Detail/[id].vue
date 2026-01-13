@@ -37,7 +37,8 @@
         class="navigation"
         v-if="
           articleDetail?.fatherCategoryId != 4 &&
-          articleDetail?.fatherCategoryId != 3
+          articleDetail?.fatherCategoryId != 3 &&
+          showNavigation
         "
       >
         <ul>
@@ -81,6 +82,7 @@ const articleId = Number(route.params.id);
 let commentNum = ref(0);
 const v_titles = ref();
 const loading = ref(true);
+const showNavigation = false;
 // 请求详情页数据  文本内容和数据详情
 const articleDetail = ref<BlogType>();
 
@@ -148,6 +150,7 @@ onMounted(async () => {
     if (
       articleDetail.value?.fatherCategoryId != 4 &&
       articleDetail.value?.fatherCategoryId != 3
+      && showNavigation
     ) {
       buildAnchorTitles();
     }
