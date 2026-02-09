@@ -236,7 +236,7 @@ const handleAnchorClick = (anchor: any) => {
     margin-bottom: 100px !important;
     .content {
       max-width: 960px;
-      margin-left: 96px;
+      // margin-left: 96px;
       color: var(--primary-text-color);
       min-height: 100vh;
 
