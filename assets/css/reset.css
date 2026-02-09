@@ -32,7 +32,7 @@ a {
 }
 
 body {
-    font-family: sans-serif;
+    font-family: SF Pro SC, SF Pro Text, SF Pro Icons, PingFang SC, Helvetica Neue, Helvetica, Arial, sans-serif;
     letter-spacing: 0.05em;
     font-size: 16px;
     color: var(--primary-text-color);

@@ -34,7 +34,7 @@ jobs:
           script: |
             set -e
 
-            PROJECT_DIR="/www/wwwroot/personal_web/docker-deploy/projects/blog-nuxt"
+            PROJECT_DIR="/var/www/docker-deploy/projects/blog-nuxt"
             BACKUP_DIR="$PROJECT_DIR/backups"
 
             mkdir -p "$BACKUP_DIR"
@@ -53,7 +53,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           source: ".output/*"
-          target: "/www/wwwroot/personal_web/docker-deploy/projects/blog-nuxt"
+          target: "/var/www/docker-deploy/projects/blog-nuxt"
 
       # ⭐ 3. 重启 blog-nuxt 容器
       - name: Restart Nuxt container
@@ -66,7 +66,7 @@ jobs:
           script: |
             set -e
 
-            cd /www/wwwroot/personal_web/docker-deploy/projects
+            cd /var/www/docker-deploy/projects
 
             # 强制重新加载挂载的 .output
             docker compose restart nuxt
